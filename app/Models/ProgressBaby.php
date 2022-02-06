@@ -14,4 +14,8 @@ class ProgressBaby extends Model {
       'panjang_bayi',
       'berat_bayi'
     ];
+
+    public function baby() {
+        return $this->belongsTo(Baby::class);
+    }
 }

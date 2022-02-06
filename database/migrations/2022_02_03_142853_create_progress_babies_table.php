@@ -14,14 +14,14 @@ class CreateProgressBabiesTable extends Migration
     public function up() {
         Schema::create('progress_babies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_babies')->nullable();
+            $table->unsignedBigInteger('id_bayi')->nullable();
             $table->integer('bulan_ke');
             $table->decimal('panjang_bayi', 11, 2);
             $table->decimal('berat_bayi', 11, 2);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('id_babies')->references('id')->on('babies');
+            $table->foreign('id_bayi')->references('id')->on('babies');
         });
     }
 

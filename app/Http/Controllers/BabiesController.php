@@ -1,0 +1,394 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\DB;
+use App\Models\Baby;
+use App\Models\Parents;
+use App\Models\ProgressBaby;
+use DateTime;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class BabiesController extends Controller {
+    public function progress(Baby $baby, Request $request){
+        $progress = DB::table('babies AS b')
+        ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
+        ->join('parents AS pr', 'b.id_parents', '=', 'pr.id')
+        ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'pr.tempat_lahir', 'pr.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
+        ->where('id_bayi', $baby->id)
+        ->get();
+        $jk = $baby->jenis_kelamin == 1 ? 'fas fa-mars' : 'fas fa-venus';
+        $kelamin = $baby->jenis_kelamin == 1 ? 'Laki-Laki' : 'Perempuan';
+        $i = 0;
+        $bulan = null;
+        foreach($progress as $d):
+            $bulan[$i] = $d->bulan_ke;
+            $i++;
+        endforeach;
+        if(count($progress) == 0){
+            $progress = null;
+            $panjang_bayi = $baby->panjang_bayi;
+            $berat_bayi = $baby->berat_bayi;
+        }else{
+            $progress = $progress;
+            // $detail = DB::table('progress_babies')->select('panjang_bayi', 'berat_bayi')->where('id_bayi', $baby->id)->where('bulan_ke', max($bulan))->get();
+            // $panjang_bayi = $detail[0]->panjang_bayi;
+            // $berat_bayi = $detail[0]->berat_bayi;
+        }
+        $dataProgress = $this->chartProgress($progress, $baby, $bulan);
+		$dataProgressPanjang = $this->chartProgressPanjang($progress, $baby, $bulan);
+        $session = $request->session()->get('role');
+        if($progress == null || max($bulan) < 13){
+            $umur = "0 - 12 Bulan";
+        }else if(max($bulan) > 12 && max($bulan) <= 24){
+            $umur = "1 - 2 Tahun";
+        }else if(max($bulan) > 24 && max($bulan) <= 36){
+            $umur = "2 - 3 Tahun";
+        }else if(max($bulan) > 36 && max($bulan) <= 48){
+            $umur = "3 - 4 Tahun";
+        }else if(max($bulan) > 48 && max($bulan) <= 60){
+            $umur = "4 - 5 Tahun";
+        }
+        $data = [
+            'baris' => $baby,
+            'progress' => $progress,
+            'jk' => $jk,
+            'dtProgress' => $dataProgress,
+            'umur' => $umur,
+            'kelamin' => $kelamin,
+            'session' => $session,
+			'dtProgressPanjang' => $dataProgressPanjang
+        ];
+        echo view('progress.index', $data);
+        if($baby->jenis_kelamin == 1){
+            if($progress == null || max($bulan) < 13){
+                echo view('progress.kms-laki', $data);
+				echo view('progress.panjang-kms-laki', $data);
+            }else if(max($bulan) > 12 && max($bulan) <= 24){
+                // dd('berhasil');
+                echo view('progress.kms-laki2', $data);
+				echo view('progress.panjang-kms-laki2', $data);
+            }else if(max($bulan) > 24 && max($bulan) <= 36){
+                echo view('progress.kms-laki3', $data);
+				echo view('progress.panjang-kms-laki3', $data);
+            }else if(max($bulan) > 36 && max($bulan) <= 48){
+                echo view('progress.kms-laki4', $data);
+				echo view('progress.panjang-kms-laki4', $data);
+            }else if(max($bulan) > 48 && max($bulan) <= 60){
+                echo view('progress.kms-laki5', $data);
+				echo view('progress.panjang-kms-laki5', $data);
+            }
+        }else if($baby->jenis_kelamin == 2){
+            if($progress == null || max($bulan) < 13){
+                echo view('progress.kms-perempuan', $data);
+				echo view('progress.panjang-kms-perempuan', $data);
+            }else if(max($bulan) > 12 && max($bulan) <= 24){
+                echo view('progress.kms-perempuan2', $data);
+				echo view('progress.panjang-kms-perempuan2', $data);
+            }else if(max($bulan) > 24 && max($bulan) <= 36){
+                echo view('progress.kms-perempuan3', $data);
+				echo view('progress.panjang-kms-perempuan3', $data);
+            }else if(max($bulan) > 36 && max($bulan) <= 48){
+                echo view('progress.kms-perempuan4', $data);
+				echo view('progress.panjang-kms-perempuan4', $data);
+            }else if(max($bulan) > 48 && max($bulan) <= 60){
+                echo view('progress.kms-perempuan5', $data);
+				echo view('progress.panjang-kms-perempuan5', $data);
+            }
+        }
+    }
+
+    public function simpanprogress(Request $request){
+        $detail = DB::table('progress_babies')->select('bulan_ke')->where('id_bayi', $request->id_bayi)->get();
+        for($i=0 ; $i<count($detail) ; $i++){
+            if($detail[$i]->bulan_ke == $request->bulan_ke){
+                return redirect('/baby/'.$request->id_bayi.'/progress')->with('danger', "Data bulan ke-".$detail[$i]->bulan_ke ." sudah ada");
+            }
+        }
+
+        $request->validate([
+            'bulan_ke' => 'required',
+            'panjang_bayi' => 'required',
+            'berat_bayi' => 'required'
+        ]);
+        ProgressBaby::create($request->all());
+        return redirect('/baby/'.$request->id_bayi.'/progress')->with('status', "Data baru berhasil ditambahkan");
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index() {
+        //$role = $request->session()->get('role');
+		$role = Auth::user()->role;
+        // dd($role);
+        $babies = Baby::all();
+        if($role === 'Admin' ){
+            return redirect('/home');
+        }else if($role === 'Staff' || $role === 'Staff2' ){
+            return view('baby', compact('babies'));
+        }else{
+            return redirect('login');
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+        return view('create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request) {
+         $request->validate([
+            'nama' => 'required',
+            'nama_ibu' => 'required',
+            'pekerjaan_ibu' => 'required',
+            'nama_ayah' => 'required',
+            'pekerjaan_ayah' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'anak_ke' => 'required',
+            'alamat' => 'required',
+            'jenis_kelamin' => 'required',
+            'golongan_darah' => 'required',
+            'panjang_bayi' => 'required',
+            'berat_bayi' => 'required'
+        ]);
+
+        $request->nama = ucwords($request->nama);
+        $request->nama_ibu = ucwords($request->nama_ibu);
+        $request->pekerjaan_ibu = ucwords($request->pekerjaan_ibu);
+        $request->nama_ayah = ucwords($request->nama_ayah);
+        $request->pekerjaan_ayah = ucwords($request->pekerjaan_ayah);
+        $request->tempat_lahir = ucfirst($request->tempat_lahir);
+        $request->alamat = ucfirst($request->alamat);
+
+        $request->tanggal_lahir = mktime(
+            (int)substr($request->tanggal_lahir, 11, 2), // jam
+            (int)substr($request->tanggal_lahir, 14, 2), //menit
+            00, // detik
+            (int)substr($request->tanggal_lahir, 5, 2), // bulan
+            (int)substr($request->tanggal_lahir, 8, 2), // tanggal
+            (int)substr($request->tanggal_lahir, 0, 4) // tahun
+        );
+        // $baby = new Baby;
+        // $baby->nama = $request->nama;
+        // $baby->nama_ibu = $request->nama_ibu;
+        // $baby->nama_ayah = $request->nama_ayah;
+        // $baby->save();
+
+        Baby::create([
+            'nama' => $request->nama,
+            'nama_ibu' => $request->nama_ibu,
+            'pekerjaan_ibu' => $request->pekerjaan_ibu,
+            'nama_ayah' => $request->nama_ayah,
+            'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'anak_ke' => $request->anak_ke,
+            'alamat' => $request->alamat,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'golongan_darah' => $request->golongan_darah,
+            'panjang_bayi' => $request->panjang_bayi,
+            'berat_bayi' => $request->berat_bayi
+        ]);
+
+        // otomatis mengisi yang di fillable tanpa inisialisasi satu per satu
+        // Baby::create($request->all());
+        return redirect('/baby')->with('status', "Data '" . $request->nama . "' berhasil ditambahkan");
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Baby $baby) {
+        $progress = DB::table('babies AS b')
+        ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
+        ->join('parents AS pr', 'b.id_parents', '=', 'pr.id')
+        ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'pr.tempat_lahir', 'pr.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
+        ->where('id_bayi', $baby->id)
+        ->get();
+        $i = 0;
+        foreach($progress as $d):
+            $bulan[$i] = $d->bulan_ke;
+            $i++;
+        endforeach;
+        if(count($progress) == 0){
+            $panjang_bayi = $baby->panjang_bayi;
+            $berat_bayi = $baby->berat_bayi;
+        }else{
+            $detail = DB::table('progress_babies')->select('panjang_bayi', 'berat_bayi')->where('id_bayi', $baby->id)->where('bulan_ke', max($bulan))->get();
+            $panjang_bayi = $detail[0]->panjang_bayi;
+            $berat_bayi = $detail[0]->berat_bayi;
+        }
+        // $this->status($baby->jenis_kelamin, $baby->tanggal_lahir);
+        // $this->hitungIdeal(date('Y-m-d', $baby->tanggal_lahir), $baby);
+        $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
+        $jk = $baby->jenis_kelamin == 1 ? 'Laki-laki' : 'Perempuan';
+        $data = [
+            'baby' => $baby,
+            'jenis_kelamin' => $jk,
+            'umur' => $umur,
+            'panjang_sekarang' => $panjang_bayi,
+            'berat_sekarang' => $berat_bayi
+        ];
+        return view('show', $data);
+    }
+
+    function status($jk, $tanggal_lahir){
+        $bulan = (date('Y')-date('Y', $tanggal_lahir))*12;
+        $bulan += date('m')-date('m', $tanggal_lahir);
+        switch($jk){
+            case 1:
+                // dd($bulan);
+            break;
+            case 2:
+                // dd($bulan);
+            break;
+        }
+    }
+
+    function hitung_umur($tanggal_lahir){
+        $birthDate = new DateTime($tanggal_lahir);
+        $today = new DateTime("today");
+        if ($birthDate > $today) {
+            exit("0 tahun 0 bulan 0 hari");
+        }
+        $y = $today->diff($birthDate)->y;
+        $m = $today->diff($birthDate)->m;
+        $d = $today->diff($birthDate)->d;
+        if($y > 0){
+            if($m == 0 && $d ==0){
+                return $y." tahun";
+            }else if($m == 0){
+                return $y." tahun ".$d." hari";
+            }else if($d == 0){
+                return $y." tahun ".$m." bulan";
+            }else{
+                return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else if($m > 0){
+            if($y == 0 && $d ==0){
+                return $m." bulan";
+            }else if($y == 0){
+                return $m." bulan ".$d." hari";
+            }else if($d == 0){
+                return $y." tahun ".$m." bulan";
+            }else{
+                return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else{
+            return $d." hari";
+        }
+    }
+
+    public function hitungIdeal($tanggal_lahir, Baby $baby){
+        $birthDate = new DateTime($tanggal_lahir);
+        $today = new DateTime("today");
+        if ($birthDate > $today) {
+            exit("0 tahun 0 bulan 0 hari");
+        }
+        $y = $today->diff($birthDate)->y;
+        $m = $today->diff($birthDate)->m;
+        $d = $today->diff($birthDate)->d;
+        // var_dump($m);die;
+        if($y == 0 && $m >= 1 && $m <= 6){
+            $hasil = (int)$baby->berat_bayi+($m*600);
+        }
+    }
+
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Baby $baby) {
+$umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
+        $laki = '';$perempuan = '';
+        switch($baby->jenis_kelamin){
+            case 1: $laki = 'checked';
+                break;
+            case 2: $perempuan = 'checked';
+                break;
+        }
+        // dd($baby->golongan_darah);
+        $a = '';$b = '';$ab = '';$o = '';$bt = '';
+        switch($baby->golongan_darah){
+            case "A": $a = 'selected';
+                break;
+            case "B": $b = 'selected';
+                break;
+            case "AB": $ab = 'selected';
+                break;
+            case "O": $o = 'selected';
+                break;
+            case "BT": $bt = 'selected';
+                break;
+        }
+        $data = [
+            'baby' => $baby,
+            'laki' => $laki,
+            'perempuan' => $perempuan,
+            'A' => $a,
+            'B' => $b,
+            'AB' => $ab,
+            'O' => $o,
+            'BT' => $bt,
+            'umur' => $umur
+        ];
+        return view('edit', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Baby $baby) {
+        $request->validate([
+            'pekerjaan_ibu' => 'required',
+            'pekerjaan_ayah' => 'required',
+            'alamat' => 'required',
+            'golongan_darah' => 'required',
+        ]);
+        // update data pegawai
+        DB::table('babies')->where('id',$baby->id)->update([
+            'pekerjaan_ibu' => $request->pekerjaan_ibu,
+            'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'alamat' => $request->alamat,
+            'golongan_darah' => $request->golongan_darah
+        ]);
+        // alihkan halaman ke halaman pegawai
+        return redirect('/baby/'.$baby->id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Baby $baby) {
+        Baby::destroy($baby->id);
+        return redirect('/baby')->with('status', "Data '" . $baby->nama . "' berhasil dihapus");
+    }
+}

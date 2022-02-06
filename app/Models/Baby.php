@@ -18,4 +18,12 @@ class Baby extends Model {
         'panjang_bayi',
         'berat_bayi',
     ];
+
+    public function progressBaby(){
+        return $this->hasMany(ProgressBaby::class);
+    }
+
+    public function parent() {
+        return $this->belongsTo(Parents::class);
+    }
 }

@@ -187,17 +187,20 @@ class BabiesController extends Controller {
         // $baby->nama_ibu = $request->nama_ibu;
         // $baby->nama_ayah = $request->nama_ayah;
         // $baby->save();
-
-        Baby::create([
-            'nama' => $request->nama,
+        Parents::create([
             'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ibu' => $request->pekerjaan_ibu,
             'nama_ayah' => $request->nama_ayah,
             'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'alamat' => $request->alamat,
+        ]);
+        $ortu = new Parents;
+        Baby::create([
+            'nama' => $request->nama,
+            'id_parent' => $ortu->id,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'anak_ke' => $request->anak_ke,
-            'alamat' => $request->alamat,
             'jenis_kelamin' => $request->jenis_kelamin,
             'golongan_darah' => $request->golongan_darah,
             'panjang_bayi' => $request->panjang_bayi,

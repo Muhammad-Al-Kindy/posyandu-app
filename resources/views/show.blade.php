@@ -32,11 +32,11 @@
         </div>
         <div class="col-lg-4">
           <h5><strong>Nama Ibu</strong></h5>
-            <p>{{ $baby->nama_ibu }}</p>
+            <p>{{ $parents->nama_ibu }}</p>
           </div>
           <div class="col-lg-4">
             <h5><strong>Nama Ayah</strong></h5>
-            <p>{{ $baby->nama_ayah }}</p>
+            <p>{{ $parents->nama_ayah }}</p>
           </div>
           <div class="col-lg-4">
             <h5><strong>Tempat Lahir</strong></h5>
@@ -60,7 +60,7 @@
           </div>
           <div class="col-lg-4">
             <h5><strong>Alamat Lengkap</strong></h5>
-            <p>{{ $baby->alamat }}</p>
+            <p>{{ $parents->alamat }}</p>
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@
     @endif
     <form action="{{ $baby->id }}" method="post" class="d-inline">
       @method('delete')
-      @csrf      
+      @csrf
       <button class="btn btn-danger mx-1" type="submit">Hapus</button>
     </form>
   </div>

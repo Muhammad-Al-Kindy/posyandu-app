@@ -14,8 +14,8 @@ class BabiesController extends Controller {
     public function progress(Baby $baby, Request $request){
         $progress = DB::table('babies AS b')
         ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
-        ->join('parents AS pr', 'b.id_parents', '=', 'pr.id')
-        ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'pr.tempat_lahir', 'pr.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
+        ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
+        ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
         ->where('id_bayi', $baby->id)
         ->get();
         $jk = $baby->jenis_kelamin == 1 ? 'fas fa-mars' : 'fas fa-venus';
@@ -124,7 +124,10 @@ class BabiesController extends Controller {
         //$role = $request->session()->get('role');
 		$role = Auth::user()->role;
         // dd($role);
-        $babies = Baby::all();
+        $babies = DB::table('babies AS b')
+        ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
+        ->select('b.id', 'b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah')
+        ->get();
         if($role === 'Admin' ){
             return redirect('/home');
         }else if($role === 'Staff' || $role === 'Staff2' ){
@@ -194,7 +197,8 @@ class BabiesController extends Controller {
             'pekerjaan_ayah' => $request->pekerjaan_ayah,
             'alamat' => $request->alamat,
         ]);
-        $ortu = new Parents;
+
+        $ortu = Parents::select('id')->where('nama_ibu', $request->nama_ibu)->first();
         Baby::create([
             'nama' => $request->nama,
             'id_parent' => $ortu->id,
@@ -221,10 +225,16 @@ class BabiesController extends Controller {
     public function show(Baby $baby) {
         $progress = DB::table('babies AS b')
         ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
-        ->join('parents AS pr', 'b.id_parents', '=', 'pr.id')
-        ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'pr.tempat_lahir', 'pr.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
+        ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
+        ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
         ->where('id_bayi', $baby->id)
         ->get();
+
+        $parents = DB::table('parents as p')
+        ->join('babies as b', 'p.id', '=', 'b.id_parent')
+        ->select('p.nama_ibu', 'p.nama_ayah', 'p.alamat')
+        ->where('b.id', $baby->id)
+        ->first();
         $i = 0;
         foreach($progress as $d):
             $bulan[$i] = $d->bulan_ke;
@@ -243,6 +253,7 @@ class BabiesController extends Controller {
         $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
         $jk = $baby->jenis_kelamin == 1 ? 'Laki-laki' : 'Perempuan';
         $data = [
+            'parents' => $parents,
             'baby' => $baby,
             'jenis_kelamin' => $jk,
             'umur' => $umur,

@@ -115,6 +115,116 @@ class BabiesController extends Controller {
         ProgressBaby::create($request->all());
         return redirect('/baby/'.$request->id_bayi.'/progress')->with('status', "Data baru berhasil ditambahkan");
     }
+
+    public function chartProgress($progress, $baby, $bulan){
+        $data[0] = $baby->berat_bayi;
+        $progressBaru[0] = 0;
+        if($progress != null){
+            for($i = 1; $i<=count($progress) ; $i++){
+                $progressBaru[$i] = $progress[$i-1];
+            }
+        }
+        if($progress == null){
+            for($i = 1; $i<=60 ; $i++){
+                $data[$i] = null;
+            }
+            return $data;
+        }else{
+            if(max($bulan) >=1 && max($bulan) <= 60){
+                for($i=1 ; $i<=60 ; $i++){
+                    $data[$i] = null;
+                    for($j=1 ; $j<=count($progress) ; $j++){
+                        if($i == $progressBaru[$j]->bulan_ke){
+                            $data[$i] = $progressBaru[$j]->berat_bayi;
+                        }
+                    }
+                }
+            }
+            return $data;
+        }
+    }
+
+    public function chartProgressPanjang($progress, $baby, $bulan){
+	 $data[0] = $baby->panjang_bayi;
+        $progressBaru[0] = 0;
+        if($progress != null){
+            for($i = 1; $i<=count($progress) ; $i++){
+                $progressBaru[$i] = $progress[$i-1];
+            }
+        }
+        if($progress == null){
+            for($i = 1; $i<=60 ; $i++){
+                $data[$i] = null;
+            }
+            return $data;
+        }else{
+            if(max($bulan) >=1 && max($bulan) <= 60){
+                for($i=1 ; $i<=60 ; $i++){
+                    $data[$i] = null;
+                    for($j=1 ; $j<=count($progress) ; $j++){
+                        if($i == $progressBaru[$j]->bulan_ke){
+                            $data[$i] = $progressBaru[$j]->panjang_bayi;
+                        }
+                    }
+                }
+            }
+            return $data;
+        }
+	}
+
+    public function dataProgress($progress, $baby){
+        $data[0] = $baby->berat_bayi;
+        if($progress == null){
+            for($i = 1; $i<=12 ; $i++){
+                $data[$i] = null;
+            }
+            return $data;
+        }else{
+            if(count($progress) <= 12){
+                for($i = 1; $i<=12 ; $i++){
+                    if($i<=count($progress)){
+                        $data[$i] = $progress[$i-1]->berat_bayi;
+                    }else if($i > count($progress)){
+                        $data[$i] = null;
+                    }
+                }
+            }else if(count($progress) >= 13 && count($progress) <= 24){
+                for($i = 1; $i<=25 ; $i++){
+                    if($i<=count($progress)){
+                        $data[$i] = $progress[$i-1]->berat_bayi;
+                    }else if($i > count($progress)){
+                        $data[$i] = null;
+                    }
+                }
+            }else if(count($progress) >= 25 && count($progress) <= 36){
+                for($i = 1; $i<=36 ; $i++){
+                    if($i<=count($progress)){
+                        $data[$i] = $progress[$i-1]->berat_bayi;
+                    }else if($i > count($progress)){
+                        $data[$i] = null;
+                    }
+                }
+            }else if(count($progress) >= 37 && count($progress) <= 48){
+                for($i = 1; $i<=48 ; $i++){
+                    if($i<=count($progress)){
+                        $data[$i] = $progress[$i-1]->berat_bayi;
+                    }else if($i > count($progress)){
+                        $data[$i] = null;
+                    }
+                }
+            }else if(count($progress) >= 49 && count($progress) <= 60){
+                for($i = 1; $i<=60 ; $i++){
+                    if($i<=count($progress)){
+                        $data[$i] = $progress[$i-1]->berat_bayi;
+                    }else if($i > count($progress)){
+                        $data[$i] = null;
+                    }
+                }
+            }
+            return $data;
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -41,11 +41,30 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url('/baby') }}">
-          <i class="fas fa-fw fa-baby"></i>
-          <span>Data Bayi</span></a>
-      </li>
+      
+        @if (Auth::user()->role == 'Staff' || Auth::user()->role == 'Staff2' && Auth::user()->role == 'Admin')
+          <li class="nav-item active">  
+            <a class="nav-link" href="{{ url('/baby') }}">
+              <i class="fas fa-fw fa-baby"></i>
+              <span>Data Bayi</span>
+            </a>
+          </li>
+
+          <li class="nav-item active">  
+            <a class="nav-link" href="#">
+              <i class="fas fa-fw fa-heartbeat"></i>
+              <span>Data Imunisasi</span>
+            </a>
+          </li>
+
+        @else
+          <li class="nav-item active">  
+            <a class="nav-link" href="{{ route('home') }}">
+              <i class="fas fa-fw fa-users"></i>
+              <span>Data Users</span>
+            </a>
+          </li>
+        @endif
 
       {{-- <li class="nav-item">
         <a class="nav-link" href="#">

@@ -241,7 +241,7 @@ class BabiesController extends Controller {
         if($role === 'Admin' ){
             return redirect('/home');
         }else if($role === 'Staff' || $role === 'Staff2' ){
-            return view('baby', compact('babies'));
+            return view('babies.baby', compact('babies'));
         }else{
             return redirect('login');
         }
@@ -253,7 +253,7 @@ class BabiesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('create');
+        return view('babies.create');
     }
 
     /**
@@ -370,7 +370,7 @@ class BabiesController extends Controller {
             'panjang_sekarang' => $panjang_bayi,
             'berat_sekarang' => $berat_bayi
         ];
-        return view('show', $data);
+        return view('babies.show', $data);
     }
 
     function status($jk, $tanggal_lahir){
@@ -444,7 +444,7 @@ class BabiesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Baby $baby) {
-$umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
+        $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
         $laki = '';$perempuan = '';
         switch($baby->jenis_kelamin){
             case 1: $laki = 'checked';
@@ -477,7 +477,7 @@ $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
             'BT' => $bt,
             'umur' => $umur
         ];
-        return view('edit', $data);
+        return view('babies.edit', $data);
     }
 
     /**

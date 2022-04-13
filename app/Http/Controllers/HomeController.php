@@ -24,13 +24,16 @@ class HomeController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request) {
-        $users = DB::table('users')->orderBy('role', 'desc')->where('email', '!=', $request->session()->get('email'))->get();
+        $users = DB::table('users')
+                    ->orderBy('id', 'desc')
+                    ->where('email', '!=', $request->session()
+                    ->get('email'))->get();
         $role = Auth::user()->role;
 
         if($role === 'Staff' || $role === 'Staff2' && $role !== 'Admin'){
             return redirect('/baby');
         }else{
-            return view('home', compact('users'));
+            return view('admin.home', compact('users'));
         }
     }
 
@@ -79,5 +82,11 @@ class HomeController extends Controller {
         ]);
         // alihkan halaman ke halaman home
         return redirect('/home')->with('status', "Password '" . $user->name . "' berhasil diubah");
+    }
+
+    public function destroy(User $user) {
+        $pop = $user->name;
+        User::destroy($user->id);
+        return redirect('/home')->with('status', "Data '" . $pop . "' berhasil dihapus");
     }
 }

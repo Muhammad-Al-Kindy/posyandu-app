@@ -14,7 +14,9 @@ class CreateBabiesTable extends Migration {
         Schema::create('babies', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 256);
-            $table->unsignedBigInteger('id_parent');
+            $table->string('no_kms', 256);
+            $table->string('nik_ibu', 20);
+            // $table->unsignedBigInteger('id_parent');
             $table->string('tempat_lahir', 256);
             $table->integer('tanggal_lahir');
             $table->integer('anak_ke');
@@ -24,8 +26,8 @@ class CreateBabiesTable extends Migration {
             $table->decimal('berat_bayi', 11, 2);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('id_parent')->references('id')->on('parents');
+            $table->foreign('nik_ibu')->references('nik_ibu')->on('parents')->onDelete('cascade');
+            // $table->foreign('id_parent')->references('id')->on('parents');
         });
     }
 

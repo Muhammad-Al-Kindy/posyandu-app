@@ -9,7 +9,9 @@ class Baby extends Model {
     use HasFactory;
     protected $fillable = [
         'nama',
-        'id_parent',
+        'no_kms',
+        'nik_ibu',
+        // 'id_parent',
         'tempat_lahir',
         'tanggal_lahir',
         'anak_ke',
@@ -23,7 +25,11 @@ class Baby extends Model {
         return $this->hasMany(ProgressBaby::class);
     }
 
-    public function parent() {
+    public function parents() {
         return $this->belongsTo(Parents::class);
+    }
+
+    public function immunization() {
+        return $this->hasMany(Immunization::class);
     }
 }

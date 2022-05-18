@@ -10,6 +10,7 @@ class Parents extends Model {
 
     protected $fillable = [
         'nama_ibu',
+        'nik_ibu',
         'pekerjaan_ibu',
         'nama_ayah',
         'pekerjaan_ayah',

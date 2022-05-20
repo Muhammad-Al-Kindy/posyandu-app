@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
   <style>
-    .page-item{
+    .-item{
       margin: 0 !important;
     }
   </style>
@@ -31,20 +31,20 @@
     <div class="collapse pl-5 navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto topnav">
         <li class="nav-item">
-          <a class="nav-link" href="/page#beranda">Beranda <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/#beranda">Beranda <span class="sr-only">(current)</span></a>
           <!-- <a class="nav-link actived" href="/#beranda">Beranda <span class="sr-only">(current)</span></a> -->
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/page#services">Layanan</a>
+          <a class="nav-link" href="/#services">Layanan</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/page#teori">Posyandu</a>
+          <a class="nav-link" href="/#teori">Posyandu</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/page#about">Tentang</a>
+          <a class="nav-link" href="/#about">Tentang</a>
         </li>
       </ul>
       <div class="form-inline pr-15 my-2 my-lg-0">
@@ -63,7 +63,7 @@
         <h1 class="mb-15">Yuk, Imunisasi anak kalian di Posyandu Rajawali.</h1>
         <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium laboriosam error quidem vitae. Maxime, at iure, ducimus, ipsam quia a beatae tempora vero nam laudantium cupiditate. Eius tempore quidem dignissimos?. </p>
         <div class="text-left"><br>
-          <a href="/page#services" class="btn btn-app btn-width-same">Mulai</a>
+          <a href="/#services" class="btn btn-app btn-width-same">Mulai</a>
           <!-- <a href="https://drive.google.com/file/d/12QjT4JTkjqFrBDwqT_bMcr89bwLMOyWL/view?usp=sharing" target="_blank" class="btn btn-app btn-width-same">Prototype</a> -->
         </div>
       </div>

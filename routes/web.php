@@ -30,7 +30,7 @@ Route::resource('baby', BabiesController::class);
 // Route::get('progress/{baby}', 'ProgressBabiesController@show');
 // Route::resource('progress', 'ProgressBabiesController');
 
-Auth::routes();
+Auth::routes(['register' => false, 'reset' => false]);
 
 Route::middleware('auth')->group(function(){
 

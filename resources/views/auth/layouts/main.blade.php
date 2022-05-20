@@ -16,11 +16,12 @@
   
   <!-- Custom styles for this template-->
   <link href="{{ asset('/css/sb-admin-2.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('/ui/css/utilities.css') }}" rel="stylesheet">
   <link href="{{ asset('/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   
   <link rel="icon" type="image/x-icon" href="{{ asset('/img/posyandu/logo.ico') }}" />
 </head>
-<body class="bg-primary">
+<body class="bg-light">
 
   @yield('content')
 

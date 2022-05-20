@@ -3,6 +3,7 @@
 use App\Http\Controllers\BabiesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\VaccineController;
 use App\Models\ProgressBaby;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -31,11 +32,26 @@ Route::resource('baby', BabiesController::class);
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/home/create', [HomeController::class, 'create']);
-Route::post('/home/store', [HomeController::class, 'store']);
-Route::get('/home/{user}/edit', [HomeController::class, 'edit']);
-Route::put('/home/{user}', [HomeController::class, 'update']);
-Route::delete('/home/{user}', [HomeController::class, 'destroy']);
+Route::middleware('auth')->group(function(){
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home/create', [HomeController::class, 'create']);
+    Route::post('/home/store', [HomeController::class, 'store']);
+    Route::get('/home/{user}/edit', [HomeController::class, 'edit']);
+    Route::put('/home/{user}', [HomeController::class, 'update']);
+    Route::delete('/home/{user}', [HomeController::class, 'destroy']);
+    Route::get('/home/{id}/profile', [HomeController::class, 'profile']);
+    Route::put('/home/{id}/profile', [HomeController::class, 'update_password']);
+
+    Route::controller(VaccineController::class)->group(function(){
+        Route::get('/vaccine', 'index');
+        Route::get('/vaccine/create', 'create');
+        Route::post('/vaccine/store', 'store');
+        Route::get('/vaccine/{id}/show', 'show');
+        Route::get('/vaccine/{id}/edit', 'edit');
+        Route::put('/vaccine/{id}', 'update');
+        Route::delete('/vaccine/{id}', 'destroy');
+    });
+});
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

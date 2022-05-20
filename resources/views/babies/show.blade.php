@@ -2,101 +2,105 @@
 
 @section('content')
 <!-- Begin Page Content -->
-<div class="container">
-
+<div class="container fs-normal">
+  
   <!-- Page Heading -->
+  <p class="mb-3">Tabel / Data / <span class="color-primary">Baby Detail</span></p>
   <div class="row">
     <div class="col-md-6">
-      <h1 class="h3 mb-2 text-gray-800">Detail Bayi</h1>
+      <h5 class="m-0 font-weight-bold color-primary mb-2">Detail Bayi</h5>
       <p class="mb-4">Informasi dan pertumbuhan bayi</p>
     </div>
     <div class="col-md-6 d-flex justify-content-end">
-      <a href="{{ $baby->id }}/progress" class="btn btn-info shadow-sm align-self-center mt-n3">Pertumbuhan Bayi</a>
+      <a href="{{ $baby->id }}/progress" class="btn btn-primary mx-2 shadow-sm fs-normal align-self-center mt-n3">Pertumbuhan Bayi</a>
+      @if(auth()->user()->role == 'Staff2' || auth()->user()->role == 'Staff' || auth()->user()->role == 'Admin')
+        <a href="{{ url('/baby').'/'.$baby->id.'/edit' }}" class="btn btn-info shadow-sm fs-normal align-self-center mt-n3">Ubah Data</a>
+      @endif
     </div>
   </div>
 
   <!-- DataTales Example -->
-  <div class="card shadow-sm mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Informasi Pribadi</h6>
+  <div class="card shadow border-0 mb-4">
+    <div class="card-header bg-white py-3">
+      <h6 class="m-0 font-weight-bold color-primary">Informasi Pribadi</h6>
     </div>
     <div class="card-body">
       <div class="row container-fluid">
         {{-- <div class="col-lg-6">
-          <h5><strong>ID Bayi</strong></h5>
-          <p>XXXX</p>
+          <h5 class="fs-medium"><strong>ID Bayi</strong></h5>
+          <p class="color-primary">XXXX</p>
         </div> --}}
         <div class="col-lg-4">
-          <h5><strong>Nama Bayi</strong></h5>
-          <p>{{ $baby->nama }}</p>
+          <h5 class="fs-medium"><strong>Nama Bayi</strong></h5>
+          <p class="color-primary">{{ $baby->nama }}</p>
         </div>
         <div class="col-lg-4">
-          <h5><strong>Nama Ibu</strong></h5>
-            <p>{{ $parents->nama_ibu }}</p>
+          <h5 class="fs-medium"><strong>Nama Ibu</strong></h5>
+            <p class="color-primary">{{ $parents->nama_ibu }}</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Nama Ayah</strong></h5>
-            <p>{{ $parents->nama_ayah }}</p>
+            <h5 class="fs-medium"><strong>Nama Ayah</strong></h5>
+            <p class="color-primary">{{ $parents->nama_ayah }}</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Tempat Lahir</strong></h5>
-            <p>{{ $baby->tempat_lahir }}</p>
+            <h5 class="fs-medium"><strong>Tempat Lahir</strong></h5>
+            <p class="color-primary">{{ $baby->tempat_lahir }}</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Tanggal Lahir</strong></h5>
-            <p>{{ date('d/m/Y | H:i', $baby->tanggal_lahir) }}</p>
+            <h5 class="fs-medium"><strong>Tanggal Lahir</strong></h5>
+            <p class="color-primary">{{ date('d/m/Y | H:i', $baby->tanggal_lahir) }}</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Usia</strong></h5>
-            <p>{{ $umur }}</p>
+            <h5 class="fs-medium"><strong>Usia</strong></h5>
+            <p class="color-primary">{{ $umur }}</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Jenis Kelamin</strong></h5>
-            <p>{{ $jenis_kelamin }}</p>
+            <h5 class="fs-medium"><strong>Jenis Kelamin</strong></h5>
+            <p class="color-primary">{{ $jenis_kelamin }}</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Anak Ke</strong></h5>
-            <p>{{ $baby->anak_ke }}</p>
+            <h5 class="fs-medium"><strong>Anak Ke</strong></h5>
+            <p class="color-primary">{{ $baby->anak_ke }}</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Alamat Lengkap</strong></h5>
-            <p>{{ $parents->alamat }}</p>
+            <h5 class="fs-medium"><strong>Alamat Lengkap</strong></h5>
+            <p class="color-primary">{{ $parents->alamat }}</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="card shadow-sm mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Informasi Kesehatan</h6>
+    <div class="card shadow-sm mb-4 border-0">
+      <div class="card-header bg-white py-3">
+        <h6 class="m-0 font-weight-bold color-primary">Informasi Kesehatan</h6>
       </div>
       <div class="card-body">
         <div class="row container-fluid">
           <div class="col-lg-4">
-            <h5><strong>Golongan Darah</strong></h5>
+            <h5 class="fs-medium"><strong>Golongan Darah</strong></h5>
             @if($baby->golongan_darah == "BT")
-            <p>Belum Tahu</p>
+            <p class="color-primary">Belum Tahu</p>
             @else
-            <p>{{ $baby->golongan_darah }}</p>
+            <p class="color-primary">{{ $baby->golongan_darah }}</p>
             @endif
           </div>
           <div class="col-lg-4">
-            <h5><strong>Tinggi Lahir</strong></h5>
-            <p>{{ $baby->panjang_bayi }} cm</p>
+            <h5 class="fs-medium"><strong>Tinggi Lahir</strong></h5>
+            <p class="color-primary">{{ $baby->panjang_bayi }} cm</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Berat Lahir</strong></h5>
-            <p>{{ $baby->berat_bayi }} kg</p>
+            <h5 class="fs-medium"><strong>Berat Lahir</strong></h5>
+            <p class="color-primary">{{ $baby->berat_bayi }} kg</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Tinggi Sekarang</strong></h5>
-            <p>{{ $panjang_sekarang }} cm</p>
+            <h5 class="fs-medium"><strong>Tinggi Sekarang</strong></h5>
+            <p class="color-primary">{{ $panjang_sekarang }} cm</p>
           </div>
           <div class="col-lg-4">
-            <h5><strong>Berat Sekarang</strong></h5>
+            <h5 class="fs-medium"><strong>Berat Sekarang</strong></h5>
             <div class="row">
               <div class="col-4">
 
-                <p>{{ $berat_sekarang }} kg</p>
+                <p class="color-primary">{{ $berat_sekarang }} kg</p>
               </div>
               <div class="col">
 
@@ -105,21 +109,18 @@
             </div>
           </div>
           {{-- <div class="col-lg-4">
-              <h5><strong>Status Berat</strong></h5>
+              <h5 class="fs-medium"><strong>Status Berat</strong></h5>
               <p class="alert alert-danger">Terlalu Kurus</p>
           </div> --}}
         </div>
       </div>
     </div>
   <div class="mb-5">
-    <a href="{{ url('/baby') }}" class="text-decoration-none mx-1">Kembali</a>
-    @if(session()->get('role') == 'Staff2' || session()->get('role') == 'Staff')
-      <a href="{{ url('/baby').'/'.$baby->id.'/edit' }}" class="btn btn-warning mx-1">Edit</a>
-    @endif
+    <a href="{{ url('/baby') }}" class="text-decoration-none fs-normal mx-1">Kembali</a>
     <form action="{{ $baby->id }}" method="post" class="d-inline">
       @method('delete')
       @csrf
-      <button class="btn btn-danger mx-1" type="submit">Hapus</button>
+      <button class="btn btn-danger fs-normal mx-1" type="submit">Hapus</button>
     </form>
   </div>
 </div>

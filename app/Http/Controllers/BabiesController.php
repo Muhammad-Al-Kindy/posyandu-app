@@ -38,7 +38,7 @@ class BabiesController extends Controller {
         }
         $dataProgress = $this->chartProgress($progress, $baby, $bulan);
 		$dataProgressPanjang = $this->chartProgressPanjang($progress, $baby, $bulan);
-        $session = $request->session()->get('role');
+        $session = auth()->user()->role;
         if($progress == null || max($bulan) < 13){
             $umur = "0 - 12 Bulan";
         }else if(max($bulan) > 12 && max($bulan) <= 24){
@@ -235,16 +235,19 @@ class BabiesController extends Controller {
 		$role = Auth::user()->role;
         // dd($role);
         $babies = DB::table('babies AS b')
-        ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-        ->select('b.id', 'b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah')
-        ->get();
-        if($role === 'Admin' ){
-            return redirect('/home');
-        }else if($role === 'Staff' || $role === 'Staff2' ){
-            return view('babies.baby', compact('babies'));
-        }else{
-            return redirect('login');
-        }
+                ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
+                ->select('b.id', 'b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah')
+                ->get();
+                
+        return view('babies.baby', compact('babies'));
+        
+        // if($role === 'Admin' ){
+        //     return redirect('/home');
+        // }else if($role === 'Staff' || $role === 'Staff2' ){
+        //     return view('babies.baby', compact('babies'));
+        // }else{
+        //     return redirect('login');
+        // }
     }
 
     /**
@@ -308,7 +311,8 @@ class BabiesController extends Controller {
             'alamat' => $request->alamat,
         ]);
 
-        $ortu = Parents::select('id')->where('nama_ibu', $request->nama_ibu)->first();
+        $ortu = Parents::latest()->first();
+        // dd($ortu->id);
         Baby::create([
             'nama' => $request->nama,
             'id_parent' => $ortu->id,
@@ -334,17 +338,17 @@ class BabiesController extends Controller {
      */
     public function show(Baby $baby) {
         $progress = DB::table('babies AS b')
-        ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
-        ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-        ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
-        ->where('id_bayi', $baby->id)
-        ->get();
+            ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
+            ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
+            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
+            ->where('id_bayi', $baby->id)
+            ->get();
 
         $parents = DB::table('parents as p')
-        ->join('babies as b', 'p.id', '=', 'b.id_parent')
-        ->select('p.nama_ibu', 'p.nama_ayah', 'p.alamat')
-        ->where('b.id', $baby->id)
-        ->first();
+            ->join('babies as b', 'p.id', '=', 'b.id_parent')
+            ->select('p.nama_ibu', 'p.nama_ayah', 'p.alamat')
+            ->where('b.id', $baby->id)
+            ->first();
         $i = 0;
         foreach($progress as $d):
             $bulan[$i] = $d->bulan_ke;
@@ -443,7 +447,10 @@ class BabiesController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Baby $baby) {
+    public function edit($id) {
+        $baby = Baby::with('parents')
+                        ->where('id', $id)
+                        ->first();
         $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
         $laki = '';$perempuan = '';
         switch($baby->jenis_kelamin){
@@ -466,18 +473,8 @@ class BabiesController extends Controller {
             case "BT": $bt = 'selected';
                 break;
         }
-        $data = [
-            'baby' => $baby,
-            'laki' => $laki,
-            'perempuan' => $perempuan,
-            'A' => $a,
-            'B' => $b,
-            'AB' => $ab,
-            'O' => $o,
-            'BT' => $bt,
-            'umur' => $umur
-        ];
-        return view('babies.edit', $data);
+        
+        return view('babies.edit', compact('baby'));
     }
 
     /**
@@ -487,22 +484,43 @@ class BabiesController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Baby $baby) {
+    public function update(Request $request, $id) {
         $request->validate([
+            'nama' => 'required',
+            'nama_ibu' => 'required',
             'pekerjaan_ibu' => 'required',
+            'nama_ayah' => 'required',
             'pekerjaan_ayah' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'anak_ke' => 'required',
             'alamat' => 'required',
+            'jenis_kelamin' => 'required',
             'golongan_darah' => 'required',
+            'panjang_bayi' => 'required',
+            'berat_bayi' => 'required'
         ]);
-        // update data pegawai
-        DB::table('babies')->where('id',$baby->id)->update([
+
+        Parents::where('id', $request->id_parent)->update([
+            'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ibu' => $request->pekerjaan_ibu,
+            'nama_ayah' => $request->nama_ayah,
             'pekerjaan_ayah' => $request->pekerjaan_ayah,
             'alamat' => $request->alamat,
-            'golongan_darah' => $request->golongan_darah
+        ]);
+        // dd($ortu->id);
+        Baby::where('id', $id)->update([
+            'nama' => $request->nama,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'anak_ke' => $request->anak_ke,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'golongan_darah' => $request->golongan_darah,
+            'panjang_bayi' => $request->panjang_bayi,
+            'berat_bayi' => $request->berat_bayi
         ]);
         // alihkan halaman ke halaman pegawai
-        return redirect('/baby/'.$baby->id);
+        return redirect('/baby/'.$id);
     }
 
     /**

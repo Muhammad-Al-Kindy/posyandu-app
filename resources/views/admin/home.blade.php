@@ -2,19 +2,10 @@
 
 @section('content')
 <!-- Begin Page Content -->
-<div class="container">
+<div class="container fs-normal">
 
   <!-- Page Heading -->
-  <div class="row">
-    <div class="col">
-
-      <h1 class="h3 mb-2 text-gray-800">Data Akun Users</h1>
-      <p class="mb-4">Halaman ini untuk mengelola akun staff dan admin</p>
-    </div>
-    <div class="col text-right">
-      <a href="{{ url('/home/create') }}" class="btn btn-primary mt-3 shadow-sm">Tambah Data</a>
-    </div>
-  </div>
+  <p class="mb-3">Tabel / Data / <span class="color-primary">Users</span></p>
 
   @if(session('status'))
     <div class="alert alert-success">
@@ -28,20 +19,22 @@
   @endif
 
   <!-- DataTales Example -->
-  <div class="card shadow mb-4">
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <h6 class="m-0 font-weight-bold text-primary">Tabel Data Akun</h6>
-   </div>
+  <div class="card shadow mb-5 border-0">
     <div class="card-body">
+      <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Akun</h5>
+      <p class="mb-3 float-left">Halaman ini untuk mengelola akun staff dan admin</p>
+      <a href="{{ url('/home/create') }}" class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-user-plus mx-1"></span> Tambah Data</a>
+
+
       <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-            <th>NO</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Action</th>
+              <th class="text-center">NO</th>
+              <th>Nama</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Action</th>
             </tr>
          </thead>
          <tbody>
@@ -58,12 +51,12 @@
                   @endif
                </td>
                <td class="text-center">
-                 <form action="{{ url('/home/'.$user->id) }}" method="POST" onsubmit="return confirm('Anda yakin akan menghapus data {{ $user->name }}')">
-                  <a href="{{ url('/home/'.$user->id.'/edit') }}" class="btn btn-sm btn-info"><i class="fas fa-user-edit"></i></a>
+                 <form action="/home/{{ $user->id }}" method="POST" onsubmit="return confirm('Anda yakin akan menghapus data {{ $user->name }}')">
+                  <a href="/home/{{ $user->id }}/edit" class="btn btn-sm fs-small btn-info"><i class="fas fa-user-edit mx-1"></i> Ubah</a>
                   
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                  <button type="submit" class="btn fs-small btn-danger btn-sm"><i class="fas fa-trash mx-1"></i> Hapus</button>
                  </form>
                 </td>
             </tr>

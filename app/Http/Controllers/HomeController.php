@@ -24,10 +24,7 @@ class HomeController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request) {
-        $users = DB::table('users')
-                    ->orderBy('id', 'desc')
-                    ->where('email', '!=', $request->session()
-                    ->get('email'))->get();
+        $users = User::orderBy('id', 'desc')->get();
         $role = Auth::user()->role;
 
         if($role === 'Staff' || $role === 'Staff2' && $role !== 'Admin'){
@@ -62,23 +59,23 @@ class HomeController extends Controller {
         return redirect('/home')->with('status', "Data '" . $request->nama . "' berhasil ditambahkan");
     }
 
-    public function edit(User $user){
-        $data = [
-            'user' => $user
-        ];
-        return view('admin/edit', $data);
+    public function edit($id){
+        $user = User::where('id', $id)->first();
+        return view('admin.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'password' => 'required|min:5',
-            'konfirmasi_password' => 'required|min:5|same:password'
+            'nama' => 'required',
+            'role' => 'required',
+            'password' => 'required|min:5'
         ]);
         // $status = Hash::check($request->password, $user->password);
         // update data pegawai
-        DB::table('users')->where('id',$user->id)->update([
-            'password' => Hash::make($request->password)
+        User::where('id', $user->id)->update([
+            'name' => $request->nama,
+            'role' => $request->role,
         ]);
         // alihkan halaman ke halaman home
         return redirect('/home')->with('status', "Password '" . $user->name . "' berhasil diubah");
@@ -88,5 +85,35 @@ class HomeController extends Controller {
         $pop = $user->name;
         User::destroy($user->id);
         return redirect('/home')->with('status', "Data '" . $pop . "' berhasil dihapus");
+    }
+
+    public function profile($id){
+        $user = User::where('id', auth()->user()->id)->first();
+        return view('profile.profile', compact('user'));
+    }
+
+    public function update_password(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'konfirmasi_password' => 'same:password'
+        ]);
+
+        $status = '';
+
+        if($request->nama != auth()->user()->name){
+            User::where('id', auth()->user()->id)->update([
+                'name' => $request->nama,
+            ]);
+            $status = 'Nama berhasil diubah';
+        }else{
+            User::where('id', auth()->user()->id)->update([
+                'password' => Hash::make($request->konfirmasi_password)
+            ]);
+            $status = 'Password berhasil diubah';
+        }
+        
+        // alihkan halaman ke halaman home
+        return redirect('/home/'.auth()->user()->id.'/profile')->with('status', $status);
     }
 }

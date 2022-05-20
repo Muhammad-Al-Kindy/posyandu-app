@@ -37,13 +37,13 @@
                       <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                      {{-- @if (Route::has('password.request'))
-                          <a class="small color-primary" href="{{ route('password.request') }}">
-                              {{ __('Forgot Your Password?') }}
-                          </a>
-                      @endif --}}
                       
-                      <button type="submit" class="btn btn-block btn-primary py-3 px-5 rad-10 font-medium">
+                      <a class="small color-primary text-decoration-none" href="/">
+                          <span class="fas fa-arrow-left px-2"></span>
+                          {{ __('Kembali') }}
+                      </a>
+                      
+                      <button type="submit" class="btn btn-primary py-2 px-5 rad-10 font-medium">
                           {{ __('Login') }}
                       </button>
                     </div>

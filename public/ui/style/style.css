@@ -1163,7 +1163,7 @@ li a{
     .left-banner{
         float: left;
         background-color: var(--transparent);
-        height: 50vh;
+        height: 70vh;
         width: 100%;
         margin-left: 0px;
     }
@@ -1247,7 +1247,7 @@ li a{
     /* ABOUT */
     .about{
         width: 100%;
-        height: 60vh;
+        height: 85vh;
         background-color: var(--transparent);
     }
 

@@ -3,10 +3,10 @@
 
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center mb-5 justify-content-center" href="{{ url('/home') }}">
-    {{-- <div class="sidebar-brand-icon rotate-n-15">
+    <div class="sidebar-brand-icon rotate-n-15 px-1">
       <i class="fas fa-stethoscope"></i>
-    </div><br> --}}
-    <div class="sidebar-brand-text mt-3"><i class="fas fa-stethoscope rotate-n-15 fs-icon"></i> <br> Posyandu Rajawali</div>
+    </div><br>
+    <div class="sidebar-brand-text">Rajawali</div>
   </a>
 
   <div class="profile text-center mb-3">

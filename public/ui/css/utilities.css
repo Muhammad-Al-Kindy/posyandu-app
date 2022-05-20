@@ -175,7 +175,7 @@ tr{
 /* select form */
 
 /* icon sidebar */
-.fs-icon{
+/* .fs-icon{
     font-size: 30px !important;
 }
 
@@ -183,5 +183,29 @@ tr{
     text-transform: uppercase !important;
     font-size: 13px;
     font-family: var(--medium);
-}
+} */
 /* icon sidebar */
+
+#layoutAuthentication{
+    height: 100vh !important;
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar .nav-item{
+        text-align: center;
+    }
+    
+    .nav-item .px-5{
+        padding: 1rem 0rem !important;
+    }
+}
+
+@media screen and (max-width: 578px) {
+    .sidebar .nav-item{
+        text-align: center;
+    }
+
+    .nav-item .px-5{
+        padding: 1rem 0rem !important;
+    }
+}

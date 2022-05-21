@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Auth;
 class BabiesController extends Controller {
     public function progress(Baby $baby, Request $request){
         $progress = DB::table('babies AS b')
-        ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
-        ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-        ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
-        ->where('id_bayi', $baby->id)
-        ->get();
+            ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
+            ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
+            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
+            ->where('id_bayi', $baby->id)
+            ->get();
         $jk = $baby->jenis_kelamin == 1 ? 'fas fa-mars' : 'fas fa-venus';
         $kelamin = $baby->jenis_kelamin == 1 ? 'Laki-Laki' : 'Perempuan';
         $i = 0;
@@ -56,11 +56,14 @@ class BabiesController extends Controller {
             'jk' => $jk,
             'dtProgress' => $dataProgress,
             'umur' => $umur,
+            'bulan_ke' => $baby->bulan_ke,
             'kelamin' => $kelamin,
             'session' => $session,
 			'dtProgressPanjang' => $dataProgressPanjang
         ];
+
         echo view('progress.index', $data);
+
         if($baby->jenis_kelamin == 1){
             if($progress == null || max($bulan) < 13){
                 echo view('progress.kms-laki', $data);
@@ -238,7 +241,7 @@ class BabiesController extends Controller {
                 ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
                 ->select('b.id', 'b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah')
                 ->get();
-                
+
         return view('babies.baby', compact('babies'));
         
         // if($role === 'Admin' ){
@@ -291,13 +294,17 @@ class BabiesController extends Controller {
         $request->alamat = ucfirst($request->alamat);
 
         $request->tanggal_lahir = mktime(
-            (int)substr($request->tanggal_lahir, 11, 2), // jam
-            (int)substr($request->tanggal_lahir, 14, 2), //menit
+            (int) substr($request->tanggal_lahir, 11, 2), // jam
+            (int) substr($request->tanggal_lahir, 14, 2), //menit
             00, // detik
-            (int)substr($request->tanggal_lahir, 5, 2), // bulan
-            (int)substr($request->tanggal_lahir, 8, 2), // tanggal
-            (int)substr($request->tanggal_lahir, 0, 4) // tahun
+            (int) substr($request->tanggal_lahir, 5, 2), // bulan
+            (int) substr($request->tanggal_lahir, 8, 2), // tanggal
+            (int) substr($request->tanggal_lahir, 0, 4) // tahun
         );
+
+        // convert int to date
+        // dd(date('m/d/Y H:i', $request->tanggal_lahir));
+
         // $baby = new Baby;
         // $baby->nama = $request->nama;
         // $baby->nama_ibu = $request->nama_ibu;
@@ -452,7 +459,10 @@ class BabiesController extends Controller {
                         ->where('id', $id)
                         ->first();
         $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
-        $laki = '';$perempuan = '';
+        $birthDate = new DateTime($baby->tanggal_lahir);
+        
+        dd($birthDate);
+        $laki = ''; $perempuan = '';
         switch($baby->jenis_kelamin){
             case 1: $laki = 'checked';
                 break;

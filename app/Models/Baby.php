@@ -30,6 +30,6 @@ class Baby extends Model {
     }
 
     public function immunization() {
-        return $this->hasMany(Immunization::class);
+        return $this->hasMany(Immunization::class, 'id_baby', 'id');
     }
 }

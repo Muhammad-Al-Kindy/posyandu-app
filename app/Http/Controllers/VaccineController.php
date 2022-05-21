@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Immunization;
 use App\Models\User;
 use App\Models\Vaccine;
 use Illuminate\Http\Request;
@@ -17,6 +18,11 @@ class VaccineController extends Controller
 
     public function create(){
         return view('vaccines.create');
+    }
+
+    public function unvaccinated($id){
+        $immuns = Immunization::get();
+        return view('immunizations.unvaccinated', compact('immuns'));
     }
 
     public function store(Request $request) {

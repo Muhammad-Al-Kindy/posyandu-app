@@ -36,7 +36,7 @@
   </li>
 
   <li class="nav-item active border-bottom">  
-    <a class="nav-link px-5" href="{{ route('home') }}">
+    <a class="nav-link px-5" href="/immunization">
       <i class="fas fa-fw fa-heartbeat"></i>
       <span>Data Imunisasi</span>
     </a>

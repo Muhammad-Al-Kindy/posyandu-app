@@ -17,6 +17,6 @@ class Vaccine extends Model
     ];
 
     public function immunization() {
-        return $this->hasMany(Immunization::class, 'vaccine_id');
+        return $this->hasMany(Immunization::class, 'id_vaccine', 'id');
     }
 }

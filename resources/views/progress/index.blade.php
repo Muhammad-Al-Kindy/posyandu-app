@@ -12,7 +12,8 @@
         <p class="mb-4">Halaman ini untuk memantau pertumbuhan bayi.</p>
       </div>
       <div class="col-md-6 d-flex justify-content-end">
-        <button type="button" data-toggle="modal" data-target="#addProgressModal" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center mt-n3">Tambah Pertumbuhan</button>
+        <button type="button" data-toggle="modal" data-target="#addProgressModal" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center mt-n3">
+         <span class="fas fa-chart-pie"></span> Tambah Pertumbuhan</button>
       </div>
     </div>
 
@@ -182,7 +183,7 @@
            </div>
            <div class="form-group">
               <label for="bulan_ke">Bulan Ke-</label>
-              <input type="number" class="form-control rad-10 form-spacer-20x15 fs-normal @error('bulan_ke') is-invalid @enderror" name="bulan_ke" id="bulan_ke" min="1" data-toggle="tooltip" data-placement="right" title="Berat Bayi Sekarang" placeholder="Berat sekarang" min="1" step="any">
+              <input type="number" readonly class="form-control rad-10 form-spacer-20x15 fs-normal @error('bulan_ke') is-invalid @enderror" name="bulan_ke" id="bulan_ke" min="1" data-toggle="tooltip" data-placement="right" title="Berat Bayi Sekarang" value="{{ $bulan_ke }}" placeholder="Bulan Ke" min="1" step="any">
               @error('bulan_ke')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
            </div>
        </div>

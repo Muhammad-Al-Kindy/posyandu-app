@@ -12,7 +12,8 @@
       <p class="mb-4">Hati-hati dalam input data. Beberapa data tidak dapat diubah setelah diinput!.</p>
     </div>
     <div class="col-md-6 d-flex justify-content-end">
-      <a href="/home" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center px-3 mt-n3">Kembali</a>
+      <a href="/home" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center px-3 mt-n3">
+        <span class="fas fa-arrow-left"></span> Kembali</a>
     </div>
   </div>
 

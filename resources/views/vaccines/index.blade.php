@@ -33,6 +33,7 @@
               <th class="text-center">NO</th>
               <th>Nama Vaksin</th>
               <th>Deskripsi</th>
+              <th>Belum di Vaksin</th>
               <th>Action</th>
             </tr>
          </thead>
@@ -43,9 +44,14 @@
                <td>{{ ucwords($vaccine->name) }}</td>
                <td>{{ substr(strtolower($vaccine->description), 0, 50) }}....</td>
                <td class="text-center">
+                <a href="#" class="btn btn-sm fs-small btn-success">
+                  <span class="fas fa-notes-medical"></span>
+                   Cek</a>
+               </td>
+               <td class="text-center">
                  <form action="/vaccine/{{ $vaccine->id }}" method="POST" onsubmit="return confirm('Anda yakin akan menghapus data {{ $vaccine->name }}')">
                   
-                  <a href="/vaccine/{{ $vaccine->id }}/show" class="btn btn-sm fs-small btn-info"><i class="fas fa-eye mx-1"></i> Lihat</a>
+                  <a href="/vaccine/{{ $vaccine->id }}/show" class="btn btn-sm fs-small btn-primary"><i class="fas fa-eye mx-1"></i> Lihat</a>
                   <a href="/vaccine/{{ $vaccine->id }}/edit" class="btn btn-sm fs-small btn-info"><i class="fas fa-user-edit mx-1"></i> Ubah</a>
                   @csrf
                   @method('DELETE')

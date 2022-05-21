@@ -12,9 +12,11 @@
       <p class="mb-4">Informasi dan pertumbuhan bayi</p>
     </div>
     <div class="col-md-6 d-flex justify-content-end">
-      <a href="{{ $baby->id }}/progress" class="btn btn-primary mx-2 shadow-sm fs-normal align-self-center mt-n3">Pertumbuhan Bayi</a>
+      <a href="{{ $baby->id }}/progress" class="btn btn-primary mx-2 shadow-sm fs-normal align-self-center mt-n3">
+        <span class="fas fa-chart-line"></span> Pertumbuhan Bayi</a>
       @if(auth()->user()->role == 'Staff2' || auth()->user()->role == 'Staff' || auth()->user()->role == 'Admin')
-        <a href="{{ url('/baby').'/'.$baby->id.'/edit' }}" class="btn btn-info shadow-sm fs-normal align-self-center mt-n3">Ubah Data</a>
+        <a href="{{ url('/baby').'/'.$baby->id.'/edit' }}" class="btn btn-info shadow-sm fs-normal align-self-center mt-n3">
+          <span class="fas fa-edit"></span> Ubah Data</a>
       @endif
     </div>
   </div>
@@ -69,7 +71,7 @@
         </div>
       </div>
     </div>
-    <div class="card shadow-sm mb-4 border-0">
+    <div class="card shadow mb-4 border-0">
       <div class="card-header bg-white py-3">
         <h6 class="m-0 font-weight-bold color-primary">Informasi Kesehatan</h6>
       </div>
@@ -116,11 +118,13 @@
       </div>
     </div>
   <div class="mb-5">
-    <a href="{{ url('/baby') }}" class="text-decoration-none fs-normal mx-1">Kembali</a>
+    <a href="{{ url('/baby') }}" class="text-decoration-none fs-normal mx-1">
+      <span class="fas fa-arrow-left"></span> Kembali</a>
     <form action="{{ $baby->id }}" method="post" class="d-inline">
       @method('delete')
       @csrf
-      <button class="btn btn-danger fs-normal mx-1" type="submit">Hapus</button>
+      <button class="btn btn-danger fs-normal mx-1" type="submit">
+        <span class="fas fa-trash"></span> Hapus</button>
     </form>
   </div>
 </div>

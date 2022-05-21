@@ -2,47 +2,110 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Baby;
 use App\Models\Immunization;
+use App\Models\Vaccine;
 use Illuminate\Http\Request;
-use App\Http\Requests\ImmunizationRequest;
 
 class ImmunizationController extends Controller {
-
     public function index() {
-        $imun = Immunization::join('babies', 'immunization.id_baby', '=', 'babies.id')
-            ->join('vaccine', 'immunization.id_vaccine', '=', 'vaccine.id')
-            ->select('immunization.*', 'babies.*', 'vaccine.*')
-            ->get();
-        return view('immunization.index', ['imun' => $imun]);
+        $babies = Baby::with('parents')
+                        ->with('immunization')
+                        ->orderBy('id', 'ASC')->get();
+        // dd($babies);
+        return view('immunizations.index', compact('babies'));
     }
 
-    public function store(ImmunizationRequest $request) {
-        $request->validated();
-        $imun = new Immunization;
-        $imun->id_baby = $request->id_baby;
-        $imun->id_vaccine = $request->id_vaccine;
-        $imun->bulan = $request->bulan;
-        $imun->date = $request->date;
-        $imun->save();
-        return redirect('/immunization');
+    public function create($id_baby){
+        $vaccines = Vaccine::all();
+        $baby = Baby::where('id', $id_baby)->first();
+        return view('immunizations.create', compact('vaccines', 'baby'));
     }
 
-    public function show(Immunization $imun){
-        return view('immunization.show', ['imun' => $imun]);
+    public function store(Request $request, $id_baby) {
+        $request->validate([
+            'id_vaccine' => 'required',
+            'bulan' => 'required',
+            'date' => 'required',
+        ]);
+
+        $immuns = Immunization::with('baby')
+                        ->with('vaccine')
+                        ->where('id_vaccine',  $request->id_vaccine)
+                        ->where('id_baby', $id_baby)->first();
+        // dd($immuns->id_vaccine .'=='. $request->id_vaccine);
+        if($immuns != null){
+            return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('danger', $immuns->baby->nama." Sudah di vaksin ".$immuns->vaccine->name);
+        }else{
+            Immunization::create([
+                'id_baby' => $id_baby,
+                'id_vaccine' => $request->id_vaccine,
+                'bulan' => $request->bulan,
+                'date' => $request->date,
+            ]);
+
+            return redirect('/immunization'.'/'.$id_baby.'/show')->with('status', "Data '" . $request->name . "' berhasil ditambahkan");
+        }
     }
 
-    public function destroy(Immunization $imun) {
-        Immunization::destroy($imun->id);
-        return redirect('/immunization');
+    public function show($id){
+        $baby = Baby::where('id', $id)->first();
+        // dd($baby);
+        $immunizations = Immunization::with('baby')
+                        ->with('vaccine')
+                        ->where('id_baby', $id)->get();
+        return view('immunizations.show', compact('immunizations', 'baby'));
     }
 
-    public function update(ImmunizationRequest $request, Immunization $imun) {
-        $request->validated();
-        $imun->id_baby = $request->id_baby;
-        $imun->id_vaccine = $request->id_vaccine;
-        $imun->bulan = $request->bulan;
-        $imun->date = $request->date;
-        $imun->update();
-        return redirect('/immunization');
+    public function edit($id){
+        $vaccines = Vaccine::all();
+        $immunizations = Immunization::with('baby')
+                            ->with('vaccine')
+                            ->where('id', $id)->first();
+        return view('immunizations.edit', compact('immunizations', 'vaccines'));
+    }
+
+    public function update(Request $request, $id_baby)
+    {
+        $request->validate([
+            'id_baby' => 'required',
+            'id_vaccine' => 'required',
+            'bulan' => 'required',
+            'date' => 'required',
+        ]);
+
+        $immuns = Immunization::with('baby')
+                        ->with('vaccine')
+                        ->where('id_vaccine',  $request->id_vaccine)
+                        ->where('id_baby', $request->id_baby)->first();
+        // dd($immuns->id_vaccine .'=='. $request->id_vaccine);
+        // $id_vaccine = ($immuns == null) ? null : $immuns->id_vaccine;
+        if($immuns != null){
+            return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('danger', $immuns->baby->nama." Sudah di vaksin ".$immuns->vaccine->name);
+        }else{
+            Immunization::where('id', $request->id_immunization)->update([
+                'id_baby' => $request->id_baby,
+                'id_vaccine' => $request->id_vaccine,
+                'bulan' => $request->bulan,
+                'date' => $request->date,
+            ]);
+            // alihkan halaman ke halaman home
+            return redirect('/immunization'.'/'.$id_baby.'/show')->with('status', "Data berhasil diubah");
+        }
+    }
+
+    public function destroy($id) {
+        $immuns = Immunization::where('id',  $id)
+                        ->first();
+        $id_baby = $immuns->id_baby;
+        Immunization::destroy($id);
+        return redirect('/immunization'.'/'.$id_baby.'/show')->with('status', "Data berhasil dihapus");
+
     }
 }

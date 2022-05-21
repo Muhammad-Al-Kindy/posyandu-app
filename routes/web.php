@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BabiesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImmunizationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\VaccineController;
 use App\Models\ProgressBaby;
@@ -20,19 +21,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PagesController::class, 'index']);
-// Route::get('/login', 'PagesController@login');
-
-Route::get('baby/{baby}/progress', [BabiesController::class, 'progress']);
-Route::get('baby/export', [BabiesController::class, 'export_excel']);
-Route::post('baby/progress', [BabiesController::class,'simpanprogress']);
-Route::resource('baby', BabiesController::class);
-//Route::get('baby', 'BabiesController@index');
-// Route::get('progress/{baby}', 'ProgressBabiesController@show');
-// Route::resource('progress', 'ProgressBabiesController');
 
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::middleware('auth')->group(function(){
+    Route::get('baby/{baby}/progress', [BabiesController::class, 'progress']);
+    Route::get('baby/export', [BabiesController::class, 'export_excel']);
+    Route::post('baby/progress', [BabiesController::class,'simpanprogress']);
+    Route::resource('baby', BabiesController::class);
+    //Route::get('baby', 'BabiesController@index');
+    // Route::get('progress/{baby}', 'ProgressBabiesController@show');
+    // Route::resource('progress', 'ProgressBabiesController');
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/home/create', [HomeController::class, 'create']);
@@ -51,6 +50,17 @@ Route::middleware('auth')->group(function(){
         Route::get('/vaccine/{id}/edit', 'edit');
         Route::put('/vaccine/{id}', 'update');
         Route::delete('/vaccine/{id}', 'destroy');
+        Route::delete('/vaccine/{id}/unvaccinated', 'unvaccinated');
+    });
+
+    Route::controller(ImmunizationController::class)->group(function(){
+        Route::get('/immunization', 'index');
+        Route::get('/immunization/create/{id_baby}', 'create');
+        Route::post('/immunization/{id_baby}', 'store');
+        Route::get('/immunization/{id}/show', 'show');
+        Route::get('/immunization/{id}/edit', 'edit');
+        Route::put('/immunization/{id_baby}/update', 'update');
+        Route::delete('/immunization/{id}', 'destroy');
     });
 });
 

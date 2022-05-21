@@ -21,7 +21,7 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-5 border-0">
     <div class="card-body">
-      <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Imunisasi</h5>
+      <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Imunisasi - {{ $baby->nama }}</h5>
       <p class="mb-3 float-left">Halaman ini untuk mengelola data Imunisasi</p>
       <a href="{{ url('/immunization/create/'.$baby->id) }}" class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-syringe mx-1"></span> Tambah Imunisasi</a>
 

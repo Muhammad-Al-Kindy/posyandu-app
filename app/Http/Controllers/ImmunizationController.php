@@ -51,6 +51,41 @@ class ImmunizationController extends Controller {
         }
     }
 
+    public function add($id_baby, $id){
+        $vaccines = Vaccine::where('id', $id)->first();
+        $baby = Baby::where('id', $id_baby)->first();
+        return view('immunizations.addvaccine', compact('vaccines', 'baby'));
+    }
+
+    public function store_vaccine(Request $request, $id_baby) {
+        $request->validate([
+            'id_vaccine' => 'required',
+            'bulan' => 'required',
+            'date' => 'required',
+        ]);
+
+        $immuns = Immunization::with('baby')
+                        ->with('vaccine')
+                        ->where('id_vaccine',  $request->id_vaccine)
+                        ->where('id_baby', $id_baby)->first();
+        // dd($immuns->id_vaccine .'=='. $request->id_vaccine);
+        if($immuns != null){
+            return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('danger', $immuns->baby->nama." Sudah di vaksin ".$immuns->vaccine->name);
+        }else{
+            Immunization::create([
+                'id_baby' => $id_baby,
+                'id_vaccine' => $request->id_vaccine,
+                'bulan' => $request->bulan,
+                'date' => $request->date,
+            ]);
+
+            return redirect('/vaccine'.'/'.$request->id_vaccine.'/unvaccinated')->with('status', "Data '" . $request->name . "' berhasil ditambahkan");
+        }
+    }
+
     public function show($id){
         $baby = Baby::where('id', $id)->first();
         // dd($baby);

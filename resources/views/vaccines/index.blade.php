@@ -44,9 +44,9 @@
                <td>{{ ucwords($vaccine->name) }}</td>
                <td>{{ substr(strtolower($vaccine->description), 0, 50) }}....</td>
                <td class="text-center">
-                <a href="#" class="btn btn-sm fs-small btn-success">
+                <a href="/vaccine/{{ $vaccine->id }}/unvaccinated" class="btn btn-sm fs-small btn-success">
                   <span class="fas fa-notes-medical"></span>
-                   Cek</a>
+                   Cek Data</a>
                </td>
                <td class="text-center">
                  <form action="/vaccine/{{ $vaccine->id }}" method="POST" onsubmit="return confirm('Anda yakin akan menghapus data {{ $vaccine->name }}')">

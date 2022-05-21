@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Baby;
 use App\Models\Immunization;
 use App\Models\User;
 use App\Models\Vaccine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class VaccineController extends Controller
@@ -21,8 +23,17 @@ class VaccineController extends Controller
     }
 
     public function unvaccinated($id){
-        $immuns = Immunization::get();
-        return view('immunizations.unvaccinated', compact('immuns'));
+        $vaccine = Vaccine::where('id', $id)->first();
+        $babies = Baby::select('babies.id as id_bayi', 'babies.nama as nama_bayi', 'parents.*', 'vaccine.*', 'immunization.id_vaccine', DB::raw('COUNT(immunization.id_baby) as countID'))
+                    ->join('parents', 'parents.id', '=', 'babies.id_parent')
+                    ->leftJoin('immunization', 'immunization.id_baby', '=', 'babies.id')
+                    ->leftJoin('vaccine', 'vaccine.id', '=', 'immunization.id_vaccine')
+                    ->groupBy('id_bayi')
+                    // ->whereNotNull('immunization.id_vaccine')
+                    // ->where('immunization.id_vaccine', '==', $id)
+                    ->get();
+        // dd($babies);
+        return view('immunizations.unvaccinated', compact('babies', 'vaccine'));
     }
 
     public function store(Request $request) {

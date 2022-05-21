@@ -50,13 +50,16 @@ Route::middleware('auth')->group(function(){
         Route::get('/vaccine/{id}/edit', 'edit');
         Route::put('/vaccine/{id}', 'update');
         Route::delete('/vaccine/{id}', 'destroy');
-        Route::delete('/vaccine/{id}/unvaccinated', 'unvaccinated');
+        Route::get('/vaccine/{id}/unvaccinated', 'unvaccinated');
     });
 
     Route::controller(ImmunizationController::class)->group(function(){
         Route::get('/immunization', 'index');
         Route::get('/immunization/create/{id_baby}', 'create');
         Route::post('/immunization/{id_baby}', 'store');
+
+        Route::get('/immunization/add/{id_baby}/{id}', 'add');
+        Route::post('/immunization/{id_baby}/add', 'store_vaccine');
         Route::get('/immunization/{id}/show', 'show');
         Route::get('/immunization/{id}/edit', 'edit');
         Route::put('/immunization/{id_baby}/update', 'update');

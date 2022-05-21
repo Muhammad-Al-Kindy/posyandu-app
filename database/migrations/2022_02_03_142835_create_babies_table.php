@@ -14,9 +14,9 @@ class CreateBabiesTable extends Migration {
         Schema::create('babies', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 256);
-            $table->string('no_kms', 256);
-            $table->string('nik_ibu', 20);
-            // $table->unsignedBigInteger('id_parent');
+            // $table->string('no_kms', 256);
+            // $table->string('nik_ibu', 20);
+            $table->unsignedBigInteger('id_parent');
             $table->string('tempat_lahir', 256);
             $table->integer('tanggal_lahir');
             $table->integer('anak_ke');

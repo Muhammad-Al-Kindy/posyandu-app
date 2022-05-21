@@ -16,6 +16,8 @@ class CreateBabiesTable extends Migration {
             $table->string('nama', 256);
             // $table->string('no_kms', 256);
             // $table->string('nik_ibu', 20);
+            $table->string('no_kms', 256)->nullable();
+            $table->string('nik_bayi', 20)->nullable();
             $table->unsignedBigInteger('id_parent');
             $table->string('tempat_lahir', 256);
             $table->integer('tanggal_lahir');
@@ -26,8 +28,9 @@ class CreateBabiesTable extends Migration {
             $table->decimal('berat_bayi', 11, 2);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('nik_ibu')->references('nik_ibu')->on('parents')->onDelete('cascade');
-            // $table->foreign('id_parent')->references('id')->on('parents');
+
+            // $table->foreign('nik_ibu')->references('nik_ibu')->on('parents')->onDelete('cascade');
+            $table->foreign('id_parent')->references('id')->on('parents');
         });
     }
 

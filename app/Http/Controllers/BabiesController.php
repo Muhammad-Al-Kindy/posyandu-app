@@ -243,7 +243,7 @@ class BabiesController extends Controller {
                 ->get();
 
         return view('babies.baby', compact('babies'));
-        
+
         // if($role === 'Admin' ){
         //     return redirect('/home');
         // }else if($role === 'Staff' || $role === 'Staff2' ){
@@ -270,14 +270,16 @@ class BabiesController extends Controller {
      */
     public function store(Request $request) {
          $request->validate([
-            'nama' => 'required',
-            'nama_ibu' => 'required',
-            'pekerjaan_ibu' => 'required',
-            'nama_ayah' => 'required',
-            'pekerjaan_ayah' => 'required',
+            'nama' => 'required|string',
+            'no_kms' => 'sometimes|string',
+            'nik_bayi' => 'sometimes|string|max:16|unique:babies',
+            'nama_ibu' => 'required|string',
+            'pekerjaan_ibu' => 'required|string',
+            'nama_ayah' => 'required|string',
+            'pekerjaan_ayah' => 'required|string',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'anak_ke' => 'required',
+            'anak_ke' => 'required|integer',
             'alamat' => 'required',
             'jenis_kelamin' => 'required',
             'golongan_darah' => 'required',
@@ -322,6 +324,8 @@ class BabiesController extends Controller {
         // dd($ortu->id);
         Baby::create([
             'nama' => $request->nama,
+            'no_kms' => $request->no_kms,
+            'nik_bayi' => $request->nik_bayi,
             'id_parent' => $ortu->id,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -460,7 +464,7 @@ class BabiesController extends Controller {
                         ->first();
         $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
         $birthDate = new DateTime($baby->tanggal_lahir);
-        
+
         dd($birthDate);
         $laki = ''; $perempuan = '';
         switch($baby->jenis_kelamin){
@@ -483,7 +487,7 @@ class BabiesController extends Controller {
             case "BT": $bt = 'selected';
                 break;
         }
-        
+
         return view('babies.edit', compact('baby'));
     }
 
@@ -497,6 +501,8 @@ class BabiesController extends Controller {
     public function update(Request $request, $id) {
         $request->validate([
             'nama' => 'required',
+            'no_kms' => 'sometimes|string',
+            'nik_bayi' => 'sometimes|string|max:16|unique:babies',
             'nama_ibu' => 'required',
             'pekerjaan_ibu' => 'required',
             'nama_ayah' => 'required',
@@ -521,6 +527,8 @@ class BabiesController extends Controller {
         // dd($ortu->id);
         Baby::where('id', $id)->update([
             'nama' => $request->nama,
+            'no_kms' => $request->no_kms,
+            'nik_bayi' => $request->nik_bayi,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'anak_ke' => $request->anak_ke,

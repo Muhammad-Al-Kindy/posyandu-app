@@ -12,8 +12,11 @@
       <p class="mb-4">Informasi dan pertumbuhan bayi</p>
     </div>
     <div class="col-md-6 d-flex justify-content-end">
-      <a href="{{ $baby->id }}/progress" class="btn btn-primary mx-2 shadow-sm fs-normal align-self-center mt-n3">
+      @if(auth()->user()->role != 'Staff2')
+        <a href="{{ $baby->id }}/progress" class="btn btn-primary mx-2 shadow-sm fs-normal align-self-center mt-n3">
         <span class="fas fa-chart-line"></span> Pertumbuhan Bayi</a>
+      @endif
+      
       @if(auth()->user()->role == 'Staff2' || auth()->user()->role == 'Staff' || auth()->user()->role == 'Admin')
         <a href="{{ url('/baby').'/'.$baby->id.'/edit' }}" class="btn btn-info shadow-sm fs-normal align-self-center mt-n3">
           <span class="fas fa-edit"></span> Ubah Data</a>

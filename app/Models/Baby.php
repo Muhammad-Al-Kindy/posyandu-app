@@ -9,9 +9,9 @@ class Baby extends Model {
     use HasFactory;
     protected $fillable = [
         'nama',
+        'no_kms',
+        'nik_bayi',
         'id_parent',
-        // 'no_kms',
-        // 'nik_ibu',
         'tempat_lahir',
         'tanggal_lahir',
         'anak_ke',

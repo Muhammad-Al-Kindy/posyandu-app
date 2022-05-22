@@ -26,6 +26,13 @@
         <div class="row">
           <div class="col-xl-6 mr-auto">
             <div class="form-group">
+              <label for="nik_bayi">NIK Bayi (Optional)</label>
+              <input type="text" placeholder="NIK Bayi" class="form-control fs-normal form-spacer-20x15 @error('nik_bayi') is-invalid @enderror" id="nik_bayi" name="nik_bayi" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ $baby->nik_bayi }}" autofocus>
+              @error('nik_bayi')
+                <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+              @enderror
+            </div>
+            <div class="form-group">
               <label for="nama_ibu">Nama Ibu</label>
               <input type="text" placeholder="Nama Ibu" class="form-control fs-normal form-spacer-20x15 @error('nama_ibu') is-invalid @enderror" id="nama_ibu" name="nama_ibu" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ $baby->parents->nama_ibu }}" autofocus>
               @error('nama_ibu')
@@ -56,10 +63,17 @@
           </div>
           <div class="col-xl-6 ml-auto">
             <div class="form-group">
+              <label for="no_kms">No KMS (Optional)</label>
+              <input type="text" placeholder="Nomor KMS" class="form-control fs-normal form-spacer-20x15 @error('no_kms') is-invalid @enderror" id="no_kms" name="no_kms" data-toggle="tooltip" data-placement="right" title="No KMS" value="{{ $baby->no_kms }}">
+              @error('no_kms')
+                <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+              @enderror
+            </div>
+            <div class="form-group">
               <label for="nama">Nama Bayi</label>
               <input type="text" placeholder="Nama Bayi" class="form-control fs-normal form-spacer-20x15 @error('nama') is-invalid @enderror" id="nama" name="nama" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Bayi" value="{{ $baby->nama }}">
               @error('nama')
-              <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+                <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
               @enderror
             </div>
             <div class="row">
@@ -75,9 +89,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="tanggal_lahir">Tanggal Lahir</label>
-                  {{-- <input type="datetime-local" disabled placeholder="Nama Bayi" class="form-control fs-normal form-spacer-20x15 @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" data-toggle="tooltip" data-placement="right" title="Tanggal Lahir Bayi" value="<?= date('Y-m-d')."T".date('H:i') ?>" max="<?= date('Y-m-d'); ?>T23:59"> --}}
-
-                  <input type="text" readonly placeholder="Tanggal Lahir" class="form-control fs-normal form-spacer-20x15 @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" data-toggle="tooltip" data-placement="right" title="Tanggal Lahir Bayi" value="{{ $baby->tanggal_lahir }}">
+                  <input type="datetime-local" placeholder="Nama Bayi" class="form-control fs-normal form-spacer-20x15 @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" data-toggle="tooltip" data-placement="right" title="Tanggal Lahir Bayi" value="{{ date('Y-m-d', $baby->tanggal_lahir)."T".date('H:i') }}" max="<?= date('Y-m-d'); ?>T23:59">
                   @error('tanggal_lahir')
                   <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
                   @enderror

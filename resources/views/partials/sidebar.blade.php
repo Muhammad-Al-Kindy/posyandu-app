@@ -50,12 +50,19 @@
       </a>
     </li>
 
-  <li class="nav-item active border-bottom">  
+    <li class="nav-item active border-bottom">  
+      <a class="nav-link px-5" href="/graduation">
+        <i class="fas fa-fw fa-user-graduate"></i>
+        <span>Kelulusan</span>
+      </a>
+    </li>
+
+  {{-- <li class="nav-item active border-bottom">  
     <a class="nav-link px-5" href="{{ route('home') }}">
       <i class="fas fa-fw fa-hdd"></i>
       <span>Backup Data</span>
     </a>
-  </li>
+  </li> --}}
   @endif
 
   <li class="nav-item active border-bottom">  

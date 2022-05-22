@@ -27,6 +27,9 @@
             <div class="form-group">
               <label for="nik_bayi">NIK Bayi (Optional)</label>
               <input type="text" placeholder="NIK Bayi" class="form-control fs-normal form-spacer-20x15 @error('nik_bayi') is-invalid @enderror" id="nik_bayi" name="nik_bayi" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ old('nik_bayi') }}" autofocus>
+              @error('nik_bayi')
+                <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+              @enderror
             </div>
             <div class="form-group">
               <label for="nama_ibu">Nama Ibu</label>
@@ -60,7 +63,10 @@
           <div class="col-xl-6 ml-auto">
             <div class="form-group">
               <label for="no_kms">No KMS (Optional)</label>
-              <input type="text" placeholder="Nomor KMS" class="form-control fs-normal form-spacer-20x15 @error('no_kms') is-invalid @enderror" id="no_kms" name="no_kms" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ old('no_kms') }}" autofocus>
+              <input type="text" placeholder="Nomor KMS" class="form-control fs-normal form-spacer-20x15 @error('no_kms') is-invalid @enderror" id="no_kms" name="no_kms" data-toggle="tooltip" data-placement="right" title="No KMS" value="{{ old('no_kms') }}">
+              @error('no_kms')
+                <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+              @enderror
             </div>
             <div class="form-group">
               <label for="nama">Nama Bayi</label>
@@ -94,8 +100,8 @@
               <div class="col-md-6">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
                 <select id="jenis_kelamin" name="jenis_kelamin" placeholder="Nama Bayi" class="form-control-select fs-normal form-spacer-10x8 @error('jenis_kelamin') is-invalid @enderror" data-toggle="tooltip" data-placement="right" title="Golongan Darah Bayi">
-                  <option value="1">Laki-laki</option>
-                  <option value="2">Perempuan</option>
+                  <option value="1" {{ (old('jenis_kelamin') == 1) ? 'selected' : '' }}>Laki-laki</option>
+                  <option value="2" {{ (old('jenis_kelamin') == 2) ? 'selected' : '' }}>Perempuan</option>
                 </select>
                 @error('jenis_kelamin')
                   <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
@@ -105,10 +111,10 @@
                 <label for="golongan_darah">Golongan Darah</label>
                 <select id="golongan_darah" name="golongan_darah" placeholder="Nama Bayi" class="form-control-select fs-normal form-spacer-10x8 @error('golongan_darah') is-invalid @enderror" data-toggle="tooltip" data-placement="right" title="Golongan Darah Bayi">
                   <option selected value="BT">Belum Tahu</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="AB">AB</option>
-                  <option value="O">O</option>
+                  <option value="A" {{ (old('golongan_darah') == 'A') ? 'selected' : '' }}>A</option>
+                  <option value="B" {{ (old('golongan_darah') == 'B') ? 'selected' : '' }}>B</option>
+                  <option value="AB" {{ (old('golongan_darah') == 'AB') ? 'selected' : '' }}>AB</option>
+                  <option value="O" {{ (old('golongan_darah') == 'O') ? 'selected' : '' }}>O</option>
                 </select>
                 @error('golongan_darah')
                   <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>

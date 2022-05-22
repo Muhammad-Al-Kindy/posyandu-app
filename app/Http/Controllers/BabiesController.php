@@ -271,8 +271,8 @@ class BabiesController extends Controller {
     public function store(Request $request) {
          $request->validate([
             'nama' => 'required|string',
-            'no_kms' => 'sometimes|string',
-            'nik_bayi' => 'sometimes|string|max:16|unique:babies',
+            'no_kms' => 'required|string',
+            // 'nik_bayi' => 'string|max:16|unique:babies',
             'nama_ibu' => 'required|string',
             'pekerjaan_ibu' => 'required|string',
             'nama_ayah' => 'required|string',
@@ -435,6 +435,54 @@ class BabiesController extends Controller {
         }
     }
 
+    static function get_birtdate($tanggal_lahir){
+        $birthDate = new DateTime();
+        $birthDate->setTimestamp($tanggal_lahir);
+        $today = new DateTime("today");
+        if ($birthDate > $today) {
+            exit("0 tahun 0 bulan 0 hari");
+        }
+        $y = $today->diff($birthDate)->y;
+        $m = $today->diff($birthDate)->m;
+        $d = $today->diff($birthDate)->d;
+        if($y > 0){
+            if($m == 0 && $d ==0){
+                return $y." tahun";
+            }else if($m == 0){
+                return $y." tahun ".$d." hari";
+            }else if($d == 0){
+                return $y." tahun ".$m." bulan";
+            }else{
+                return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else if($m > 0){
+            if($y == 0 && $d ==0){
+                return $m." bulan";
+            }else if($y == 0){
+                return $m." bulan ".$d." hari";
+            }else if($d == 0){
+                return $y." tahun ".$m." bulan";
+            }else{
+                return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else{
+            return $d." hari";
+        }
+    }
+
+    static function get_graduate($tanggal_lahir){
+        $birthDate = new DateTime();
+        $birthDate->setTimestamp($tanggal_lahir);
+        $today = new DateTime("today");
+        if ($birthDate > $today) {
+            exit("0 tahun 0 bulan 0 hari");
+        }
+        $y = $today->diff($birthDate)->y;
+        if($y > 0){
+            return $y;
+        }
+    }
+
     public function hitungIdeal($tanggal_lahir, Baby $baby){
         $birthDate = new DateTime($tanggal_lahir);
         $today = new DateTime("today");
@@ -449,8 +497,6 @@ class BabiesController extends Controller {
             $hasil = (int)$baby->berat_bayi+($m*600);
         }
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
@@ -499,8 +545,8 @@ class BabiesController extends Controller {
     public function update(Request $request, $id) {
         $request->validate([
             'nama' => 'required',
-            'no_kms' => 'sometimes|string',
-            'nik_bayi' => 'sometimes|string|max:16|unique:babies',
+            'no_kms' => 'required|string',
+            // 'nik_bayi' => 'string|max:16|unique:babies',
             'nama_ibu' => 'required',
             'pekerjaan_ibu' => 'required',
             'nama_ayah' => 'required',
@@ -514,6 +560,15 @@ class BabiesController extends Controller {
             'panjang_bayi' => 'required',
             'berat_bayi' => 'required'
         ]);
+
+        $request->tanggal_lahir = mktime(
+            (int) substr($request->tanggal_lahir, 11, 2), // jam
+            (int) substr($request->tanggal_lahir, 14, 2), //menit
+            00, // detik
+            (int) substr($request->tanggal_lahir, 5, 2), // bulan
+            (int) substr($request->tanggal_lahir, 8, 2), // tanggal
+            (int) substr($request->tanggal_lahir, 0, 4) // tahun
+        );
 
         Parents::where('id', $request->id_parent)->update([
             'nama_ibu' => $request->nama_ibu,

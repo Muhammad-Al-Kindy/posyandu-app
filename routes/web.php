@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BabiesController;
+use App\Http\Controllers\GraduateController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImmunizationController;
 use App\Http\Controllers\PagesController;
@@ -64,6 +65,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/immunization/{id}/edit', 'edit');
         Route::put('/immunization/{id_baby}/update', 'update');
         Route::delete('/immunization/{id}', 'destroy');
+    });
+
+    Route::controller(GraduateController::class)->group(function(){
+        Route::get('/graduation', 'index');
+        Route::get('/graduation/update/{id}', 'update');
     });
 });
 

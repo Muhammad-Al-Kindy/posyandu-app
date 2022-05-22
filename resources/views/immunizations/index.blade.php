@@ -22,7 +22,7 @@
   <div class="card shadow mb-5 border-0">
     <div class="card-body">
       <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Imunisasi Bayi</h5>
-      <p class="mb-3 float-left">Halaman ini untuk engelolaan data bayi</p>
+      <p class="mb-3 float-left">Halaman ini untuk pengelolaan data bayi</p>
       
       <div class="table-responsive">
         <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">

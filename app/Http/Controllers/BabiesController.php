@@ -463,9 +463,7 @@ class BabiesController extends Controller {
                         ->where('id', $id)
                         ->first();
         $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
-        $birthDate = new DateTime($baby->tanggal_lahir);
-
-        dd($birthDate);
+        
         $laki = ''; $perempuan = '';
         switch($baby->jenis_kelamin){
             case 1: $laki = 'checked';

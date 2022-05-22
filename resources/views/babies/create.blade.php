@@ -25,8 +25,12 @@
         <div class="row">
           <div class="col-xl-6 mr-auto">
             <div class="form-group">
+              <label for="nik_bayi">NIK Bayi (Optional)</label>
+              <input type="text" placeholder="NIK Bayi" class="form-control fs-normal form-spacer-20x15 @error('nik_bayi') is-invalid @enderror" id="nik_bayi" name="nik_bayi" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ old('nik_bayi') }}" autofocus>
+            </div>
+            <div class="form-group">
               <label for="nama_ibu">Nama Ibu</label>
-              <input type="text" placeholder="Nama Ibu" class="form-control fs-normal form-spacer-20x15 @error('nama_ibu') is-invalid @enderror" id="nama_ibu" name="nama_ibu" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ old('nama_ibu') }}" autofocus>
+              <input type="text" placeholder="Nama Ibu" class="form-control fs-normal form-spacer-20x15 @error('nama_ibu') is-invalid @enderror" id="nama_ibu" name="nama_ibu" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ old('nama_ibu') }}">
               @error('nama_ibu')
                 <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
               @enderror
@@ -54,6 +58,10 @@
             </div>
           </div>
           <div class="col-xl-6 ml-auto">
+            <div class="form-group">
+              <label for="no_kms">No KMS (Optional)</label>
+              <input type="text" placeholder="Nomor KMS" class="form-control fs-normal form-spacer-20x15 @error('no_kms') is-invalid @enderror" id="no_kms" name="no_kms" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ old('no_kms') }}" autofocus>
+            </div>
             <div class="form-group">
               <label for="nama">Nama Bayi</label>
               <input type="text" placeholder="Nama Bayi" class="form-control fs-normal form-spacer-20x15 @error('nama') is-invalid @enderror" id="nama" name="nama" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Bayi" value="{{ old('nama') }}">

@@ -47,7 +47,7 @@
                 @if ($baby->immunization->count() == 0)
                   <button type="button" class="btn btn-danger fs-small"> <span class="fas fa-times"></span> Belum Pernah</button>
                 @else
-                  <button type="button" class="btn btn-success fs-small"><span class="fas fa-check"></span> {{ $baby->immunization->count() }}x Imunisasi</button>
+                  <button type="button" class="btn btn-primary fs-small"><span class="fas fa-check"></span> <b class="font-medium">{{ $baby->immunization->count() }}</b>x Imunisasi</button>
                 @endif
               </td>
               <td class="text-center">

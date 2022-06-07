@@ -26,7 +26,7 @@
       <a href="/baby/create" class="btn btn-primary py-2 px-3 mx-2 fs-normal float-right mb-3 shadow-sm"><span class="fas fa-user-plus mx-1"></span> Tambah Data</a>
       <a class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm" href="/baby/export">
        <span class="fas fa-file-excel px-1"></span> Export ke Excel</a>
-      
+
       <div class="table-responsive">
         <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
           <thead>
@@ -51,6 +51,19 @@
                   <span class="fa fa-fw fa-eye mx-1"></span>
                   Detail
                 </a>
+                <a href="{{ url('/baby').'/'.$baby->id.'/edit' }}" class="btn fs-small btn-warning text-decoration-none">
+                  {{-- <span class="fa fa-fw fa-pencil-square-o mx-1"></span> --}}
+                  <img class="fa fa-fw fa-pencil-square-o mx-1 mt-n1" src="img/edit.svg">
+                  Edit
+                </a>
+                <form action="{{ url('/baby').'/'.$baby->id }}" method="post" class="d-inline">
+                    @method('delete')
+                    @csrf
+                    <button class="btn fs-small btn-danger text-decoration-none" onclick="return confirm('Are you sure?')">
+                        <img class="fa fa-fw fa-pencil-square-o mx-1 mt-n1" src="img/delete.svg">
+                        Delete
+                    </button>
+                </form>
                 {{-- <a href="#" class="btn-sm btn-warning rounded-circle"><img class="mt-n1" src="img/edit.svg"></a>
                 <a href="#" class="btn-sm btn-danger rounded-circle"><img class="mt-n1" src="img/delete.svg"></a> --}}
               </td>
@@ -61,7 +74,6 @@
       </div>
     </div>
   </div>
-
 </div>
 <!-- /.container-fluid -->
 @endsection

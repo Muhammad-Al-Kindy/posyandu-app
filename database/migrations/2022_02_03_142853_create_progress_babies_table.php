@@ -21,7 +21,7 @@ class CreateProgressBabiesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('id_bayi')->references('id')->on('babies');
+            $table->foreign('id_bayi')->references('id')->on('babies')->onDelete('cascade');
         });
     }
 

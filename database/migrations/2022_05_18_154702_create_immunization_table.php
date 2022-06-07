@@ -21,8 +21,8 @@ class CreateImmunizationTable extends Migration
             $table->date('date');
             $table->timestamps();
 
-            $table->foreign('id_baby')->references('id')->on('babies');
-            $table->foreign('id_vaccine')->references('id')->on('vaccine');
+            $table->foreign('id_baby')->references('id')->on('babies')->onDelete('cascade');
+            $table->foreign('id_vaccine')->references('id')->on('vaccine')->onDelete('cascade');
         });
     }
 

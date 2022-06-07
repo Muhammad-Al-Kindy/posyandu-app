@@ -102,6 +102,10 @@ class BabiesController extends Controller {
         }
     }
 
+    public function export_excel() {
+
+    }
+
     public function simpanprogress(Request $request){
         $detail = DB::table('progress_babies')->select('bulan_ke')->where('id_bayi', $request->id_bayi)->get();
         for($i=0 ; $i<count($detail) ; $i++){
@@ -509,7 +513,7 @@ class BabiesController extends Controller {
                         ->where('id', $id)
                         ->first();
         $umur = $this->hitung_umur(date('Y-m-d', $baby->tanggal_lahir));
-        
+
         $laki = ''; $perempuan = '';
         switch($baby->jenis_kelamin){
             case 1: $laki = 'checked';

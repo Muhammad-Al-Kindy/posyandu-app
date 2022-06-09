@@ -95,7 +95,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="form-group row">
               <div class="col-md-6">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -123,7 +123,7 @@
             </div>
 
             <div class="form-group row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="panjang_bayi">Panjang Bayi</label>
                 <input type="number" min="1" placeholder="Dalam cm" class="form-control fs-normal form-spacer-20x15 @error('panjang_bayi') is-invalid @enderror" name="panjang_bayi" id="panjang_bayi" data-toggle="tooltip" data-placement="right" title="Tinggi Badan Bayi Saat Lahir" value="{{ old('panjang_bayi') }}" step="any">
                 @error('panjang_bayi')
@@ -131,7 +131,7 @@
                 @enderror
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="berat_bayi">Berat Bayi</label>
                 <input type="number" min="1" placeholder="Dalam kg" class="form-control fs-normal form-spacer-20x15 @error('berat_bayi') is-invalid @enderror" name="berat_bayi" id="berat_bayi" data-toggle="tooltip" data-placement="right" title="Berat Badan Bayi Saat Lahir" value="{{ old('berat_bayi') }}" step="any">
                 @error('berat_bayi')
@@ -139,7 +139,15 @@
                 @enderror
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-3">
+                <label for="lingkar_kepala">Lingkar Kepala</label>
+                  <input type="number" min="1" placeholder="Lingkar Kepala" class="form-control fs-normal form-spacer-20x15 @error('lingkar_kepala') is-invalid @enderror" name="lingkar_kepala" id="lingkar_kepala" data-toggle="tooltip" data-placement="right" title="Lingkar Kepala (cm)" value="{{ old('lingkar_kepala') }}" step="any">
+                  @error('lingkar_kepala')
+                    <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+                  @enderror
+              </div>
+
+              <div class="col-md-3">
                 <label for="anak_ke">Anak ke-</label>
                   <input type="number" min="1" placeholder="Anak Ke" class="form-control fs-normal form-spacer-20x15 @error('anak_ke') is-invalid @enderror" name="anak_ke" id="anak_ke" data-toggle="tooltip" data-placement="right" title="Anak Ke-" value="{{ old('anak_ke') }}">
                   @error('anak_ke')
@@ -148,9 +156,9 @@
               </div>
             </div>
           </div>
-          
+
         </div>
-        
+
         <div class="form-group">
           <label for="alamat">Alamat</label>
           <textarea placeholder="Alamat" class="form-control fs-normal form-spacer-20x15 @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="3"  data-toggle="tooltip" data-placement="right" title="Alamat Lengkap"></textarea>
@@ -160,7 +168,7 @@
         </div>
 
         <button type="submit" class="btn py-2 px-5 float-right font-medium btn-primary">Tambah</button>
-            
+
       </form>
     </div>
   </div>

@@ -3,7 +3,7 @@
 @section('content')
 <!-- Begin Page Content -->
 <div class="container fs-normal">
-   
+
    <!-- Page Heading -->
    <p class="mb-3">Tabel / Data / <span class="color-primary">Baby Progress</span></p>
    <div class="row">
@@ -92,6 +92,7 @@
                 <th>Bulan Ke-</th>
                 <th>Tinggi Bayi</th>
                 <th>Berat Bayi</th>
+                <th>Lingkar Kepala</th>
               </tr>
             </thead>
             <tbody>
@@ -100,6 +101,7 @@
                         <td class="text-center">0</td>
                         <td>{{ $baris->panjang_bayi}} cm</td>
                         <td>{{ $baris->berat_bayi }} kg</td>
+                        <td>{{ $baris->lingkar_kepala }} cm</td>
                     </tr>
                @endif
                @if($progress)
@@ -108,6 +110,7 @@
                         <td class="text-center">{{ $p->bulan_ke }}</td>
                         <td>{{ $p->panjang_bayi }} cm</td>
                         <td>{{ $p->berat_bayi }} kg</td>
+                        <td>{{ $p->lingkar_kepala }} cm</td>
                     </tr>
                     @endforeach
                @endif
@@ -124,7 +127,7 @@
     }
     ; ?>
 
-   <!-- DataTables Example 
+   <!-- DataTables Example
    <div class="card shadow border-0 mb-4">
       <div class="card-header bg-white py-3">
          <h6 class="m-0 font-weight-bold color-primary">Data Pertumbuhan Bayi</h6>
@@ -182,6 +185,11 @@
               @error('berat_bayi')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
            </div>
            <div class="form-group">
+              <label for="lingkar_kepala">Lingkar Kepala (cm)</label>
+              <input type="number" class="form-control rad-10 form-spacer-20x15 fs-normal @error('lingkar_kepala') is-invalid @enderror" name="lingkar_kepala" id="lingkar_kepala" data-toggle="tooltip" data-placement="right" title="Lingkar Kepala Sekarang" placeholder="Lingkar Kepala sekarang" min="1" step="any">
+              @error('lingkar_kepala')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
+           </div>
+           <div class="form-group">
               <label for="bulan_ke">Bulan Ke-</label>
               <input type="number" readonly class="form-control rad-10 form-spacer-20x15 fs-normal @error('bulan_ke') is-invalid @enderror" name="bulan_ke" id="bulan_ke" min="1" data-toggle="tooltip" data-placement="right" title="Berat Bayi Sekarang" value="{{ $bulan_ke }}" placeholder="Bulan Ke" min="1" step="any">
               @error('bulan_ke')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
@@ -190,7 +198,6 @@
        <div class="modal-footer mx-3">
          <button class="btn btn-secondary fs-normal py-2 px-3" type="button" data-dismiss="modal">Cancel</button>
          <button type="submit" class="btn btn-primary fs-normal py-2 px-3">Simpan</button>
- 
        </form>
        </div>
      </div>

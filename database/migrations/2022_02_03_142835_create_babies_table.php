@@ -26,6 +26,7 @@ class CreateBabiesTable extends Migration {
             $table->string('golongan_darah');
             $table->decimal('panjang_bayi', 11, 2);
             $table->decimal('berat_bayi', 11, 2);
+            $table->decimal('lingkar_kepala', 11, 2);
             $table->timestamps();
             $table->softDeletes();
 

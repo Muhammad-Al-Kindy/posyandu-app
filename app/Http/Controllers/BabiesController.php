@@ -15,7 +15,7 @@ class BabiesController extends Controller {
         $progress = DB::table('babies AS b')
             ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
             ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
+            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi', 'p.lingkar_kepala')
             ->where('id_bayi', $baby->id)
             ->get();
         $jk = $baby->jenis_kelamin == 1 ? 'fas fa-mars' : 'fas fa-venus';
@@ -116,6 +116,7 @@ class BabiesController extends Controller {
 
         $request->validate([
             'bulan_ke' => 'required',
+            'lingkar_kepala' => 'required',
             'panjang_bayi' => 'required',
             'berat_bayi' => 'required'
         ]);
@@ -288,7 +289,8 @@ class BabiesController extends Controller {
             'jenis_kelamin' => 'required',
             'golongan_darah' => 'required',
             'panjang_bayi' => 'required',
-            'berat_bayi' => 'required'
+            'berat_bayi' => 'required',
+            'lingkar_kepala' => 'required',
         ]);
 
         $request->nama = ucwords($request->nama);
@@ -337,7 +339,8 @@ class BabiesController extends Controller {
             'jenis_kelamin' => $request->jenis_kelamin,
             'golongan_darah' => $request->golongan_darah,
             'panjang_bayi' => $request->panjang_bayi,
-            'berat_bayi' => $request->berat_bayi
+            'berat_bayi' => $request->berat_bayi,
+            'lingkar_kepala' => $request->lingkar_kepala
         ]);
 
         // otomatis mengisi yang di fillable tanpa inisialisasi satu per satu
@@ -355,7 +358,7 @@ class BabiesController extends Controller {
         $progress = DB::table('babies AS b')
             ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
             ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi')
+            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi', 'p.lingkar_kepala')
             ->where('id_bayi', $baby->id)
             ->get();
 
@@ -372,10 +375,12 @@ class BabiesController extends Controller {
         if(count($progress) == 0){
             $panjang_bayi = $baby->panjang_bayi;
             $berat_bayi = $baby->berat_bayi;
+            $lingkar_kepala = $baby->lingkar_kepala;
         }else{
-            $detail = DB::table('progress_babies')->select('panjang_bayi', 'berat_bayi')->where('id_bayi', $baby->id)->where('bulan_ke', max($bulan))->get();
+            $detail = DB::table('progress_babies')->select('panjang_bayi', 'berat_bayi', 'lingkar_kepala')->where('id_bayi', $baby->id)->where('bulan_ke', max($bulan))->get();
             $panjang_bayi = $detail[0]->panjang_bayi;
             $berat_bayi = $detail[0]->berat_bayi;
+            $lingkar_kepala = $detail[0]->lingkar_kepala;
         }
         // $this->status($baby->jenis_kelamin, $baby->tanggal_lahir);
         // $this->hitungIdeal(date('Y-m-d', $baby->tanggal_lahir), $baby);
@@ -387,7 +392,8 @@ class BabiesController extends Controller {
             'jenis_kelamin' => $jk,
             'umur' => $umur,
             'panjang_sekarang' => $panjang_bayi,
-            'berat_sekarang' => $berat_bayi
+            'berat_sekarang' => $berat_bayi,
+            'lingkar_kepala' => $lingkar_kepala,
         ];
         return view('babies.show', $data);
     }
@@ -562,7 +568,8 @@ class BabiesController extends Controller {
             'jenis_kelamin' => 'required',
             'golongan_darah' => 'required',
             'panjang_bayi' => 'required',
-            'berat_bayi' => 'required'
+            'berat_bayi' => 'required',
+            'lingkar_kepala' => 'required',
         ]);
 
         $request->tanggal_lahir = mktime(
@@ -592,7 +599,8 @@ class BabiesController extends Controller {
             'jenis_kelamin' => $request->jenis_kelamin,
             'golongan_darah' => $request->golongan_darah,
             'panjang_bayi' => $request->panjang_bayi,
-            'berat_bayi' => $request->berat_bayi
+            'berat_bayi' => $request->berat_bayi,
+            'lingkar_kepala' => $request->lingkar_kepala,
         ]);
         // alihkan halaman ke halaman pegawai
         return redirect('/baby/'.$id);

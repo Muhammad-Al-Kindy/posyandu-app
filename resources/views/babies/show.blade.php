@@ -3,7 +3,7 @@
 @section('content')
 <!-- Begin Page Content -->
 <div class="container fs-normal">
-  
+
   <!-- Page Heading -->
   <p class="mb-3">Tabel / Data / <span class="color-primary">Baby Detail</span></p>
   <div class="row">
@@ -16,7 +16,7 @@
         <a href="{{ $baby->id }}/progress" class="btn btn-primary mx-2 shadow-sm fs-normal align-self-center mt-n3">
         <span class="fas fa-chart-line"></span> Pertumbuhan Bayi</a>
       @endif
-      
+
       @if(auth()->user()->role == 'Staff2' || auth()->user()->role == 'Staff' || auth()->user()->role == 'Admin')
         <a href="{{ url('/baby').'/'.$baby->id.'/edit' }}" class="btn btn-info shadow-sm fs-normal align-self-center mt-n3">
           <span class="fas fa-edit"></span> Ubah Data</a>
@@ -80,7 +80,7 @@
       </div>
       <div class="card-body">
         <div class="row container-fluid">
-          <div class="col-lg-4">
+          <div class="col-lg-12">
             <h5 class="fs-medium"><strong>Golongan Darah</strong></h5>
             @if($baby->golongan_darah == "BT")
             <p class="color-primary">Belum Tahu</p>
@@ -97,6 +97,10 @@
             <p class="color-primary">{{ $baby->berat_bayi }} kg</p>
           </div>
           <div class="col-lg-4">
+            <h5 class="fs-medium"><strong>Lingkar Kepala lahir</strong></h5>
+            <p class="color-primary">{{ $baby->lingkar_kepala }} cm</p>
+          </div>
+          <div class="col-lg-4">
             <h5 class="fs-medium"><strong>Tinggi Sekarang</strong></h5>
             <p class="color-primary">{{ $panjang_sekarang }} cm</p>
           </div>
@@ -104,11 +108,20 @@
             <h5 class="fs-medium"><strong>Berat Sekarang</strong></h5>
             <div class="row">
               <div class="col-4">
-
                 <p class="color-primary">{{ $berat_sekarang }} kg</p>
               </div>
               <div class="col">
-
+                {{-- <span class="badge badge-danger">Terlalu Gemuk</span> --}}
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h5 class="fs-medium"><strong>Lingkar Kepala Sekarang</strong></h5>
+            <div class="row">
+              <div class="col-4">
+                <p class="color-primary">{{ $lingkar_kepala }} cm</p>
+              </div>
+              <div class="col">
                 {{-- <span class="badge badge-danger">Terlalu Gemuk</span> --}}
               </div>
             </div>

@@ -11,6 +11,7 @@ class ProgressBaby extends Model {
     protected $fillable = [
       'id_bayi',
       'bulan_ke',
+      'lingkar_kepala',
       'panjang_bayi',
       'berat_bayi'
     ];

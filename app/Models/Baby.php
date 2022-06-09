@@ -19,6 +19,7 @@ class Baby extends Model {
         'golongan_darah',
         'panjang_bayi',
         'berat_bayi',
+        'lingkar_kepala',
     ];
 
     public function progressBaby(){

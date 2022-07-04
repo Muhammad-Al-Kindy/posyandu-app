@@ -6,7 +6,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImmunizationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\VaccineController;
+use App\Http\Controllers\VitaminController;
+use App\Http\Controllers\VitaminizationController;
 use App\Models\ProgressBaby;
+use App\Models\Vitamin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +73,28 @@ Route::middleware('auth')->group(function(){
     Route::controller(GraduateController::class)->group(function(){
         Route::get('/graduation', 'index');
         Route::get('/graduation/update/{id}', 'update');
+    });
+
+    Route::controller(VitaminController::class)->group(function() {
+        Route::get('/vitamin', 'index');
+        Route::get('/vitamin/create', 'create');
+        Route::post('/vitamin/store', 'store');
+        Route::get('/vitamin/{id}/show', 'show');
+        Route::get('/vitamin/{id}/edit', 'edit');
+        Route::put('/vitamin/{id}', 'update');
+        Route::delete('/vitamin/{id}', 'destroy');
+    });
+
+    Route::controller(VitaminizationController::class)->group(function() {
+        Route::get('/vitaminization', 'index');
+        Route::get('/vitaminization/create', 'create');
+        Route::get('/vitaminization/add/{id_baby}/{id}', 'add');
+        Route::post('/vitaminization/{id_baby}/add', 'store_vitamin');
+        Route::post('/vitaminization/store', 'store');
+        Route::get('/vitaminization/{id}/show', 'show');
+        Route::get('/vitaminization/{id}/edit', 'edit');
+        Route::put('/vitaminization/{id}', 'update');
+        Route::delete('/vitaminization/{id}', 'destroy');
     });
 });
 

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use DateTime;
 use App\Models\Baby;
 use App\Models\Parents;
 use App\Models\ProgressBaby;
-use DateTime;
 use Illuminate\Http\Request;
+// use Maatwebsite\Excel\Excel;
+use App\Exports\BabiesExport;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BabiesController extends Controller {
     public function progress(Baby $baby, Request $request){
@@ -103,7 +106,7 @@ class BabiesController extends Controller {
     }
 
     public function export_excel() {
-
+        return Excel::download(new BabiesExport, 'progress.xlsx');
     }
 
     public function simpanprogress(Request $request){

@@ -21,7 +21,7 @@
 
   @if (Auth::user()->role == 'Admin')
     <li class="nav-item active border-top border-bottom">  
-      <a class="nav-link px-5" href="{{ route('home') }}">
+      <a class="nav-link px-5 w-100" href="{{ route('home') }}">
       <i class="fas fa-fw fa-users"></i>
         <span>Data Users</span>
       </a>
@@ -29,36 +29,36 @@
   @endif
   
   <li class="nav-item active border-top border-bottom">  
-    <a class="nav-link px-5" href="{{ url('/baby') }}">
+    <a class="nav-link px-5 w-100" href="{{ url('/baby') }}">
       <i class="fas fa-fw fa-baby"></i>
       <span>Data Bayi</span>
     </a>
   </li>
 
   <li class="nav-item active border-bottom">  
-    <a class="nav-link px-5" href="/immunization">
+    <a class="nav-link px-5 w-100" href="/immunization">
       <i class="fas fa-fw fa-heartbeat"></i>
-      <span>Data Imunisasi</span>
+      <span>Catatan Imunisasi</span>
     </a>
   </li>
 
   @if (Auth::user()->role == 'Admin')
     <li class="nav-item active border-bottom">  
-      <a class="nav-link px-5" href="/vaccine">
+      <a class="nav-link px-5 w-100" href="/vaccine">
         <i class="fas fa-fw fa-syringe"></i>
         <span>Data Vaksin</span>
       </a>
     </li>
 
     <li class="nav-item active border-bottom">  
-      <a class="nav-link px-5" href="/graduation">
+      <a class="nav-link px-5 w-100" href="/graduation">
         <i class="fas fa-fw fa-user-graduate"></i>
         <span>Kelulusan</span>
       </a>
     </li>
 
   {{-- <li class="nav-item active border-bottom">  
-    <a class="nav-link px-5" href="{{ route('home') }}">
+    <a class="nav-link px-5 w-100" href="{{ route('home') }}">
       <i class="fas fa-fw fa-hdd"></i>
       <span>Backup Data</span>
     </a>
@@ -66,7 +66,7 @@
   @endif
 
   <li class="nav-item active border-bottom">  
-    <a class="nav-link px-5" href="#" data-toggle="modal" data-target="#logoutModal">
+    <a class="nav-link px-5 w-100" href="#" data-toggle="modal" data-target="#logoutModal">
       <i class="fas fa-sign-out-alt mx-1"></i>
       <span>Keluar</span>
     </a>

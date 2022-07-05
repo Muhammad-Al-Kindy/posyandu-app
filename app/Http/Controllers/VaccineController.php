@@ -2,20 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VaccineExport;
 use App\Models\Baby;
 use App\Models\Immunization;
 use App\Models\User;
 use App\Models\Vaccine;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VaccineController extends Controller
 {
     public function index(Request $request) {
         $vaccines = Vaccine::orderBy('id', 'desc')->get();
         return view('vaccines.index', compact('vaccines'));
+    }
+
+    public function export_excel(){
+        return Excel::download(new VaccineExport, 'vaccine '.Carbon::now().'.xlsx');
+        // $title = 'Export Vaccine';
+        // $vaccines = Vaccine::orderBy('id', 'desc')->get();
+        // return view('exports.vaccine', compact('vaccines', 'title'));
     }
 
     public function create(){

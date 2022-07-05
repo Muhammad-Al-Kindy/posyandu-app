@@ -23,7 +23,8 @@
     <div class="card-body">
       <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Vaksin</h5>
       <p class="mb-3 float-left">Halaman ini untuk mengelola data vaksin</p>
-      <a href="{{ url('/vaccine/create') }}" class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-user-plus mx-1"></span> Tambah Data</a>
+      <a href="{{ url('/vaccine/create') }}" class="btn btn-primary py-2 px-3 mx-2 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-user-plus mx-1"></span> Tambah Data</a>
+      <a href="{{ url('/vaccine/export') }}" class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-file-excel mx-1"></span> Export Excel</a>
 
 
       <div class="table-responsive">

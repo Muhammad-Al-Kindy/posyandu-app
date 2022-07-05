@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function(){
         Route::put('/vaccine/{id}', 'update');
         Route::delete('/vaccine/{id}', 'destroy');
         Route::get('/vaccine/{id}/unvaccinated', 'unvaccinated');
+        Route::get('/vaccine/export', 'export_excel');
     });
 
     Route::controller(ImmunizationController::class)->group(function(){

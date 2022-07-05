@@ -31,7 +31,7 @@
               <th class="text-center">NO</th>
               <th>Nama Bayi</th>
               <th>Nama Ibu</th>
-              <th>Nama Ayah</th>
+              <th>Usia Bayi</th>
               <th>Imunisasi</th>
               <th>Action</th>
             </tr>
@@ -42,7 +42,7 @@
               <td class="text-center">{{ $loop->iteration }}</td>
               <td>{{ $baby->nama }}</td>
               <td>{{ $baby->parents->nama_ibu }}</td>
-              <td>{{ $baby->parents->nama_ayah }}</td>
+              <td>{{ \App\Http\Controllers\BabiesController::get_birtdate($baby->tanggal_lahir) }}</td>
               <td>
                 @if ($baby->immunization->count() == 0)
                   <button type="button" class="btn btn-danger fs-small"> <span class="fas fa-times"></span> Belum Pernah</button>

@@ -3,18 +3,20 @@
 namespace App\Exports;
 
 use App\Models\Baby;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
 
-class BabiesExport implements FromCollection
+class BabiesExport implements FromView
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection() {
-        return DB::table('babies AS b')
-                ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-                ->select('b.id', 'b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah')
-                ->get();
+    public function view(): View 
+    {
+        return view('exports.babies', [
+            'babies' => Baby::with('parents')->get(),
+            'title' => 'Babies Export'
+        ]);
     }
 }

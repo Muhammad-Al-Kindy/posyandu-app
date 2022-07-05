@@ -9,6 +9,7 @@ use App\Models\ProgressBaby;
 use Illuminate\Http\Request;
 // use Maatwebsite\Excel\Excel;
 use App\Exports\BabiesExport;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -106,7 +107,11 @@ class BabiesController extends Controller {
     }
 
     public function export_excel() {
-        return Excel::download(new BabiesExport, 'progress.xlsx');
+        return Excel::download(new BabiesExport, 'progress '.Carbon::now().'.xlsx');
+        // return view('exports.babies', [
+        //     'babies' => Baby::with('parents')->get(),
+        //     'title' => 'Babies Export'
+        // ]);
     }
 
     public function simpanprogress(Request $request){
@@ -477,6 +482,31 @@ class BabiesController extends Controller {
                 return $y." tahun ".$m." bulan";
             }else{
                 return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else{
+            return $d." hari";
+        }
+    }
+
+    static function get_birtdate_month($tanggal_lahir){
+        $birthDate = new DateTime();
+        $birthDate->setTimestamp($tanggal_lahir);
+        $today = new DateTime("today");
+        if ($birthDate > $today) {
+            exit("0 bulan 0 hari");
+        }
+        $y = $today->diff($birthDate)->y;
+        $m = $today->diff($birthDate)->m;
+        $d = $today->diff($birthDate)->d;
+        if($m > 0){
+            if($y == 0 && $d ==0){
+                return ($y * 12) + $m." bulan";
+            }else if($y == 0){
+                return ($y * 12) + $m." bulan ".$d." hari";
+            }else if($d == 0){
+                return  ($y * 12) + $m." bulan";
+            }else{
+                return ($y * 12) + $m." bulan ".$d." hari";
             }
         }else{
             return $d." hari";

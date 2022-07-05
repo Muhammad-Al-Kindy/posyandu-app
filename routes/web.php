@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(ImmunizationController::class)->group(function(){
         Route::get('/immunization', 'index');
+        Route::get('/immunization/export', 'export_excel');
         Route::get('/immunization/create/{id_baby}', 'create');
         Route::post('/immunization/{id_baby}', 'store');
 
@@ -78,6 +79,7 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(VitaminController::class)->group(function() {
         Route::get('/vitamin', 'index');
+        Route::get('/vitamin/export', 'export_excel');
         Route::get('/vitamin/create', 'create');
         Route::post('/vitamin/store', 'store');
         Route::get('/vitamin/{id}/show', 'show');

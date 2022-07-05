@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ImmunizationExport;
 use App\Models\Baby;
 use App\Models\Immunization;
 use App\Models\Vaccine;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ImmunizationController extends Controller {
     public function index() {
@@ -14,6 +17,22 @@ class ImmunizationController extends Controller {
                         ->orderBy('id', 'ASC')->get();
         // dd($babies);
         return view('immunizations.index', compact('babies'));
+    }
+
+    public function export_excel(){
+        return Excel::download(new ImmunizationExport, 'Immunization '.Carbon::now().'.xlsx');
+        // return view('exports.immunization', [
+        //     'immunizations' => Immunization::with('baby')
+        //                                 ->with('vaccine')->get(),
+        //     'vaccines' => Vaccine::all(),
+        //     'title' => 'Immunizations Export',
+        // ]);
+    }
+
+    public static function get_immun_date($id_vaccine, $id_baby){
+
+        $date_immun = Immunization::where('id_vaccine', $id_vaccine)->where('id_baby', $id_baby)->first();
+        return $date_immun;
     }
 
     public function create($id_baby){

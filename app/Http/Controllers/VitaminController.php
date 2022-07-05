@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VitaminExport;
 use DateTime;
 use App\Models\Baby;
 use App\Models\Vitamin;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VitaminController extends Controller {
 
@@ -14,6 +17,14 @@ class VitaminController extends Controller {
         $vitamin = Vitamin::all();
         return view('vitamins.index', ['vitamin' => $vitamin]);
     }
+
+    public function export_excel(){
+        return Excel::download(new VitaminExport, 'vitamin '.Carbon::now().'.xlsx');
+        // $title = 'Export Vitamin';
+        // $vitamins = Vitamin::orderBy('id', 'desc')->get();
+        // return view('exports.vitamin', compact('vitamins', 'title'));
+    }
+
 
     public function create() {
         return view('vitamins.create');

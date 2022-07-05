@@ -23,7 +23,9 @@
     <div class="card-body">
       <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Catatan Imunisasi Bayi</h5>
       <p class="mb-3 float-left">Halaman ini untuk pengelolaan data bayi</p>
-      
+      <a class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm" href="/immunization/export">
+        <span class="fas fa-file-excel px-1"></span> Export ke Excel</a>
+
       <div class="table-responsive">
         <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
           <thead>

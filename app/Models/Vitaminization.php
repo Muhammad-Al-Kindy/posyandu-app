@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vitaminization extends Model {
     use HasFactory;
+    protected $table = 'vitaminization';
     protected $guarded = ['id'];
 
     public function baby() {

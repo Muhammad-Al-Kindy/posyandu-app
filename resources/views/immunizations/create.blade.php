@@ -34,14 +34,14 @@
          <h6 class="m-0 font-weight-bold color-primary">Data Imunisasi</h6>
       </div>
       <div class="card-body container-fluid">
-         <form method="post" action="/immunization/{{ $baby->id }}">
+         <form method="POST" action="/immunization/{{ $baby->id }}">
           @csrf
           <div class="form-group">
             <label for="name">Nama Bayi</label>
             <input type="text" placeholder="ex: BCG (Bacillus Calmette Guerin)" class="form-control fs-normal form-spacer-20x15 @error('name') is-invalid @enderror" id="name" name="name" data-toggle="tooltip" data-placement="right" title="name Lengkap Bayi" value="{{ $baby->nama }}" readonly autofocus>
             @error('name')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
           </div>
-            
+
           <div class="form-group row">
             <div class="col-md-4">
               <label for="id_vaccine">Nama Jenis Vaksin</label>
@@ -63,7 +63,7 @@
               @error('date')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
             </div>
           </div>
-         
+
           <button type="submit" class="btn btn-primary font-medium float-right py-2 px-5">Tambah</button>
          </form>
       </div>

@@ -8,11 +8,11 @@
    <p class="mb-3">Tabel / Data / <span class="color-primary">Change Data</span></p>
   <div class="row">
     <div class="col-md-6">
-      <h5 class="m-0 font-weight-bold color-primary mb-2">Ubah Data Vaksin</h5>
-      <p class="mb-4">Hati-hati dalam input data. Beberapa data tidak dapat diubah setelah diinput!.</p>
+      <h5 class="m-0 font-weight-bold color-primary mb-2">Ubah Data Vitamin</h5>
+      <p class="mb-4">Hati-hati dalam input data. Beberapa data tidak dapat diubah setelah diinput!</p>
     </div>
     <div class="col-md-6 d-flex justify-content-end">
-      <a href="/vaccine" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center px-3 mt-n3">Kembali</a>
+      <a href="/vitamin" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center px-3 mt-n3">Kembali</a>
     </div>
   </div>
 
@@ -22,17 +22,17 @@
          <h6 class="m-0 font-weight-bold color-primary">Data Vaksin</h6>
       </div>
       <div class="card-body container-fluid">
-         <form method="post" action="/vaccine/{{ $vaccine->id }}">
+         <form method="post" action="/vitamin/{{ $vitamin->id }}">
           @method('PUT')
           @csrf
           <div class="form-group">
-             <label for="name">Nama Jenis Vaksin</label>
-             <input type="text" placeholder="ex: BCG (Bacillus Calmette Guerin)" class="form-control fs-normal form-spacer-20x15 @error('name') is-invalid @enderror" id="name" name="name" data-toggle="tooltip" data-placement="right" title="name vaksin" value="{{ $vaccine->name }}" autofocus>
+             <label for="name">Nama Jenis Vitamin</label>
+             <input type="text" placeholder="ex: Vitamin B12" class="form-control fs-normal form-spacer-20x15 @error('name') is-invalid @enderror" id="name" name="name" data-toggle="tooltip" data-placement="right" title="name vitamin" value="{{ $vitamin->name }}" autofocus>
              @error('name')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
           </div>
           <div class="form-group">
              <label for="description">Deskripsi</label>
-             <textarea name="description" placeholder="ex: Deskripsi vaksin" class="form-control fs-normal form-spacer-20x15 @error('description') is-invalid @enderror" id="description" id="description">{{ $vaccine->description }}</textarea>
+             <textarea name="description" placeholder="ex: Deskripsi Vitamin" class="form-control fs-normal form-spacer-20x15 @error('description') is-invalid @enderror" id="description" id="description">{{ $vitamin->description }}</textarea>
              @error('description')<div class="invalid-feedback ml-1">{{ $message }}</div>@enderror
           </div>
 

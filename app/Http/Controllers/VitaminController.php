@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
+use App\Models\Baby;
 use App\Models\Vitamin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VitaminController extends Controller {
 
     public function index() {
-        return view('vitamins.index', ['data' => Vitamin::all()]);
+        $vitamin = Vitamin::all();
+        return view('vitamins.index', ['vitamin' => $vitamin]);
     }
 
     public function create() {
@@ -31,12 +35,12 @@ class VitaminController extends Controller {
     }
 
     public function show($id){
-        $vaccine = Vitamin::where('id', $id)->first();
+        $vitamin = Vitamin::where('id', $id)->first();
         return view('vitamins.show', compact('vitamin'));
     }
 
     public function edit($id){
-        $vaccine = Vitamin::where('id', $id)->first();
+        $vitamin = Vitamin::where('id', $id)->first();
         return view('vitamins.edit', compact('vitamin'));
     }
 
@@ -55,8 +59,57 @@ class VitaminController extends Controller {
         return redirect('/vitamin')->with('status', "Data '" . $request->name . "' berhasil diubah");
     }
 
+    public function unvitaminated($id) {
+        $vitamin = Vitamin::where('id', $id)->first();
+        $babies = Baby::select('babies.id as id_bayi', 'babies.nama as nama_bayi', 'babies.tanggal_lahir as tanggal_lahir', 'parents.*', 'vitamin.*', 'vitaminization.id_vitamin', DB::raw('COUNT(vitaminization.id_baby) as countID'))
+                    ->join('parents', 'parents.id', '=', 'babies.id_parent')
+                    ->leftJoin('vitaminization', 'vitaminization.id_baby', '=', 'babies.id')
+                    ->leftJoin('vitamin', 'vitamin.id', '=', 'vitaminization.id_vitamin')
+                    ->groupBy('id_bayi')
+                    // ->whereNotNull('vitaminization.id_vitamin')
+                    // ->where('vitaminization.id_vitamin', '==', $id)
+                    ->get();
+        // dd($babies);
+        return view('vitaminizations.unvitaminated', compact('babies', 'vitamin'));
+    }
+
     public function destroy($id) {
-        $vitamin = Vitamin::destroy($id);
-        return redirect('/vitamin')->with('status', "Data '" . $vitamin['name'] . "' berhasil dihapus");
+        Vitamin::destroy($id);
+        return redirect('/vitamin')->with('status', "Data berhasil dihapus");
+    }
+
+    static function get_birtdate($tanggal_lahir){
+        $birthDate = new DateTime();
+        $birthDate->setTimestamp($tanggal_lahir);
+        $today = new DateTime("today");
+        if ($birthDate > $today) {
+            exit("0 tahun 0 bulan 0 hari");
+        }
+        $y = $today->diff($birthDate)->y;
+        $m = $today->diff($birthDate)->m;
+        $d = $today->diff($birthDate)->d;
+        if($y > 0){
+            if($m == 0 && $d ==0){
+                return $y." tahun";
+            }else if($m == 0){
+                return $y." tahun ".$d." hari";
+            }else if($d == 0){
+                return $y." tahun ".$m." bulan";
+            }else{
+                return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else if($m > 0){
+            if($y == 0 && $d ==0){
+                return $m." bulan";
+            }else if($y == 0){
+                return $m." bulan ".$d." hari";
+            }else if($d == 0){
+                return $y." tahun ".$m." bulan";
+            }else{
+                return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else{
+            return $d." hari";
+        }
     }
 }

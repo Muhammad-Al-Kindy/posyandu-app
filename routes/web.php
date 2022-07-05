@@ -84,18 +84,19 @@ Route::middleware('auth')->group(function(){
         Route::get('/vitamin/{id}/edit', 'edit');
         Route::put('/vitamin/{id}', 'update');
         Route::delete('/vitamin/{id}', 'destroy');
+        Route::get('/vitamin/{id}/unvitaminated', 'unvitaminated');
     });
 
     Route::controller(VitaminizationController::class)->group(function() {
         Route::get('/vitaminization', 'index');
-        Route::get('/vitaminization/create', 'create');
+        Route::get('/vitaminization/create/{id_baby}', 'create');
         Route::get('/vitaminization/add/{id_baby}/{id}', 'add');
         Route::post('/vitaminization/{id_baby}/add', 'store_vitamin');
-        Route::post('/vitaminization/store', 'store');
-        Route::get('/vitaminization/{id}/show', 'show');
-        Route::get('/vitaminization/{id}/edit', 'edit');
-        Route::put('/vitaminization/{id}', 'update');
-        Route::delete('/vitaminization/{id}', 'destroy');
+        Route::post('/vitaminization/{id_baby}', 'store');
+        Route::get('/vitaminization/{id_baby}/show', 'show');
+        Route::get('/vitaminization/{id_baby}/edit', 'edit');
+        Route::put('/vitaminization/{id_baby}/update', 'update');
+        Route::delete('/vitaminization/{id_baby}', 'destroy');
     });
 });
 

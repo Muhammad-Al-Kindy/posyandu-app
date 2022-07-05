@@ -81,7 +81,6 @@ class VitaminizationController extends Controller {
                 'bulan' => $request->bulan,
                 'date' => $request->date,
             ]);
-
             return redirect('/vitaminization'.'/'.$id_baby.'/show')->with('status', "Data '" . $request->name . "' berhasil ditambahkan");
         }
     }
@@ -94,15 +93,17 @@ class VitaminizationController extends Controller {
         return view('vitaminizations.show', compact('vit', 'baby'));
     }
 
-    public function edit($id_baby, $id){
-        $vit = Vitaminization::where('id', $id)->first();
-        $baby = Baby::where('id', $id_baby)->first();
+    public function edit($id){
         $vitamins = Vitamin::all();
-        return view('vitaminizations.edit', compact('vit', 'baby', 'vitamins'));
+        $vitaminization = Vitaminization::with('baby')
+                                    ->with('vitamin')
+                                    ->where('id', $id)->first();
+        return view('vitaminizations.edit', compact('vitaminization', 'vitamins'));
     }
 
-    public function update(Request $request, $id_baby, $id){
+    public function update(Request $request, $id_baby){
         $request->validate([
+            'id_vitamin' => 'required',
             'id_vitamin' => 'required',
             'bulan' => 'required',
             'date' => 'required',
@@ -119,7 +120,7 @@ class VitaminizationController extends Controller {
                     ->withInput()
                     ->with('danger', $vitamins->baby->nama." Sudah di vitamin ".$vitamins->vitamin->name);
         }else{
-            Vitaminization::where('id', $id)->update([
+            Vitaminization::where('id', $request->id_vitaminization)->update([
                 'id_baby' => $id_baby,
                 'id_vitamin' => $request->id_vitamin,
                 'bulan' => $request->bulan,
@@ -130,9 +131,12 @@ class VitaminizationController extends Controller {
         }
     }
 
-    public function destroy($id_baby, $id){
-        $vit = Vitaminization::where('id', $id)->first();
-        $vit->delete();
-        return redirect('/vitaminization'.'/'.$id_baby.'/show')->with('status', "Data '" . $vit->name . "' berhasil dihapus");
+    public function destroy($id) {
+        $vitaminisasi = Vitaminization::where('id',  $id)
+                        ->first();
+        $id_baby = $vitaminisasi->id_baby;
+        Vitaminization::destroy($id);
+        return redirect('/vitaminization'.'/'.$id_baby.'/show')->with('status', "Data berhasil dihapus");
+
     }
 }

@@ -20,44 +20,58 @@
   <!-- Nav Item - Dashboard -->
 
   @if (Auth::user()->role == 'Admin')
-    <li class="nav-item active border-top border-bottom">  
+    <li class="nav-item active border-top border-bottom">
       <a class="nav-link px-5 w-100" href="{{ route('home') }}">
       <i class="fas fa-fw fa-users"></i>
         <span>Data Users</span>
       </a>
     </li>
   @endif
-  
-  <li class="nav-item active border-top border-bottom">  
+
+  <li class="nav-item active border-top border-bottom">
     <a class="nav-link px-5 w-100" href="{{ url('/baby') }}">
       <i class="fas fa-fw fa-baby"></i>
       <span>Data Bayi</span>
     </a>
   </li>
 
-  <li class="nav-item active border-bottom">  
+  <li class="nav-item active border-bottom">
     <a class="nav-link px-5 w-100" href="/immunization">
       <i class="fas fa-fw fa-heartbeat"></i>
       <span>Catatan Imunisasi</span>
     </a>
   </li>
 
+  <li class="nav-item active border-bottom">
+    <a class="nav-link px-5 w-100" href="/vitaminization">
+      <i class="fas fa-fw fa-tablets"></i>
+      <span>Vitaminisasi</span>
+    </a>
+  </li>
+
   @if (Auth::user()->role == 'Admin')
-    <li class="nav-item active border-bottom">  
+    <li class="nav-item active border-bottom">
       <a class="nav-link px-5 w-100" href="/vaccine">
         <i class="fas fa-fw fa-syringe"></i>
         <span>Data Vaksin</span>
       </a>
     </li>
 
-    <li class="nav-item active border-bottom">  
+    <li class="nav-item active border-bottom">
+      <a class="nav-link px-5 w-100" href="/vitamin">
+        <i class="fas fa-fw fa-vial"></i>
+        <span>Data Vitamin</span>
+      </a>
+    </li>
+
+    <li class="nav-item active border-bottom">
       <a class="nav-link px-5 w-100" href="/graduation">
         <i class="fas fa-fw fa-user-graduate"></i>
         <span>Kelulusan</span>
       </a>
     </li>
 
-  {{-- <li class="nav-item active border-bottom">  
+  {{-- <li class="nav-item active border-bottom">
     <a class="nav-link px-5 w-100" href="{{ route('home') }}">
       <i class="fas fa-fw fa-hdd"></i>
       <span>Backup Data</span>
@@ -65,13 +79,13 @@
   </li> --}}
   @endif
 
-  <li class="nav-item active border-bottom">  
+  <li class="nav-item active border-bottom">
     <a class="nav-link px-5 w-100" href="#" data-toggle="modal" data-target="#logoutModal">
       <i class="fas fa-sign-out-alt mx-1"></i>
       <span>Keluar</span>
     </a>
   </li>
-  
+
 
   <!-- Sidebar Toggler (Sidebar) -->
   {{-- <div class="text-center d-none d-md-inline">

@@ -23,8 +23,9 @@
     <div class="card-body">
       <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Imunisasi - {{ $baby->nama }}</h5>
       <p class="mb-3 float-left">Halaman ini untuk mengelola data Imunisasi</p>
-      <a href="{{ url('/immunization/create/'.$baby->id) }}" class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-syringe mx-1"></span> Tambah Imunisasi</a>
+      <a href="{{ url('/immunization/create/'.$baby->id) }}" class="btn btn-primary mx-2 py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-syringe mx-1"></span> Tambah Imunisasi</a>
 
+      
 
       <div class="table-responsive">
         <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
@@ -60,6 +61,7 @@
          </tbody>
         </table>
       </div>
+      <a href="{{ url('/immunization') }}" class="btn btn-primary py-2 px-3 fs-normal mt-3 mb-3 shadow-sm"> <span class="fas fa-arrow-left mx-1"></span> Kembali</a>
     </div>
   </div>
 

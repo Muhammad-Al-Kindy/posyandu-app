@@ -16,4 +16,8 @@ class Vitamin extends Model {
     public function vitaminizations() {
         return $this->hasMany(Vitaminization::class);
     }
+
+    public function vitamin_detail(){
+        return $this->hasMany(VitaminDetail::class, 'vitamin_id', 'id');
+    }
 }

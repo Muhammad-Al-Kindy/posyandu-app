@@ -28,6 +28,21 @@
     </li>
   @endif
 
+  {{-- <li class="nav-item active border-bottom">
+    <a class="nav-link px-5 collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster" aria-expanded="true" aria-controls="collapseMaster">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Master</span>
+    </a>
+    <div id="collapseMaster" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header px-5 w-100">Book Supports</h6>
+        <a class="collapse-item px-5 w-100" href="/u/author">Authors</a>
+        <a class="collapse-item px-5 w-100" href="/u/publisher">Publishers</a>
+        <a class="collapse-item px-5 w-100" href="/u/genre">Genres</a>
+      </div>
+    </div>
+  </li> --}}
+
   <li class="nav-item active border-top border-bottom">
     <a class="nav-link px-5 w-100" href="{{ url('/baby') }}">
       <i class="fas fa-fw fa-baby"></i>

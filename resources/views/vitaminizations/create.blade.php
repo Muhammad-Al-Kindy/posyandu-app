@@ -8,7 +8,7 @@
    <p class="mb-3">Tabel / Data / <span class="color-primary">Add Data</span></p>
   <div class="row">
     <div class="col-md-6">
-      <h5 class="m-0 font-weight-bold color-primary mb-2">Tambah Imunisasi</h5>
+      <h5 class="m-0 font-weight-bold color-primary mb-2">Tambah Vitaminisasi</h5>
       <p class="mb-4">Hati-hati dalam input data. Beberapa data tidak dapat diubah setelah diinput!.</p>
     </div>
     <div class="col-md-6 d-flex justify-content-end">

@@ -12,8 +12,13 @@
         <p class="mb-4">Halaman ini untuk memantau pertumbuhan bayi.</p>
       </div>
       <div class="col-md-6 d-flex justify-content-end">
-        <button type="button" data-toggle="modal" data-target="#addProgressModal" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center mt-n3">
-         <span class="fas fa-chart-pie"></span> Tambah Pertumbuhan</button>
+         <a href="/baby/{{ $baris->id }}" class="btn btn-primary mx-1 py-2 shadow-sm fs-normal align-self-center mt-n3">
+            <span class="fas fa-arrow-left"></span> Kembali
+         </a>
+
+         <button type="button" data-toggle="modal" data-target="#addProgressModal" class="btn btn-primary py-2 shadow-sm fs-normal align-self-center mt-n3">
+            <span class="fas fa-chart-pie"></span> Tambah Pertumbuhan
+         </button>
       </div>
     </div>
 

@@ -131,27 +131,14 @@ class ImmunizationController extends Controller {
             'date' => 'required',
         ]);
 
-        $immuns = Immunization::with('baby')
-                        ->with('vaccine')
-                        ->where('id_vaccine',  $request->id_vaccine)
-                        ->where('id_baby', $request->id_baby)->first();
-        // dd($immuns->id_vaccine .'=='. $request->id_vaccine);
-        // $id_vaccine = ($immuns == null) ? null : $immuns->id_vaccine;
-        if($immuns != null){
-            return redirect()
-                    ->back()
-                    ->withInput()
-                    ->with('danger', $immuns->baby->nama." Sudah di vaksin ".$immuns->vaccine->name);
-        }else{
-            Immunization::where('id', $request->id_immunization)->update([
-                'id_baby' => $request->id_baby,
-                'id_vaccine' => $request->id_vaccine,
-                'bulan' => $request->bulan,
-                'date' => $request->date,
-            ]);
-            // alihkan halaman ke halaman home
-            return redirect('/immunization'.'/'.$id_baby.'/show')->with('status', "Data berhasil diubah");
-        }
+        Immunization::where('id', $request->id_immunization)->update([
+            'id_baby' => $request->id_baby,
+            'id_vaccine' => $request->id_vaccine,
+            'bulan' => $request->bulan,
+            'date' => $request->date,
+        ]);
+        
+        return redirect('/immunization'.'/'.$id_baby.'/show')->with('status', "Data berhasil diubah");
     }
 
     public function destroy($id) {

@@ -1,11 +1,12 @@
 @extends('exports.layouts.main')
 
 @section('content')
+  <p><b>Data Vitamin pada tanggal - {{ $date }}</b></p>
   <table border="1">
     <thead>
       <tr>
         <th>NO</th>
-        <th>Nama Vaksin</th>
+        <th>Nama Vitamin</th>
         <th>Deskripsi</th>
       </tr>
     </thead>

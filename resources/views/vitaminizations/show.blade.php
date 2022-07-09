@@ -23,7 +23,8 @@
     <div class="card-body">
       <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Vitaminisasi - {{ $baby->nama }}</h5>
       <p class="mb-3 float-left">Halaman ini untuk mengelola data Vitaminisasi</p>
-      <a href="{{ url('/vitaminization/create/'.$baby->id) }}" class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-syringe mx-1"></span> Tambah Vitaminisasi</a>
+      <a href="{{ url('/vitaminization/create/'.$baby->id) }}" class="btn btn-primary mx-1 py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-syringe mx-1"></span> Tambah Vitaminisasi</a>
+      <a href="{{ url('/vitaminization') }}" class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm"> <span class="fas fa-arrow-left mx-1"></span> Kembali</a>
 
 
       <div class="table-responsive">

@@ -1,6 +1,7 @@
 @extends('exports.layouts.main')
 
 @section('content')
+  <p><b>Data Bayi pada tanggal - {{ $date }}</b></p>
   <table border="1">
     <thead>
       <tr>

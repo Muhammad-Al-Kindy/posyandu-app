@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Vaccine;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
@@ -13,7 +14,8 @@ class VaccineExport implements FromView
     {
         return view('exports.vaccine', [
             'vaccines' => Vaccine::all(),
-            'title' => 'Vaccine Export'
+            'title' => 'Vaccine Export',
+            'date' => Carbon::now()
         ]);
     }
 }

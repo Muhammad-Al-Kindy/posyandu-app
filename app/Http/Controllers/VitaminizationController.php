@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Baby;
 use App\Models\Vitamin;
 use Illuminate\Http\Request;
@@ -29,25 +30,27 @@ class VitaminizationController extends Controller {
             'date' => 'required',
         ]);
 
+        $vits = Vitamin::where('name', $request->id_vitamin)->first();
+
         $vitamins = Vitaminization::with('baby')
                         ->with('vitamin')
-                        ->where('id_vitamin',  $request->id_vitamin)
+                        ->where('id_vitamin',  $vits->id)
                         ->where('id_baby', $id_baby)->first();
         // dd($immuns->id_vaccine .'=='. $request->id_vaccine);
         if($vitamins != null){
             return redirect()
                     ->back()
                     ->withInput()
-                    ->with('danger', $vitamins->baby->nama." Sudah di vitamin ".$vitamins->vitamin->name);
+                    ->with('danger', $vitamins->baby->nama." Sudah di beri ".$vitamins->vitamin->name);
         }else{
             Vitaminization::create([
                 'id_baby' => $id_baby,
-                'id_vitamin' => $request->id_vitamin,
+                'id_vitamin' => $vits->id,
                 'bulan' => $request->bulan,
                 'date' => $request->date,
             ]);
-
             return redirect('/vitaminization'.'/'.$id_baby.'/show')->with('status', "Data '" . $request->name . "' berhasil ditambahkan");
+
         }
     }
 
@@ -138,5 +141,20 @@ class VitaminizationController extends Controller {
         Vitaminization::destroy($id);
         return redirect('/vitaminization'.'/'.$id_baby.'/show')->with('status', "Data berhasil dihapus");
 
+    }
+
+    static function get_birtdate($tanggal_lahir){
+        $birthDate = new DateTime();
+        $birthDate->setTimestamp($tanggal_lahir);
+        $today = new DateTime("today");
+        if ($birthDate > $today) {
+            exit(0);
+        }
+        $m = $today->diff($birthDate)->m;
+        if($m > 0){
+            return $m;
+        }else{
+            return 0;
+        }
     }
 }

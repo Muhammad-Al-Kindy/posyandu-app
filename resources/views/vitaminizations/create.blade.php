@@ -45,17 +45,16 @@
           <div class="form-group row">
             <div class="col-md-4">
               <label for="id_vitamin">Nama Jenis Vitamin - {{ $month = \App\Http\Controllers\VitaminizationController::get_birtdate_month($baby->tanggal_lahir) }}</label>
-                
-                <select id="id_vitamin" disabled name="id_vitamin" placeholder="Nama Bayi" class="form-control-select fs-normal form-spacer-10x8 @error('id_vitamin') is-invalid @enderror" data-toggle="tooltip" data-placement="right">
-                  @foreach ($vit as $row)
-                    @if ($month >= 12)
-                      <option value="{{ $row->id }}" {{ ($month >= 60) ? 'selected' : '' }}>{{ $row->name }}</option>
-                    @else
-                      <option value="{{ $row->id }}" {{ ($month >= $row->start_range_age && $month <= $row->end_range_age) ? 'selected' : '' }}>{{ $row->name }}</option>
-                    @endif
-                  @endforeach
-                </select>
-                @error('id_vitamin')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
+              <select id="id_vitamin" name="id_vitamin" class="form-control-select fs-normal form-spacer-10x8 @error('id_vitamin') is-invalid @enderror" data-toggle="tooltip" data-placement="right" title="Golongan Darah Bayi">
+                @if ($month >= 60)
+                  <option value="{{ $vit[1]->id }}" {{ ($month >= 60) ? 'selected' : '' }}>{{ $vit[1]->name }}</option>
+                @elseif($month >= 12 && $month <= 59)
+                  <option value="{{ $vit[1]->id }}" {{ ($month >= 12 && $month >= 59) ? 'selected' : '' }}>{{ $vit[1]->name }}</option>
+                @elseif($month >= 0 && $month <= 11)
+                  <option value="{{ $vit[0]->id }}" {{ ($month >= 0 && $month <= 11) ? 'selected' : '' }}>{{ $vit[0]->name }}</option>
+                @endif
+              </select>
+              @error('id_vitamin')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
             </div>
             <div class="col-md-4">
               <label for="bulan">Umur (Bulan)</label>

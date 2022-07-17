@@ -34,6 +34,16 @@
              <textarea name="description" placeholder="ex: Deskripsi vitamin" class="form-control fs-normal form-spacer-20x15 @error('description') is-invalid @enderror" id="description" id="description">{{ old('description') }}</textarea>
              @error('description')<div class="invalid-feedback ml-1">{{ $message }}</div>@enderror
           </div>
+          <div class="form-group">
+            <label for="start_range_age">Dari Umur (Bulan)</label>
+            <input type="number" placeholder="ex: 12" class="form-control fs-normal form-spacer-20x15 @error('start_range_age') is-invalid @enderror" id="start_range_age" name="start_range_age" data-toggle="tooltip" data-placement="right" title="Nama Vitamin" value="{{ old('start_range_age') }}" autofocus>
+            @error('start_range_age')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
+         </div>
+         <div class="form-group">
+            <label for="end_range_age">Sampai Umur (Bulan)</label>
+            <input type="number" placeholder="ex: 11" class="form-control fs-normal form-spacer-20x15 @error('end_range_age') is-invalid @enderror" id="end_range_age" name="end_range_age" data-toggle="tooltip" data-placement="right" title="Nama Vitamin" value="{{ old('end_range_age') }}" autofocus>
+            @error('end_range_age')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
+         </div>
 
           <button type="submit" class="btn btn-primary font-medium float-right py-2 px-5">Tambah</button>
          </form>

@@ -15,12 +15,16 @@ class VitaminSeeder extends Seeder
     public function run() {
         $vitamin = [
             [
-                'name' => 'Vitamin A',
-                'description' => 'Vitamin A untuk 0-11 bulan dengan warna merah',
+                'name' => 'Vitamin A - Biru',
+                'description' => 'Vitamin A untuk 0-11 bulan dengan warna biru',
+                'start_range_age' => 0,
+                'end_range_age' => 11
             ],
             [
-                'name' => 'Vitamin A Plus',
-                'description' => 'Vitamin A untuk usia 12-60 bulan dengan warna biru',
+                'name' => 'Vitamin A - Merah',
+                'description' => 'Vitamin A untuk usia 12-60 bulan dengan warna merah',
+                'start_range_age' => 12,
+                'end_range_age' => 60
             ],
         ];
 

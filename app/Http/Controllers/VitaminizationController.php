@@ -143,18 +143,29 @@ class VitaminizationController extends Controller {
 
     }
 
-    static function get_birtdate($tanggal_lahir){
+    static function get_birtdate_month($tanggal_lahir){
         $birthDate = new DateTime();
         $birthDate->setTimestamp($tanggal_lahir);
         $today = new DateTime("today");
         if ($birthDate > $today) {
-            exit(0);
+            exit("0 bulan 0 hari");
         }
+        $y = $today->diff($birthDate)->y;
         $m = $today->diff($birthDate)->m;
+        $d = $today->diff($birthDate)->d;
+        
         if($m > 0){
-            return $m;
+            if($y == 0 && $d ==0){
+                return ($y * 12) + $m;
+            }else if($y == 0){
+                return ($y * 12) + $m;
+            }else if($d == 0){
+                return  ($y * 12) + $m;
+            }else{
+                return ($y * 12) + $m;
+            }
         }else{
-            return 0;
+            return $d;
         }
     }
 }

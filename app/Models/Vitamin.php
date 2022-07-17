@@ -11,6 +11,8 @@ class Vitamin extends Model {
     protected $fillable = [
         'name',
         'description',
+        'start_range_age',
+        'end_range_age'
     ];
 
     public function vitaminizations() {

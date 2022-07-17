@@ -13,7 +13,7 @@
     </div>
     <div class="col-md-6 d-flex justify-content-end">
       {{-- vaccine/4/unvaccinated --}}
-      <a href="/vitaminization/{{ $vit->id }}/unvitaminated" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center px-3 mt-n3">
+      <a href="/vitamin/{{ $vit->id }}/unvitaminated" class="btn btn-primary mx-2 py-2 shadow-sm fs-normal align-self-center px-3 mt-n3">
          <span class="fas fa-arrow-left"></span> Kembali</a>
     </div>
   </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-4">
               <label for="bulan">Umur (Bulan)</label>
-              <input type="number" placeholder="ex: 1,2,3,4..." class="form-control fs-normal form-spacer-20x15 @error('bulan') is-invalid @enderror" id="bulan" name="bulan" data-toggle="tooltip" data-placement="right" title="Bulan Bayi" value="{{ old('bulan') }}" autofocus>
+              <input type="number" placeholder="ex: 1,2,3,4..." value="{{ \App\Http\Controllers\VitaminizationController::get_birtdate_month($baby->tanggal_lahir) }}" readonly class="form-control fs-normal form-spacer-20x15 @error('bulan') is-invalid @enderror" id="bulan" name="bulan" data-toggle="tooltip" data-placement="right" title="Bulan Bayi" value="{{ old('bulan') }}" autofocus>
               @error('bulan')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
             </div>
             <div class="col-md-4">

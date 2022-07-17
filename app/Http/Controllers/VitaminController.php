@@ -34,6 +34,8 @@ class VitaminController extends Controller {
         $request->validate([
             'name' => 'required',
             'description' => 'required',
+            'start_range_age' => 'required',
+            'end_range_age' => 'required',
         ]);
 
         $request->name = ucwords($request->name);
@@ -41,6 +43,8 @@ class VitaminController extends Controller {
         Vitamin::create([
             'name' => $request->name,
             'description' => $request->description,
+            'start_range_age' => $request->start_range_age,
+            'end_range_age' => $request->end_range_age,
         ]);
         return redirect('/vitamin')->with('status', "Data '" . $request->name . "' berhasil ditambahkan");
     }
@@ -63,9 +67,11 @@ class VitaminController extends Controller {
 
         $request->name = ucwords($request->name);
 
-        $vitamin = Vitamin::where('id', $id)->update([
+        Vitamin::where('id', $id)->update([
             'name' => $request->name,
             'description' => $request->description,
+            'start_range_age' => $request->start_range_age,
+            'end_range_age' => $request->end_range_age,
         ]);
         return redirect('/vitamin')->with('status', "Data '" . $request->name . "' berhasil diubah");
     }

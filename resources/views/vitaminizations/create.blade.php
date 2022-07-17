@@ -44,17 +44,22 @@
 
           <div class="form-group row">
             <div class="col-md-4">
-              <label for="id_vitamin">Nama Jenis Vitamin</label>
-                @if (\App\Http\Controllers\VitaminizationController::get_birtdate($baby->tanggal_lahir) > 11)
-                    <input type="text" placeholder="{{ $vit[0]->name }}" class="form-control fs-normal form-spacer-20x15 @error('name') is-invalid @enderror" name="id_vitamin" id="id_vitamin" data-toggle="tooltip" data-placement="right" title="Nama Vitamin" value="{{ $vit[0]->name }}" readonly autofocus>
-                @else
-                    <input type="text" placeholder="{{ $vit[1]->name }}" class="form-control fs-normal form-spacer-20x15 @error('name') is-invalid @enderror" name="id_vitamin" id="id_vitamin" data-toggle="tooltip" data-placement="right" title="Nama Vitamin" value="{{ $vit[1]->name }}" readonly autofocus>
-                @endif
-              @error('id_vitamin')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
+              <label for="id_vitamin">Nama Jenis Vitamin - {{ $month = \App\Http\Controllers\VitaminizationController::get_birtdate_month($baby->tanggal_lahir) }}</label>
+                
+                <select id="id_vitamin" disabled name="id_vitamin" placeholder="Nama Bayi" class="form-control-select fs-normal form-spacer-10x8 @error('id_vitamin') is-invalid @enderror" data-toggle="tooltip" data-placement="right">
+                  @foreach ($vit as $row)
+                    @if ($month >= 12)
+                      <option value="{{ $row->id }}" {{ ($month >= 60) ? 'selected' : '' }}>{{ $row->name }}</option>
+                    @else
+                      <option value="{{ $row->id }}" {{ ($month >= $row->start_range_age && $month <= $row->end_range_age) ? 'selected' : '' }}>{{ $row->name }}</option>
+                    @endif
+                  @endforeach
+                </select>
+                @error('id_vitamin')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
             </div>
             <div class="col-md-4">
               <label for="bulan">Umur (Bulan)</label>
-              <input readonly type="number" value="{{ \App\Http\Controllers\VitaminizationController::get_birtdate($baby->tanggal_lahir) }}" placeholder="ex: 1,2,3,4..." class="form-control fs-normal form-spacer-20x15 @error('bulan') is-invalid @enderror" id="bulan" name="bulan" data-toggle="tooltip" data-placement="right" title="Bulan Bayi" autofocus>
+              <input readonly type="number" value="{{ \App\Http\Controllers\VitaminizationController::get_birtdate_month($baby->tanggal_lahir) }}" placeholder="ex: 1,2,3,4..." class="form-control fs-normal form-spacer-20x15 @error('bulan') is-invalid @enderror" id="bulan" name="bulan" data-toggle="tooltip" data-placement="right" title="Bulan Bayi" autofocus>
               @error('bulan')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
             </div>
             <div class="col-md-4">

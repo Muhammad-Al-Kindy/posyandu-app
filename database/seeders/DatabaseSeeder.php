@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Vitaminization;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             VaccineSeeder::class,
             VitaminSeeder::class,
-            Vitaminization::class
+            VitaminizationSeeder::class
         ]);
     }
 }

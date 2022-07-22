@@ -17,6 +17,6 @@ class ProgressBaby extends Model {
     ];
 
     public function baby() {
-        return $this->belongsTo(Baby::class);
+        return $this->belongsTo(Baby::class, 'id_bayi', 'id');
     }
 }

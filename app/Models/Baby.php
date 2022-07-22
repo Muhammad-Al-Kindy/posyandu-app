@@ -22,8 +22,10 @@ class Baby extends Model {
         'lingkar_kepala',
     ];
 
+    protected $with = ['parents', 'progressBaby'];
+
     public function progressBaby(){
-        return $this->hasMany(ProgressBaby::class);
+        return $this->hasMany(ProgressBaby::class, 'id_bayi', 'id');
     }
 
     public function parents() {

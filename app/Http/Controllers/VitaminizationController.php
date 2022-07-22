@@ -30,28 +30,14 @@ class VitaminizationController extends Controller {
             'date' => 'required',
         ]);
 
-        $vits = Vitamin::where('name', $request->id_vitamin)->first();
-
-        $vitamins = Vitaminization::with('baby')
-                        ->with('vitamin')
-                        ->where('id_vitamin',  $vits->id)
-                        ->where('id_baby', $id_baby)->first();
-        // dd($immuns->id_vaccine .'=='. $request->id_vaccine);
-        if($vitamins != null){
-            return redirect()
-                    ->back()
-                    ->withInput()
-                    ->with('danger', $vitamins->baby->nama." Sudah di beri ".$vitamins->vitamin->name);
-        }else{
-            Vitaminization::create([
+        $vits = Vitamin::findOrFail($request->id_vitamin)->first();
+        Vitaminization::create([
                 'id_baby' => $id_baby,
                 'id_vitamin' => $vits->id,
                 'bulan' => $request->bulan,
                 'date' => $request->date,
             ]);
-            return redirect('/vitaminization'.'/'.$id_baby.'/show')->with('status', "Data '" . $request->name . "' berhasil ditambahkan");
-
-        }
+        return redirect('/vitaminization'.'/'.$id_baby.'/show')->with('status', "Data '" . $request->name . "' berhasil ditambahkan");
     }
 
     public function add($id_baby, $id){
@@ -148,28 +134,21 @@ class VitaminizationController extends Controller {
         $birthDate->setTimestamp($tanggal_lahir);
         $today = new DateTime("today");
         if ($birthDate > $today) {
-            exit("0 bulan 0 hari");
+            exit("0 tahun 0 bulan 0 hari");
         }
-        $y = $today->diff($birthDate)->y;
+
         $m = $today->diff($birthDate)->m;
         $d = $today->diff($birthDate)->d;
-
-        if($m > 0){
-            if($y == 0 && $d ==0){
-                return ($y * 12) + $m;
-            }else if($y == 0){
-                return ($y * 12) + $m;
-            }else if($d == 0){
-                return  ($y * 12) + $m;
-            }else{
-                return ($y * 12) + $m;
-            }
+        if($m == 0){
+            return 0;
+        }else if($m > 0){
+            return $m;
         }else{
             return $d;
         }
     }
 
-    public function get_birtdate($tanggal_lahir){
+    static function get_birtdates($tanggal_lahir){
         $birthDate = new DateTime();
         $birthDate->setTimestamp($tanggal_lahir);
         $today = new DateTime("today");

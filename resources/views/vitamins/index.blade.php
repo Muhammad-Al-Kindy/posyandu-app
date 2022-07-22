@@ -44,7 +44,7 @@
             <tr>
                <td class="text-center">{{ $loop->iteration }}</td>
                <td>{{ ucwords($vit->name) }}</td>
-               <td>{{ substr(strtolower($vit->description), 0, 50) }}....</td>
+               <td>{{ substr(strtolower($vit->description), 0, 30) }}....</td>
                <td>{{ $vit->start_range_age.' - '.$vit->end_range_age }} Bulan</td>
                <td class="text-center">
                 <a href="/vitamin/{{ $vit->id }}/unvitaminated" class="btn btn-sm fs-small btn-success">

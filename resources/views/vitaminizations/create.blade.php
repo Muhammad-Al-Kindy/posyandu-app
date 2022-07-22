@@ -45,7 +45,7 @@
           <div class="form-group row">
             <div class="col-md-4">
               <label for="id_vitamin">Nama Jenis Vitamin - {{ $month = \App\Http\Controllers\VitaminizationController::get_birtdate_month($baby->tanggal_lahir) }}</label>
-              <select id="id_vitamin" name="id_vitamin" class="form-control-select fs-normal form-spacer-10x8 @error('id_vitamin') is-invalid @enderror" data-toggle="tooltip" data-placement="right" title="Golongan Darah Bayi">
+              <select id="id_vitamin" name="id_vitamin" class="form-control-select fs-normal form-spacer-10x8 @error('id_vitamin') is-invalid @enderror" data-toggle="tooltip" data-placement="right" title="Nama Vitamin">
                 @if ($month >= 60)
                   <option value="{{ $vit[1]->id }}" {{ ($month >= 60) ? 'selected' : '' }}>{{ $vit[1]->name }}</option>
                 @elseif($month >= 12 && $month <= 59)

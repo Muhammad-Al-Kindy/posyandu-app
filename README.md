@@ -9,8 +9,7 @@
 
 ## Authors
 - <a href="https://github.com/hoyirul" target="_blank">Mochammad Hairullah</a>
-- <a href="https://github.com/Ilham-sinatrio20" target="_blank">Ilham Sanatrio G</a>
-- <a href="https://github.com/bayupras141" target="_blank">Bayu Prasetyo</a>
+- <a href="https://github.com/ilhamsg7" target="_blank">Ilham Sinatrio G</a>
 
 ## About Laravel
 

@@ -9,11 +9,17 @@ class ProgressBaby extends Model {
     use HasFactory;
 
     protected $fillable = [
-      'id_bayi',
-      'bulan_ke',
-      'lingkar_kepala',
-      'panjang_bayi',
-      'berat_bayi'
+        'id_bayi',
+        'bulan_ke',
+        'lingkar_kepala',
+        'panjang_bayi',
+        'berat_bayi',
+        'created_at',
+        'updated_at'
+    ];
+
+    protected $with = [
+        'baby'
     ];
 
     public function baby() {

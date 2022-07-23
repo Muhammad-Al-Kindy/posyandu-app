@@ -5,6 +5,7 @@ use App\Http\Controllers\GraduateController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImmunizationController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ProgressBabyController;
 use App\Http\Controllers\VaccineController;
 use App\Http\Controllers\VitaminController;
 use App\Http\Controllers\VitaminizationController;
@@ -70,6 +71,12 @@ Route::middleware('auth')->group(function(){
         Route::get('/immunization/{id}/edit', 'edit');
         Route::put('/immunization/{id_baby}/update', 'update');
         Route::delete('/immunization/{id}', 'destroy');
+    });
+
+    Route::controller(ProgressBabyController::class)->group(function() {
+        Route::get('/progress', 'index');
+        Route::get('/progress/filter', 'filter')->name('progress.filter');
+        Route::get('/progress/export', 'export_excel')->name('progress.export');
     });
 
     Route::controller(GraduateController::class)->group(function(){

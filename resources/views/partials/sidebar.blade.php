@@ -50,6 +50,13 @@
     </a>
   </li>
 
+  <li class="nav-item active border-top border-bottom">
+    <a class="nav-link px-5 w-100" href="{{ url('/progress') }}">
+      <i class="fas fa-fw fa-bars"></i>
+      <span>Progress Bayi</span>
+    </a>
+  </li>
+
   <li class="nav-item active border-bottom">
     <a class="nav-link px-5 w-100" href="/immunization">
       <i class="fas fa-fw fa-heartbeat"></i>

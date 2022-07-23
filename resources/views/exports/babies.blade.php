@@ -21,7 +21,7 @@
         @foreach($progress as $row)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $row->baby->nik_bayi }}</td>
+                <td>{{ "'" . $row->baby->nik_bayi }}</td>
                 <td>{{ ucwords($row->baby->nama) }}</td>
                 <td>{{ date('d-m-Y', $row->baby->tanggal_lahir) }} / {{ \App\Http\Controllers\BabiesController::get_birtdate_month($row->baby->tanggal_lahir) }}</td>
                 <td>{{ ($row->baby->jenis_kelamin == 1) ? 'L' : 'P' }}</td>

@@ -13,8 +13,8 @@
               <th>Jenis Kelamin</th>
               <th>Tanggal Ukur</th>
               <th>Tanggal Lahir</th>
-              <th>BB Lahir (Kg)</th>
-              <th>TB Lahir (Cm)</th>
+              <th>BB Sekarang (Kg)</th>
+              <th>TB Sekarang (Cm)</th>
               <th>Lingkar Kepala (Cm)</th>
               <th>Umur</th>
         </tr>

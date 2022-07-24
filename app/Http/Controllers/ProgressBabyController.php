@@ -25,7 +25,7 @@ class ProgressBabyController extends Controller {
             'month' => 'required',
             'year' => 'required',
         ]);
-        $progress = Baby::with('parents')->whereMonth('created_at', '=', $validated['month'])
+        $progress = ProgressBaby::with('baby')->whereMonth('created_at', '=', $validated['month'])
         ->whereYear('created_at', '=', $validated['year'])
         ->get();
         $month = $validated['month'];

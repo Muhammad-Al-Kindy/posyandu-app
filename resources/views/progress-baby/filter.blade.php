@@ -21,8 +21,11 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-5 border-0">
     <div class="card-body">
-      <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Bayi</h5>
-      <p class="mb-3 float-left">Halaman ini untuk pengelolaan data bayi</p>
+      @php
+          $monthName = date("F", mktime(0, 0, 0, $month, 10));
+      @endphp
+      <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Progress Bayi Bulan {{ $monthName }} Tahun {{ $year }}</h5>
+      <p class="mb-3 float-left">Halaman ini untuk rekapitulasi progress bayi</p>
       <form action="{{ route('progress.export') }}" method="GET">
         <button type="submit" class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm" href="/progress/export">
         <span class="fas fa-file-excel px-1"></span> Export ke Excel</button>
@@ -54,17 +57,17 @@
             @endphp
             <tr>
               <td class="text-center">{{ $loop->iteration }}</td>
-              <td>{{ $report->nik_bayi }}</td>
-              <td>{{ $report->parents->nama_ayah}} / {{ $report->parents->nama_ibu}}</td>
-              <td>{{ $report->parents->alamat }}</td>
-              <td>{{ $report->nama }}</td>
-              <td>{{ ($report->jenis_kelamin == 1) ? 'L' : 'P' }}</td>
+              <td>{{ $report->baby->nik_bayi }}</td>
+              <td>{{ $report->baby->parents->nama_ayah}} / {{ $report->baby->parents->nama_ibu}}</td>
+              <td>{{ $report->baby->parents->alamat }}</td>
+              <td>{{ $report->baby->nama }}</td>
+              <td>{{ ($report->baby->jenis_kelamin == 1) ? 'L' : 'P' }}</td>
               <td>{{ date("d M Y", $dates) }}</td>
-              <td>{{ date("d M Y", $report->tanggal_lahir) }}</td>
+              <td>{{ date("d M Y", $report->baby->tanggal_lahir) }}</td>
               <td>{{ $report->berat_bayi }}</td>
               <td>{{ $report->panjang_bayi }}</td>
               <td>{{ $report->lingkar_kepala }}</td>
-              <td>{{ \App\Http\Controllers\BabiesController::get_birtdate($report->tanggal_lahir) }}</td>
+              <td>{{ \App\Http\Controllers\BabiesController::get_birtdate($report->baby->tanggal_lahir) }}</td>
             </tr>
             @endforeach
           </tbody>

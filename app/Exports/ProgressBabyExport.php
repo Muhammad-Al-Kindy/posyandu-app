@@ -17,7 +17,7 @@ class ProgressBabyExport implements FromView {
             'month' => 'required',
             'year' => 'required',
         ]);
-        $progress = Baby::with('parents')->whereMonth('created_at', '=', request()->month)
+        $progress = ProgressBaby::with('baby')->whereMonth('created_at', '=', request()->month)
         ->whereYear('created_at', '=', request()->year)
         ->get();
         $month = request()->month;

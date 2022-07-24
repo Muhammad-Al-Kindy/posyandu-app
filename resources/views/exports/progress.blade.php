@@ -26,17 +26,17 @@
             @endphp
             <tr>
               <td class="text-center">{{ $loop->iteration }}</td>
-              <td>{{ "'".$report->nik_bayi }}</td>
-              <td>{{ $report->parents->nama_ayah}} / {{ $report->parents->nama_ibu}}</td>
-              <td>{{ $report->parents->alamat }}</td>
-              <td>{{ $report->nama }}</td>
+              <td>{{ "'".$report->baby->nik_bayi }}</td>
+              <td>{{ $report->baby->parents->nama_ayah}} / {{ $report->baby->parents->nama_ibu}}</td>
+              <td>{{ $report->baby->parents->alamat }}</td>
+              <td>{{ $report->baby->nama }}</td>
               <td>{{ ($report->jenis_kelamin == 1) ? 'L' : 'P' }}</td>
               <td>{{ date("d M Y", $dates) }}</td>
-              <td>{{ date("d M Y", $report->tanggal_lahir) }}</td>
+              <td>{{ date("d M Y", $report->baby->tanggal_lahir) }}</td>
               <td>{{ $report->berat_bayi }}</td>
               <td>{{ $report->panjang_bayi }}</td>
               <td>{{ $report->lingkar_kepala }}</td>
-              <td>{{ \App\Http\Controllers\BabiesController::get_birtdate($report->tanggal_lahir) }}</td>
+              <td>{{ \App\Http\Controllers\BabiesController::get_birtdate($report->baby->tanggal_lahir) }}</td>
             </tr>
             @endforeach
           </tbody>

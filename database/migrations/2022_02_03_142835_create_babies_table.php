@@ -19,14 +19,14 @@ class CreateBabiesTable extends Migration {
             $table->string('no_kms', 256)->nullable();
             $table->string('nik_bayi', 20)->nullable();
             $table->unsignedBigInteger('id_parent');
-            $table->string('tempat_lahir', 256);
-            $table->integer('tanggal_lahir');
-            $table->integer('anak_ke');
-            $table->integer('jenis_kelamin');
-            $table->string('golongan_darah');
-            $table->decimal('panjang_bayi', 11, 2);
-            $table->decimal('berat_bayi', 11, 2);
-            $table->decimal('lingkar_kepala', 11, 2);
+            $table->string('tempat_lahir', 256)->nullable();
+            $table->integer('tanggal_lahir')->nullable();
+            $table->integer('anak_ke')->nullable();
+            $table->integer('jenis_kelamin')->nullable();
+            $table->string('golongan_darah')->nullable();
+            $table->decimal('panjang_bayi', 11, 2)->nullable();
+            $table->decimal('berat_bayi', 11, 2)->nullable();
+            $table->decimal('lingkar_kepala', 11, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
 

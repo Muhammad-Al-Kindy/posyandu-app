@@ -99,9 +99,9 @@ class VitaminController extends Controller {
         $birthDate = new DateTime();
         $birthDate->setTimestamp($tanggal_lahir);
         $today = new DateTime("today");
-        if ($birthDate > $today) {
-            exit("0 tahun 0 bulan 0 hari");
-        }
+        // if ($birthDate > $today) {
+        //     exit("0 tahun 0 bulan 0 hari");
+        // }
         $y = $today->diff($birthDate)->y;
         $m = $today->diff($birthDate)->m;
         $d = $today->diff($birthDate)->d;

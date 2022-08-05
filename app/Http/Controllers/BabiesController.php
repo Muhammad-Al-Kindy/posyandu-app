@@ -422,9 +422,9 @@ class BabiesController extends Controller {
     function hitung_umur($tanggal_lahir){
         $birthDate = new DateTime($tanggal_lahir);
         $today = new DateTime("today");
-        if ($birthDate > $today) {
-            exit("0 tahun 0 bulan 0 hari");
-        }
+        // if ($birthDate > $today) {
+        //     exit("0 tahun 0 bulan 0 hari");
+        // }
         $y = $today->diff($birthDate)->y;
         $m = $today->diff($birthDate)->m;
         $d = $today->diff($birthDate)->d;
@@ -456,13 +456,15 @@ class BabiesController extends Controller {
     static function get_birtdate($tanggal_lahir){
         $birthDate = new DateTime();
         $birthDate->setTimestamp($tanggal_lahir);
+        
         $today = new DateTime("today");
-        if ($birthDate > $today) {
-            exit("0 tahun 0 bulan 0 hari");
-        }
+        // if ($birthDate > $today) {
+        //     exit("0 tahun 0 bulan 0 hari");
+        // }
         $y = $today->diff($birthDate)->y;
         $m = $today->diff($birthDate)->m;
         $d = $today->diff($birthDate)->d;
+
         if($y > 0){
             if($m == 0 && $d ==0){
                 return $y." tahun";
@@ -517,9 +519,9 @@ class BabiesController extends Controller {
         $birthDate = new DateTime();
         $birthDate->setTimestamp($tanggal_lahir);
         $today = new DateTime("today");
-        if ($birthDate > $today) {
-            exit("0 tahun 0 bulan 0 hari");
-        }
+        // if ($birthDate > $today) {
+        //     exit("0 tahun 0 bulan 0 hari");
+        // }
         $y = $today->diff($birthDate)->y;
         if($y > 0){
             return $y;
@@ -529,9 +531,9 @@ class BabiesController extends Controller {
     public function hitungIdeal($tanggal_lahir, Baby $baby){
         $birthDate = new DateTime($tanggal_lahir);
         $today = new DateTime("today");
-        if ($birthDate > $today) {
-            exit("0 tahun 0 bulan 0 hari");
-        }
+        // if ($birthDate > $today) {
+        //     exit("0 tahun 0 bulan 0 hari");
+        // }
         $y = $today->diff($birthDate)->y;
         $m = $today->diff($birthDate)->m;
         $d = $today->diff($birthDate)->d;

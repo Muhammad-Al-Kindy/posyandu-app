@@ -66,7 +66,7 @@
   <!-- Modal-->
   @include('partials.logout')
   <!-- Modal-->
-  
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('/vendor/jquery/jquery.min.js') }}"></script>

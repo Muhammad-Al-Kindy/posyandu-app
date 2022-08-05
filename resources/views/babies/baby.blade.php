@@ -6,7 +6,6 @@
 
   <!-- Page Heading -->
   <p class="mb-3">Tabel / Data / <span class="color-primary">Babies</span></p>
-
   @if(session('status'))
     <div class="alert alert-success">
       {{session('status')}}

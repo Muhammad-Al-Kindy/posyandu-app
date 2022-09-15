@@ -456,7 +456,7 @@ class BabiesController extends Controller {
     static function get_birtdate($tanggal_lahir){
         $birthDate = new DateTime();
         $birthDate->setTimestamp($tanggal_lahir);
-        
+
         $today = new DateTime("today");
         // if ($birthDate > $today) {
         //     exit("0 tahun 0 bulan 0 hari");
@@ -466,7 +466,7 @@ class BabiesController extends Controller {
         $d = $today->diff($birthDate)->d;
 
         if($y > 0){
-            if($m == 0 && $d ==0){
+            if($m == 0 && $d == 0){
                 return $y." tahun";
             }else if($m == 0){
                 return $y." tahun ".$d." hari";
@@ -476,7 +476,43 @@ class BabiesController extends Controller {
                 return $y." tahun ".$m." bulan ".$d." hari";
             }
         }else if($m > 0){
-            if($y == 0 && $d ==0){
+            if($y == 0 && $d == 0){
+                return $m." bulan";
+            }else if($y == 0){
+                return $m." bulan ".$d." hari";
+            }else if($d == 0){
+                return $y." tahun ".$m." bulan";
+            }else{
+                return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else{
+            return $d." hari";
+        }
+    }
+
+    static function measurement_date($tanggal_lahir, $tanggal_pengukuran){
+        $birthDate = new DateTime();
+        $birthDate->setTimestamp($tanggal_lahir);
+
+        $measurementDate = new DateTime();
+        $measurementDate->setTimestamp($tanggal_pengukuran);
+
+        $y = $birthDate->diff($measurementDate)->y;
+        $m = $birthDate->diff($measurementDate)->m;
+        $d = $birthDate->diff($measurementDate)->d;
+
+        if($y > 0){
+            if($m == 0 && $d == 0){
+                return $y." tahun";
+            }else if($m == 0){
+                return $y." tahun ".$d." hari";
+            }else if($d == 0){
+                return $y." tahun ".$m." bulan";
+            }else{
+                return $y." tahun ".$m." bulan ".$d." hari";
+            }
+        }else if($m > 0){
+            if($y == 0 && $d == 0){
                 return $m." bulan";
             }else if($y == 0){
                 return $m." bulan ".$d." hari";

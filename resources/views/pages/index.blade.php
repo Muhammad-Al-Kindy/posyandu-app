@@ -61,7 +61,7 @@
     <div id="beranda" class="main-banner">
       <div class="left-banner">
         <h1 class="mb-15">Yuk, Imunisasi anak kalian di Posyandu Rajawali.</h1>
-        <p class="text-justify">Posyandu Rajawali (Pos Pelayanan Keluarga Berencana - Kesehatan Terpadu) adalah kegiatan kesehatan dasar yang diselenggarakan dari, oleh dan untuk masyarakat yang dibantu oleh petugas kesehatan. Posyandu merupakan salah satu upaya kesehatan bersumberdaya masyarakat </p>
+        <p class="text-justify">Posyandu Rajawali (Pos Pelayanan Keluarga Berencana - Kesehatan Terpadu) adalah kegiatan kesehatan dasar yang diselenggarakan dari, oleh dan untuk masyarakat yang dibantu oleh petugas kesehatan. Posyandu merupakan salah satu upaya kesehatan bersumberdaya masyarakat. </p>
         <div class="text-left"><br>
           <a href="/#services" class="btn btn-app btn-width-same">Mulai</a>
           <!-- <a href="https://drive.google.com/file/d/12QjT4JTkjqFrBDwqT_bMcr89bwLMOyWL/view?usp=sharing" target="_blank" class="btn btn-app btn-width-same">Prototype</a> -->

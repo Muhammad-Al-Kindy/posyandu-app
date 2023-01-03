@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Posyandu Rajawali 2022 | Posyandu Sahabat Masyarakat.</title>
+  <title>Posyandu Rajawali {{ now()->format('Y') }} | Posyandu Sahabat Masyarakat.</title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,7 +61,7 @@
     <div id="beranda" class="main-banner">
       <div class="left-banner">
         <h1 class="mb-15">Yuk, Imunisasi anak kalian di Posyandu Rajawali.</h1>
-        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium laboriosam error quidem vitae. Maxime, at iure, ducimus, ipsam quia a beatae tempora vero nam laudantium cupiditate. Eius tempore quidem dignissimos?. </p>
+        <p class="text-justify">Posyandu Rajawali (Pos Pelayanan Keluarga Berencana - Kesehatan Terpadu) adalah kegiatan kesehatan dasar yang diselenggarakan dari, oleh dan untuk masyarakat yang dibantu oleh petugas kesehatan. Posyandu merupakan salah satu upaya kesehatan bersumberdaya masyarakat </p>
         <div class="text-left"><br>
           <a href="/#services" class="btn btn-app btn-width-same">Mulai</a>
           <!-- <a href="https://drive.google.com/file/d/12QjT4JTkjqFrBDwqT_bMcr89bwLMOyWL/view?usp=sharing" target="_blank" class="btn btn-app btn-width-same">Prototype</a> -->
@@ -91,7 +91,7 @@
                   <img src="./ui/svg/icon/holding-heart.svg" class="mb-4" alt="">
                   <h5 class="title-head mb-4">Kenyamanan</h5>
                   <p class="text-justify subtitle">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, mollitia. Officia ipsum porro qui earum, quos velit quam omnis quidem aspernatur impedit libero iste cumque non consequuntur nam facere? Unde.
+                    Kenyamanan adalah layanan utama bagi Posyandu Rajawali untuk memenuhi kebutuhan balita sesuai dengan pengertianya kenyamanan adalah suatu keadaaan telah terpenuhinya kebutuhan dasar manusia yang bersifat individual dan holistic. 
                   </p>
                 </div>
               </div>
@@ -104,7 +104,8 @@
                 <div class="card-body m-2 text-center">
                   <img src="./ui/svg/icon/simple-clockify.svg" class="mb-4" alt="">
                   <h5 class="title-head mb-4">Imunisasi</h5>
-                  <p class=" text-justify subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, mollitia. Officia ipsum porro qui earum, quos velit quam omnis quidem aspernatur impedit libero iste cumque non consequuntur nam facere? Unde.</p>
+                  <p class=" text-justify subtitle">
+                    Imunisasi adalah suatu upaya untuk menimbulkan/meningkatkan kekebalan seseorang secara aktif terhadap suatu penyakit, sehingga apabila suatu saat terpajan dengan penyakit tersebut tidak akan sakit atau hanya mengalami sakit ringan.</p>
                 </div>
               </div>
             </a>
@@ -116,7 +117,7 @@
                 <div class="card-body m-2 text-center">
                   <img src="./ui/svg/icon/awesome-heartbeat.svg" class="mb-4" alt="">
                   <h5 class="title-head mb-4">Pertumbuhan Bayi</h5>
-                  <p class=" text-justify subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, mollitia. Officia ipsum porro qui earum, quos velit quam omnis quidem aspernatur impedit libero iste cumque non consequuntur nam facere? Unde.</p>
+                  <p class=" text-justify subtitle">Perkembangan anak mengacu pada perubahan biologis, psikologis dan emosional yang terjadi pada manusia antara kelahiran dan akhir masa remaja, sebagai individu berlangsung dari ketergantungan untuk meningkatkan otonomi.</p>
                 </div>
               </div>
             </a>
@@ -143,11 +144,11 @@
     </div>
     <div class="right-teori text-right">
       <div class="p-3"></div>
-      <h4 class="title-head text-left">Posyandu</h4>
+      <h4 class="title-head text-left">Posyandu untuk Cegah Gizi Buruk Anak di Indonesia</h4>
       <div class="item-teori">
-        <p style="text-indent: 50px;" class="text-justify subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit rerum repellat sequi, esse in quisquam! Eum omnis iusto excepturi neque maxime officia aliquid est at, ullam delectus explicabo distinctio illo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis quia itaque mollitia. Voluptates nemo, hic nisi aliquam placeat sunt tempore laudantium fugit possimus magnam dolore at quia cum aliquid quasi?</p>
-        <p style="text-indent: 50px;" class="text-justify subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, laborum soluta placeat beatae inventore officiis neque temporibus voluptatem perspiciatis assumenda delectus dolor aspernatur, accusantium alias sit quod, enim sapiente iure!</p><br>
-        <a target="_blank" href="https://www.halodoc.com/kesehatan/diabetes" class="btn btn-app btn-contact">Selengkapnya</a>
+        <p style="text-indent: 50px;" class="text-justify subtitle">Sebenarnya, Posyandu telah diremajakan atau direvitalisasi oleh pemerintah pada awal tahun 2000an. Tujuannya yaitu membantu menekan sekaligus mencegah terjadinya gizi buruk di Indonesia yang memang rentan menyerang anak-anak usia balita. </p>
+        <p style="text-indent: 50px;" class="text-justify subtitle">Mengapa peremajaan? Sebab, Posyandu telah ada sejak 1984 silam. Namun, ada Posyandu di beberapa kawasan yang tidak digiatkan alias “mati suri”, sehingga perlu dihidupkan kembali dengan peremajaan tersebut.</p><br>
+        <a target="_blank" href="https://www.halodoc.com/artikel/ini-alasan-pentingnya-rutin-membawa-balita-ke-posyandu" class="btn btn-app btn-contact">Selengkapnya</a>
       </div>
       </div>
     </div>
@@ -211,7 +212,7 @@
 
         <div class="p-3"></div>
         <h4 class="title-head text-left">Tentang Posyandu Rajawali</h4>
-        <p style="text-indent: 50px;" class="text-justify subtitle">Lorem ipsum dolor sit amet,consectetur adipisicing elit, sed do ei tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p style="text-indent: 50px;" class="text-justify subtitle">Posyandu Rajawali (Pos Pelayanan Keluarga Berencana - Kesehatan Terpadu) adalah kegiatan kesehatan dasar yang diselenggarakan dari, oleh dan untuk masyarakat yang dibantu oleh petugas kesehatan. Posyandu merupakan salah satu upaya kesehatan bersumberdaya masyarakat.</p>
         {{-- <h4 class="title-head text-left">Docs</h4>
         <p style="text-indent: 50px;" class="text-justify subtitle">Lorem ipsum dolor sit amet,consectetur adipisicing elit</p> --}}
         <div class="text-left"><br>
@@ -228,7 +229,7 @@
     <div class="p-3"></div>
     <!-- FOOTER -->
     <footer class="text-center">
-      <p class="text-dark">© 2022 PosRa | PosRa is a trademark of posyandu rajawali group</p>
+      <p class="text-dark">© {{ now()->format('Y') }} PosRa | PosRa is a trademark of posyandu rajawali group</p>
     </footer>
     <!-- END FOOTER -->
   </div>

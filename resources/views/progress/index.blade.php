@@ -35,6 +35,23 @@
 
    @if($session != 'Staff2')
    <!-- Area Chart -->
+   <?php error_reporting(0); ?>
+   <form action="" method="GET">
+   <div class="form-group row">
+      <div class="col-md-10">
+        <select name="_age" class="form-control" id="">
+          <option value="1" {{ ($_GET['_age'] == 1) ? 'selected' : '' }}>0 - 12 Bulan</option>
+          <option value="2" {{ ($_GET['_age'] == 2) ? 'selected' : '' }}>12 - 24 Bulan</option>
+          <option value="3" {{ ($_GET['_age'] == 3) ? 'selected' : '' }}>24 - 36 Bulan</option>
+          <option value="4" {{ ($_GET['_age'] == 4) ? 'selected' : '' }}>36 - 48 Bulan</option>
+          <option value="5" {{ ($_GET['_age'] == 5) ? 'selected' : '' }}>48 - 60 Bulan</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary btn-block">Submit</button>
+      </div>
+    </div>
+    </form>
    <div class="card shadow border-0 mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header bg-white py-3 d-flex flex-row align-items-center justify-content-between">
@@ -75,10 +92,10 @@
          </div>
       </div>
 
-	  <div class="card-body">
-         <div class="chart-area">
-         <canvas id="myAreaChart2"></canvas>
-         </div>
+      <div class="card-body">
+        <div class="chart-area">
+          <canvas id="myAreaChart2"></canvas>
+        </div>
       </div>
 
    </div>

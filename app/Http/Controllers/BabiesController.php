@@ -43,17 +43,40 @@ class BabiesController extends Controller {
         $dataProgress = $this->chartProgress($progress, $baby, $bulan);
 		$dataProgressPanjang = $this->chartProgressPanjang($progress, $baby, $bulan);
         $session = auth()->user()->role;
-        if($progress == null || max($bulan) < 13){
-            $umur = "0 - 12 Bulan";
-        }else if(max($bulan) > 12 && max($bulan) <= 24){
-            $umur = "1 - 2 Tahun";
-        }else if(max($bulan) > 24 && max($bulan) <= 36){
-            $umur = "2 - 3 Tahun";
-        }else if(max($bulan) > 36 && max($bulan) <= 48){
-            $umur = "3 - 4 Tahun";
-        }else if(max($bulan) > 48 && max($bulan) <= 60){
-            $umur = "4 - 5 Tahun";
+        if($request->_age == null){
+            if($progress == null || max($bulan) < 13){
+                $umur = "0 - 12 Bulan";
+            }else if(max($bulan) > 12 && max($bulan) <= 24){
+                $umur = "1 - 2 Tahun";
+            }else if(max($bulan) > 24 && max($bulan) <= 36){
+                $umur = "2 - 3 Tahun";
+            }else if(max($bulan) > 36 && max($bulan) <= 48){
+                $umur = "3 - 4 Tahun";
+            }else if(max($bulan) > 48 && max($bulan) <= 60){
+                $umur = "4 - 5 Tahun";
+            }
+        }else{
+            switch($request->_age){
+                case 1:
+                    $umur = "0 - 12 Bulan";
+                    break;
+                case 2:
+                    $umur = "1 - 2 Tahun";
+                    break;
+                case 3:
+                    $umur = "2 - 3 Tahun";
+                    break;
+                case 4:
+                    $umur = "3 - 4 Tahun";
+                    break;
+                case 5:
+                    $umur = "4 - 5 Tahun";
+                    break;
+                default:
+                    $umur = "Not Found!";
+            }
         }
+
         $data = [
             'baris' => $baby,
             'progress' => $progress,
@@ -68,40 +91,90 @@ class BabiesController extends Controller {
 
         echo view('progress.index', $data);
 
-        if($baby->jenis_kelamin == 1){
-            if($progress == null || max($bulan) < 13){
-                echo view('progress.kms-laki', $data);
-				echo view('progress.panjang-kms-laki', $data);
-            }else if(max($bulan) > 12 && max($bulan) <= 24){
-                // dd('berhasil');
-                echo view('progress.kms-laki2', $data);
-				echo view('progress.panjang-kms-laki2', $data);
-            }else if(max($bulan) > 24 && max($bulan) <= 36){
-                echo view('progress.kms-laki3', $data);
-				echo view('progress.panjang-kms-laki3', $data);
-            }else if(max($bulan) > 36 && max($bulan) <= 48){
-                echo view('progress.kms-laki4', $data);
-				echo view('progress.panjang-kms-laki4', $data);
-            }else if(max($bulan) > 48 && max($bulan) <= 60){
-                echo view('progress.kms-laki5', $data);
-				echo view('progress.panjang-kms-laki5', $data);
+        if($request->_age == null){ // untuk filter
+            if($baby->jenis_kelamin == 1){
+                if($progress == null || max($bulan) < 13){
+                    echo view('progress.kms-laki', $data);
+                    echo view('progress.panjang-kms-laki', $data);
+                }else if(max($bulan) > 12 && max($bulan) <= 24){
+                    // dd('berhasil');
+                    echo view('progress.kms-laki2', $data);
+                    echo view('progress.panjang-kms-laki2', $data);
+                }else if(max($bulan) > 24 && max($bulan) <= 36){
+                    echo view('progress.kms-laki3', $data);
+                    echo view('progress.panjang-kms-laki3', $data);
+                }else if(max($bulan) > 36 && max($bulan) <= 48){
+                    echo view('progress.kms-laki4', $data);
+                    echo view('progress.panjang-kms-laki4', $data);
+                }else if(max($bulan) > 48 && max($bulan) <= 60){
+                    echo view('progress.kms-laki5', $data);
+                    echo view('progress.panjang-kms-laki5', $data);
+                }
+            }else if($baby->jenis_kelamin == 2){
+                if($progress == null || max($bulan) < 13){
+                    echo view('progress.kms-perempuan', $data);
+                    echo view('progress.panjang-kms-perempuan', $data);
+                }else if(max($bulan) > 12 && max($bulan) <= 24){
+                    echo view('progress.kms-perempuan2', $data);
+                    echo view('progress.panjang-kms-perempuan2', $data);
+                }else if(max($bulan) > 24 && max($bulan) <= 36){
+                    echo view('progress.kms-perempuan3', $data);
+                    echo view('progress.panjang-kms-perempuan3', $data);
+                }else if(max($bulan) > 36 && max($bulan) <= 48){
+                    echo view('progress.kms-perempuan4', $data);
+                    echo view('progress.panjang-kms-perempuan4', $data);
+                }else if(max($bulan) > 48 && max($bulan) <= 60){
+                    echo view('progress.kms-perempuan5', $data);
+                    echo view('progress.panjang-kms-perempuan5', $data);
+                }
             }
-        }else if($baby->jenis_kelamin == 2){
-            if($progress == null || max($bulan) < 13){
-                echo view('progress.kms-perempuan', $data);
-				echo view('progress.panjang-kms-perempuan', $data);
-            }else if(max($bulan) > 12 && max($bulan) <= 24){
-                echo view('progress.kms-perempuan2', $data);
-				echo view('progress.panjang-kms-perempuan2', $data);
-            }else if(max($bulan) > 24 && max($bulan) <= 36){
-                echo view('progress.kms-perempuan3', $data);
-				echo view('progress.panjang-kms-perempuan3', $data);
-            }else if(max($bulan) > 36 && max($bulan) <= 48){
-                echo view('progress.kms-perempuan4', $data);
-				echo view('progress.panjang-kms-perempuan4', $data);
-            }else if(max($bulan) > 48 && max($bulan) <= 60){
-                echo view('progress.kms-perempuan5', $data);
-				echo view('progress.panjang-kms-perempuan5', $data);
+        }else{
+            if($baby->jenis_kelamin == 1){
+                switch($request->_age){
+                    case 1:
+                        echo view('progress.kms-laki', $data);
+                        echo view('progress.panjang-kms-laki', $data);
+                        break;
+                    case 2:
+                        echo view('progress.kms-laki2', $data);
+                        echo view('progress.panjang-kms-laki2', $data);
+                        break;
+                    case 3:
+                        echo view('progress.kms-laki3', $data);
+                        echo view('progress.panjang-kms-laki3', $data);
+                        break;
+                    case 4:
+                        echo view('progress.kms-laki4', $data);
+                        echo view('progress.panjang-kms-laki4', $data);
+                        break;
+                    case 5:
+                        echo view('progress.kms-laki5', $data);
+                        echo view('progress.panjang-kms-laki5', $data);
+                        break;
+                }
+            }else if($baby->jenis_kelamin == 2){
+                switch($request->_age){
+                    case 1:
+                        echo view('progress.kms-perempuan', $data);
+                        echo view('progress.panjang-kms-perempuan', $data);
+                        break;
+                    case 2:
+                        echo view('progress.kms-perempuan2', $data);
+                        echo view('progress.panjang-kms-perempuan2', $data);
+                        break;
+                    case 3:
+                        echo view('progress.kms-perempuan3', $data);
+                        echo view('progress.panjang-kms-perempuan3', $data);
+                        break;
+                    case 4:
+                        echo view('progress.kms-perempuan4', $data);
+                        echo view('progress.panjang-kms-perempuan4', $data);
+                        break;
+                    case 5:
+                        echo view('progress.kms-perempuan5', $data);
+                        echo view('progress.panjang-kms-perempuan5', $data);
+                        break;
+                }
             }
         }
     }

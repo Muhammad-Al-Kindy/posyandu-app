@@ -48,6 +48,18 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
+      <?php for($b=60;$b>=0;$b--): ?>
+        <?php for($a=$b;$a>=0;$a--): ?>
+          <?php 
+            if($dtProgress[$a] != 0){
+              $dtProgress[$b] = ($dtProgress[$a] + (($dtProgress[$b+1] != 0) ? $dtProgress[$b+1] : $dtProgress[$a])) / 2;
+              break;
+            }else{
+              $dtProgress[$b] = $dtProgress[$b];
+            }
+          ?>
+        <?php endfor ?>
+      <?php endfor ?>
       data: [<?= $dtProgress[48]; ?>, <?= $dtProgress[49]; ?>, <?= $dtProgress[50]; ?>, <?= $dtProgress[51]; ?>, <?= $dtProgress[52]; ?>, <?= $dtProgress[53]; ?>, <?= $dtProgress[54]; ?>, <?= $dtProgress[55]; ?>, <?= $dtProgress[56]; ?>, <?= $dtProgress[57]; ?>, <?= $dtProgress[58]; ?>, <?= $dtProgress[59]; ?>, <?= $dtProgress[60]; ?>],
       },
       {

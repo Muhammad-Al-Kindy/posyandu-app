@@ -9,6 +9,7 @@ use App\Models\ProgressBaby;
 use Illuminate\Http\Request;
 // use Maatwebsite\Excel\Excel;
 use App\Exports\BabiesExport;
+use App\Models\ManipulationChart;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +27,12 @@ class BabiesController extends Controller {
         $kelamin = $baby->jenis_kelamin == 1 ? 'Laki-Laki' : 'Perempuan';
         $i = 0;
         $bulan = null;
+
         foreach($progress as $d):
             $bulan[$i] = $d->bulan_ke;
             $i++;
         endforeach;
+        
         if(count($progress) == 0){
             $progress = null;
             $panjang_bayi = $baby->panjang_bayi;
@@ -221,7 +224,7 @@ class BabiesController extends Controller {
         }else{
             if(max($bulan) >=1 && max($bulan) <= 60){
                 for($i=1 ; $i<=60 ; $i++){
-                    $data[$i] = null;
+                    $data[$i] = 0;
                     for($j=1 ; $j<=count($progress) ; $j++){
                         if($i == $progressBaru[$j]->bulan_ke){
                             $data[$i] = $progressBaru[$j]->berat_bayi;
@@ -249,7 +252,7 @@ class BabiesController extends Controller {
         }else{
             if(max($bulan) >=1 && max($bulan) <= 60){
                 for($i=1 ; $i<=60 ; $i++){
-                    $data[$i] = null;
+                    $data[$i] = 0;
                     for($j=1 ; $j<=count($progress) ; $j++){
                         if($i == $progressBaru[$j]->bulan_ke){
                             $data[$i] = $progressBaru[$j]->panjang_bayi;
@@ -274,7 +277,7 @@ class BabiesController extends Controller {
                     if($i<=count($progress)){
                         $data[$i] = $progress[$i-1]->berat_bayi;
                     }else if($i > count($progress)){
-                        $data[$i] = null;
+                        $data[$i] = 0;
                     }
                 }
             }else if(count($progress) >= 13 && count($progress) <= 24){
@@ -282,7 +285,7 @@ class BabiesController extends Controller {
                     if($i<=count($progress)){
                         $data[$i] = $progress[$i-1]->berat_bayi;
                     }else if($i > count($progress)){
-                        $data[$i] = null;
+                        $data[$i] = 0;
                     }
                 }
             }else if(count($progress) >= 25 && count($progress) <= 36){
@@ -290,7 +293,7 @@ class BabiesController extends Controller {
                     if($i<=count($progress)){
                         $data[$i] = $progress[$i-1]->berat_bayi;
                     }else if($i > count($progress)){
-                        $data[$i] = null;
+                        $data[$i] = 0;
                     }
                 }
             }else if(count($progress) >= 37 && count($progress) <= 48){
@@ -298,7 +301,7 @@ class BabiesController extends Controller {
                     if($i<=count($progress)){
                         $data[$i] = $progress[$i-1]->berat_bayi;
                     }else if($i > count($progress)){
-                        $data[$i] = null;
+                        $data[$i] = 0;
                     }
                 }
             }else if(count($progress) >= 49 && count($progress) <= 60){
@@ -306,7 +309,7 @@ class BabiesController extends Controller {
                     if($i<=count($progress)){
                         $data[$i] = $progress[$i-1]->berat_bayi;
                     }else if($i > count($progress)){
-                        $data[$i] = null;
+                        $data[$i] = 0;
                     }
                 }
             }

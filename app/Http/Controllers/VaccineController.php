@@ -52,10 +52,8 @@ class VaccineController extends Controller
             'description' => 'required',
         ]);
 
-        $request->name = ucwords($request->name);
-
         Vaccine::create([
-            'name' => $request->name,
+            'name' => ucwords($request->name),
             'description' => $request->description,
         ]);
         return redirect('/vaccine')->with('status', "Data '" . $request->name . "' berhasil ditambahkan");

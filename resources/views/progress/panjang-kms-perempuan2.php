@@ -48,7 +48,19 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [<?= $dtProgressPanjang[0]; ?>,<?= $dtProgressPanjang[1]; ?>,<?= $dtProgressPanjang[2]; ?>,<?= $dtProgressPanjang[3]; ?>,<?= $dtProgressPanjang[4]; ?>,<?= $dtProgressPanjang[5]; ?>,<?= $dtProgressPanjang[6]; ?>,<?= $dtProgressPanjang[7]; ?>,<?= $dtProgressPanjang[8]; ?>,<?= $dtProgressPanjang[9]; ?>,<?= $dtProgressPanjang[10]; ?>,<?= $dtProgressPanjang[11]; ?>,<?= $dtProgressPanjang[12]; ?>],
+      <?php for($b=24;$b>=0;$b--): ?>
+        <?php for($a=$b;$a>=0;$a--): ?>
+          <?php 
+            if($dtProgressPanjang[$a] != 0){
+              $dtProgressPanjang[$b] = ($dtProgressPanjang[$a] + (($dtProgressPanjang[$b+1] != 0) ? $dtProgressPanjang[$b+1] : $dtProgressPanjang[$a])) / 2;
+              break;
+            }else{
+              $dtProgressPanjang[$b] = $dtProgressPanjang[$b];
+            }
+          ?>
+        <?php endfor ?>
+      <?php endfor ?>
+      data: [<?= $dtProgressPanjang[12]; ?>,<?= $dtProgressPanjang[13]; ?>,<?= $dtProgressPanjang[14]; ?>,<?= $dtProgressPanjang[15]; ?>,<?= $dtProgressPanjang[16]; ?>,<?= $dtProgressPanjang[17]; ?>,<?= $dtProgressPanjang[18]; ?>,<?= $dtProgressPanjang[19]; ?>,<?= $dtProgressPanjang[20]; ?>,<?= $dtProgressPanjang[21]; ?>,<?= $dtProgressPanjang[22]; ?>,<?= $dtProgressPanjang[23]; ?>,<?= $dtProgressPanjang[24]; ?>],
       },
       {
       label: "Tinggi",

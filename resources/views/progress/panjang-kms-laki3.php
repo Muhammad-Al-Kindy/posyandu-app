@@ -29,7 +29,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
+var ctx = document.getElementById("myAreaChart2");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -48,7 +48,19 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [<?= $dtProgressPanjang[0]; ?>,<?= $dtProgressPanjang[1]; ?>,<?= $dtProgressPanjang[2]; ?>,<?= $dtProgressPanjang[3]; ?>,<?= $dtProgressPanjang[4]; ?>,<?= $dtProgressPanjang[5]; ?>,<?= $dtProgressPanjang[6]; ?>,<?= $dtProgressPanjang[7]; ?>,<?= $dtProgressPanjang[8]; ?>,<?= $dtProgressPanjang[9]; ?>,<?= $dtProgressPanjang[10]; ?>,<?= $dtProgressPanjang[11]; ?>,<?= $dtProgressPanjang[12]; ?>],
+      <?php for($b=36;$b>=0;$b--): ?>
+        <?php for($a=$b;$a>=0;$a--): ?>
+          <?php 
+            if($dtProgressPanjang[$a] != 0){
+              $dtProgressPanjang[$b] = ($dtProgressPanjang[$a] + (($dtProgressPanjang[$b+1] != 0) ? $dtProgressPanjang[$b+1] : $dtProgressPanjang[$a])) / 2;
+              break;
+            }else{
+              $dtProgressPanjang[$b] = $dtProgressPanjang[$b];
+            }
+          ?>
+        <?php endfor ?>
+      <?php endfor ?>
+      data: [<?= $dtProgressPanjang[24]; ?>,<?= $dtProgressPanjang[25]; ?>,<?= $dtProgressPanjang[26]; ?>,<?= $dtProgressPanjang[27]; ?>,<?= $dtProgressPanjang[28]; ?>,<?= $dtProgressPanjang[29]; ?>,<?= $dtProgressPanjang[30]; ?>,<?= $dtProgressPanjang[31]; ?>,<?= $dtProgressPanjang[32]; ?>,<?= $dtProgressPanjang[33]; ?>,<?= $dtProgressPanjang[34]; ?>,<?= $dtProgressPanjang[35]; ?>,<?= $dtProgressPanjang[36]; ?>],
       },
       {
       label: "Tinggi",

@@ -377,14 +377,6 @@ class BabiesController extends Controller {
             'lingkar_kepala' => 'required',
         ]);
 
-        $request->nama = ucwords($request->nama);
-        $request->nama_ibu = ucwords($request->nama_ibu);
-        $request->pekerjaan_ibu = ucwords($request->pekerjaan_ibu);
-        $request->nama_ayah = ucwords($request->nama_ayah);
-        $request->pekerjaan_ayah = ucwords($request->pekerjaan_ayah);
-        $request->tempat_lahir = ucfirst($request->tempat_lahir);
-        $request->alamat = ucfirst($request->alamat);
-
         $request->tanggal_lahir = mktime(
             (int) substr($request->tanggal_lahir, 11, 2), // jam
             (int) substr($request->tanggal_lahir, 14, 2), //menit
@@ -403,21 +395,21 @@ class BabiesController extends Controller {
         // $baby->nama_ayah = $request->nama_ayah;
         // $baby->save();
         Parents::create([
-            'nama_ibu' => $request->nama_ibu,
-            'pekerjaan_ibu' => $request->pekerjaan_ibu,
-            'nama_ayah' => $request->nama_ayah,
-            'pekerjaan_ayah' => $request->pekerjaan_ayah,
-            'alamat' => $request->alamat,
+            'nama_ibu' => ucwords($request->nama_ibu),
+            'pekerjaan_ibu' => ucwords($request->pekerjaan_ibu),
+            'nama_ayah' => ucwords($request->nama_ayah),
+            'pekerjaan_ayah' => ucwords($request->pekerjaan_ayah),
+            'alamat' => ucfirst($request->alamat),
         ]);
 
         $ortu = Parents::latest()->first();
         // dd($ortu->id);
         Baby::create([
-            'nama' => $request->nama,
+            'nama' => ucwords($request->nama),
             'no_kms' => $request->no_kms,
             'nik_bayi' => $request->nik_bayi,
             'id_parent' => $ortu->id,
-            'tempat_lahir' => $request->tempat_lahir,
+            'tempat_lahir' => ucfirst($request->tempat_lahir),
             'tanggal_lahir' => $request->tanggal_lahir,
             'anak_ke' => $request->anak_ke,
             'jenis_kelamin' => $request->jenis_kelamin,

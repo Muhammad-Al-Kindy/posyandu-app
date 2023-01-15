@@ -23,8 +23,9 @@
       <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Bayi</h5>
       <p class="mb-3 float-left">Halaman ini untuk pengelolaan data bayi</p>
       <a href="/baby/create" class="btn btn-primary py-2 px-3 mx-2 fs-normal float-right mb-3 shadow-sm"><span class="fas fa-user-plus mx-1"></span> Tambah Data</a>
-      <a class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm" href="/baby/export">
-       <span class="fas fa-file-excel px-1"></span> Export ke Excel</a>
+        <a class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm" href="{{ route('export-babies') }}">
+            <span class="fas fa-file-excel px-1"></span> Export ke Excel
+        </a>
 
       <div class="table-responsive">
         <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">

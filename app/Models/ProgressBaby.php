@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProgressBaby extends Model {
     use HasFactory;
 
+    protected $table = 'progress_babies';
     protected $fillable = [
         'id_bayi',
         'bulan_ke',

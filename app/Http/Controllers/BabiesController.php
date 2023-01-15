@@ -8,7 +8,7 @@ use App\Models\Parents;
 use App\Models\ProgressBaby;
 use Illuminate\Http\Request;
 // use Maatwebsite\Excel\Excel;
-use App\Exports\BabiesExport;
+use App\Exports\ExportBabiesData;
 use App\Models\ManipulationChart;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +32,7 @@ class BabiesController extends Controller {
             $bulan[$i] = $d->bulan_ke;
             $i++;
         endforeach;
-        
+
         if(count($progress) == 0){
             $progress = null;
             $panjang_bayi = $baby->panjang_bayi;
@@ -182,13 +182,9 @@ class BabiesController extends Controller {
         }
     }
 
-    public function export_excel() {
-        return Excel::download(new BabiesExport, 'progress '.Carbon::now().'.xlsx');
-        // return view('exports.babies', [
-        //     'babies' => Baby::with('parents')->get(),
-        //     'title' => 'Babies Export'
-        // ]);
-    }
+    // public function export_excel() {
+    //     return Excel::download(new ExportBabiesData, 'data_bayi - ' . Carbon::now() . '.xlsx');
+    // }
 
     public function simpanprogress(Request $request){
         $detail = DB::table('progress_babies')->select('bulan_ke')->where('id_bayi', $request->id_bayi)->get();
@@ -426,7 +422,7 @@ class BabiesController extends Controller {
 
     /**
      * Display the specified resource.
-     * 
+     *
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -695,7 +691,7 @@ class BabiesController extends Controller {
     public function update(Request $request, $id) {
         $request->validate([
             'nama' => 'required',
-            'no_kms' => 'required|string',
+            'no_kms' => 'string|nullable',
             // 'nik_bayi' => 'string|max:16|unique:babies',
             'nama_ibu' => 'required',
             'pekerjaan_ibu' => 'required',

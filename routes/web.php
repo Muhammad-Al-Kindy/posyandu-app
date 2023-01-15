@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BabiesController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\GraduateController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImmunizationController;
@@ -31,7 +32,7 @@ Auth::routes(['register' => false, 'reset' => false]);
 
 Route::middleware('auth')->group(function(){
     Route::get('baby/{baby}/progress', [BabiesController::class, 'progress']);
-    Route::get('baby/export', [BabiesController::class, 'export_excel']);
+    Route::get('baby/export', [ExportController::class, 'export_excel'])->name('export-babies');
     Route::post('baby/progress', [BabiesController::class,'simpanprogress']);
     Route::resource('baby', BabiesController::class);
     //Route::get('baby', 'BabiesController@index');

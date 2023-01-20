@@ -598,6 +598,7 @@ class BabiesController extends Controller {
         if ($birthDate > $today) {
             exit("0 bulan 0 hari");
         }
+
         $y = $today->diff($birthDate)->y;
         $m = $today->diff($birthDate)->m;
         $d = $today->diff($birthDate)->d;
@@ -614,6 +615,18 @@ class BabiesController extends Controller {
         }else{
             return $d." hari";
         }
+    }
+
+    static function get_birtdate_only_month($tanggal_lahir){
+        $birthDate = new DateTime();
+        $birthDate->setTimestamp($tanggal_lahir);
+        $today = new DateTime("today");
+        if ($birthDate > $today) {
+            exit("0 bulan 0 hari");
+        }
+        $months = Carbon::parse($birthDate);
+        $month = $months->diffInMonths($today);
+        return $month;
     }
 
     static function get_graduate($tanggal_lahir){

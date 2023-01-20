@@ -213,7 +213,7 @@
            </div>
            <div class="form-group">
               <label for="bulan_ke">Bulan Ke-</label>
-              <input type="number" readonly class="form-control rad-10 form-spacer-20x15 fs-normal @error('bulan_ke') is-invalid @enderror" name="bulan_ke" id="bulan_ke" min="1" data-toggle="tooltip" data-placement="right" title="Berat Bayi Sekarang" value="{{ $bulan_ke }}" placeholder="Bulan Ke" min="1" step="any">
+              <input type="text" readonly class="form-control rad-10 form-spacer-20x15 fs-normal @error('bulan_ke') is-invalid @enderror" name="bulan_ke" id="bulan_ke" min="1" data-toggle="tooltip" data-placement="right" title="Berat Bayi Sekarang" value="{{ \App\Http\Controllers\BabiesController::get_birtdate_only_month($baris->tanggal_lahir) }}" placeholder="Bulan Ke" min="1" step="any">
               @error('bulan_ke')<div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>@enderror
            </div>
        </div>

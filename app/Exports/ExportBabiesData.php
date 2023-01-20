@@ -16,7 +16,7 @@ class ExportBabiesData implements FromView
     public function view(): View {
         return view('exports.babies', [
             'babies' => Baby::all(),
-            'date' => Carbon::now()
+            'date' => Carbon::now()->format('d/m/Y')
         ]);
     }
 }

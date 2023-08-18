@@ -40,37 +40,48 @@
           <p class="color-primary">{{ $baby->nama }}</p>
         </div>
         <div class="col-lg-4">
+          <h5 class="fs-medium"><strong>Tempat Lahir</strong></h5>
+          <p class="color-primary">{{ $baby->tempat_lahir }}</p>
+        </div>
+        <div class="col-lg-4">
           <h5 class="fs-medium"><strong>Nama Ibu</strong></h5>
             <p class="color-primary">{{ $parents->nama_ibu }}</p>
-          </div>
-          <div class="col-lg-4">
-            <h5 class="fs-medium"><strong>Nama Ayah</strong></h5>
-            <p class="color-primary">{{ $parents->nama_ayah }}</p>
-          </div>
-          <div class="col-lg-4">
-            <h5 class="fs-medium"><strong>Tempat Lahir</strong></h5>
-            <p class="color-primary">{{ $baby->tempat_lahir }}</p>
-          </div>
-          <div class="col-lg-4">
+        </div>
+        <div class="col-lg-4">
+          <h5 class="fs-medium"><strong>Jenis Kelamin</strong></h5>
+          <p class="color-primary">{{ $jenis_kelamin }}</p>
+        </div>
+        <div class="col-lg-4">
             <h5 class="fs-medium"><strong>Tanggal Lahir</strong></h5>
             <p class="color-primary">{{ date('d/m/Y | H:i', $baby->tanggal_lahir) }}</p>
-          </div>
-          <div class="col-lg-4">
+        </div>
+        <div class="col-lg-4">
+            <h5 class="fs-medium"><strong>NIK Ibu</strong></h5>
+            <p class="color-primary">{{ $parents->nik_ibu }}</p>
+        </div>
+        <div class="col-lg-4">
             <h5 class="fs-medium"><strong>Usia</strong></h5>
             <p class="color-primary">{{ $umur }}</p>
-          </div>
-          <div class="col-lg-4">
-            <h5 class="fs-medium"><strong>Jenis Kelamin</strong></h5>
-            <p class="color-primary">{{ $jenis_kelamin }}</p>
-          </div>
-          <div class="col-lg-4">
+        </div>
+        <div class="col-lg-4">
             <h5 class="fs-medium"><strong>Anak Ke</strong></h5>
             <p class="color-primary">{{ $baby->anak_ke }}</p>
-          </div>
-          <div class="col-lg-4">
+        </div>
+        <div class="col-lg-4">
+            <h5 class="fs-medium"><strong>Nama Ayah</strong></h5>
+            <p class="color-primary">{{ $parents->nama_ayah }}</p>
+        </div>
+        <div class="col-lg-4">
             <h5 class="fs-medium"><strong>Alamat Lengkap</strong></h5>
             <p class="color-primary">{{ $parents->alamat }}</p>
-          </div>
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-4">
+            <h5 class="fs-medium"><strong>NIK Ayah</strong></h5>
+            <p class="color-primary">{{ $parents->nik_ayah }}</p>
+        </div>
         </div>
       </div>
     </div>

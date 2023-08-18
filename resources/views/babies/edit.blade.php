@@ -33,16 +33,23 @@
               @enderror
             </div>
             <div class="form-group">
-              <label for="nama_ibu">Nama Ibu</label>
-              <input type="text" placeholder="Nama Ibu" class="form-control fs-normal form-spacer-20x15 @error('nama_ibu') is-invalid @enderror" id="nama_ibu" name="nama_ibu" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ $baby->parents->nama_ibu }}" autofocus>
-              @error('nama_ibu')
-                <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
-              @enderror
-            </div>
+                <label for="nama">Nama Bayi</label>
+                <input type="text" placeholder="Nama Bayi" class="form-control fs-normal form-spacer-20x15 @error('nama') is-invalid @enderror" id="nama" name="nama" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Bayi" value="{{ $baby->nama }}">
+                @error('nama')
+                  <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+                @enderror
+              </div>
+              <div class="form-group">
+                <label for="no_kms">No KMS (Optional)</label>
+                <input type="text" placeholder="Nomor KMS" class="form-control fs-normal form-spacer-20x15 @error('no_kms') is-invalid @enderror" id="no_kms" name="no_kms" data-toggle="tooltip" data-placement="right" title="No KMS" value="{{ $baby->no_kms }}">
+                @error('no_kms')
+                  <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+                @enderror
+              </div>
             <div class="form-group">
-              <label for="pekerjaan_ibu">Pekerjaan Ibu</label>
-              <input type="text" placeholder="Pekerjaan Ibu" class="form-control fs-normal form-spacer-20x15 @error('pekerjaan_ibu') is-invalid @enderror" id="pekerjaan_ibu" name="pekerjaan_ibu" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ $baby->parents->pekerjaan_ibu }}">
-              @error('pekerjaan_ibu')
+              <label for="nik_ayah">NIK Ayah</label>
+              <input type="text" placeholder="NIK Ayah" class="form-control fs-normal form-spacer-20x15 @error('nik_ayah') is-invalid @enderror" id="nik_ayah" name="nik_ayah" data-toggle="tooltip" data-placement="right" title="NIK Ayah Bayi" value="{{ $baby->parents->nik_ayah }}">
+              @error('nik_ayah')
                 <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
               @enderror
             </div>
@@ -62,20 +69,6 @@
             </div>
           </div>
           <div class="col-xl-6 ml-auto">
-            <div class="form-group">
-              <label for="no_kms">No KMS (Optional)</label>
-              <input type="text" placeholder="Nomor KMS" class="form-control fs-normal form-spacer-20x15 @error('no_kms') is-invalid @enderror" id="no_kms" name="no_kms" data-toggle="tooltip" data-placement="right" title="No KMS" value="{{ $baby->no_kms }}">
-              @error('no_kms')
-                <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
-              @enderror
-            </div>
-            <div class="form-group">
-              <label for="nama">Nama Bayi</label>
-              <input type="text" placeholder="Nama Bayi" class="form-control fs-normal form-spacer-20x15 @error('nama') is-invalid @enderror" id="nama" name="nama" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Bayi" value="{{ $baby->nama }}">
-              @error('nama')
-                <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
-              @enderror
-            </div>
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
@@ -157,6 +150,27 @@
                   @enderror
               </div>
             </div>
+            <div class="form-group">
+                <label for="nik_ibu">NIK Ibu</label>
+                <input type="text" placeholder="NIK Ibu" class="form-control fs-normal form-spacer-20x15 @error('nik_ibu') is-invalid @enderror" id="nik_ibu" name="nik_ibu" data-toggle="tooltip" data-placement="right" title="NIK Ibu Bayi" value="{{ $baby->parents->nik_ibu }}" autofocus>
+                @error('nik_ibu')
+                  <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+                @enderror
+              </div>
+            <div class="form-group">
+                <label for="nama_ibu">Nama Ibu</label>
+                <input type="text" placeholder="Nama Ibu" class="form-control fs-normal form-spacer-20x15 @error('nama_ibu') is-invalid @enderror" id="nama_ibu" name="nama_ibu" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ $baby->parents->nama_ibu }}" autofocus>
+                @error('nama_ibu')
+                  <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+                @enderror
+              </div>
+              <div class="form-group">
+                <label for="pekerjaan_ibu">Pekerjaan Ibu</label>
+                <input type="text" placeholder="Pekerjaan Ibu" class="form-control fs-normal form-spacer-20x15 @error('pekerjaan_ibu') is-invalid @enderror" id="pekerjaan_ibu" name="pekerjaan_ibu" data-toggle="tooltip" data-placement="right" title="Nama Lengkap Ibu Bayi" value="{{ $baby->parents->pekerjaan_ibu }}">
+                @error('pekerjaan_ibu')
+                  <div class="invalid-feedback ml-1">Bidang ini wajib diisi</div>
+                @enderror
+              </div>
           </div>
 
         </div>

@@ -11,7 +11,7 @@
               <div class="p-3"></div>
               <div class="card shadow-sm border-0 rounded-lg mt-5 rad-20">
                 <div class="card-body m-3">
-                  <h3 class="text-center font-weight-light my-4 mb-5 color-primary font-semibold">PosRa*</h3>
+                  <h3 class="text-center font-weight-light my-4 mb-5 color-primary font-semibold">Rajawali</h3>
                   <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="form-floating mb-3 fs-normal">
@@ -37,12 +37,12 @@
                       <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                      
+
                       <a class="small color-primary text-decoration-none" href="/">
                           <span class="fas fa-arrow-left px-2"></span>
                           {{ __('Kembali') }}
                       </a>
-                      
+
                       <button type="submit" class="btn btn-primary py-2 px-5 rad-10 font-medium">
                           {{ __('Login') }}
                       </button>

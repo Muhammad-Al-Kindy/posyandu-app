@@ -21,7 +21,7 @@
   <nav id="head" class="navbar nav navbar-expand-lg fixed-top" onscroll="Scroll()">
     <div class="nav-box">
     </div>
-    <a class="navbar-brand" href="#"><b class="brand-var">PosRa*</b></a>
+    <a class="navbar-brand" href="#"><b class="brand-var">Rajawali</b></a>
     <div class="toggle">
       <div class="bar"></div>
       <div class="bar"></div>
@@ -53,7 +53,7 @@
     </div>
   </nav>
 
-  
+
 <section class="content">
   <!-- MAIN-TOP -->
   <div class="main-top">
@@ -91,7 +91,7 @@
                   <img src="./ui/svg/icon/holding-heart.svg" class="mb-4" alt="">
                   <h5 class="title-head mb-4">Kenyamanan</h5>
                   <p class="text-justify subtitle">
-                    Kenyamanan adalah layanan utama bagi Posyandu Rajawali untuk memenuhi kebutuhan balita sesuai dengan pengertianya kenyamanan adalah suatu keadaaan telah terpenuhinya kebutuhan dasar manusia yang bersifat individual dan holistic. 
+                    Kenyamanan adalah layanan utama bagi Posyandu Rajawali untuk memenuhi kebutuhan balita sesuai dengan pengertianya kenyamanan adalah suatu keadaaan telah terpenuhinya kebutuhan dasar manusia yang bersifat individual dan holistic.
                   </p>
                 </div>
               </div>
@@ -225,7 +225,7 @@
     </div>
     <!-- END ABOUT -->
     <br>
-  
+
     <div class="p-3"></div>
     <!-- FOOTER -->
     <footer class="text-center">

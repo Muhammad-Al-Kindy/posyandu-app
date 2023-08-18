@@ -20,7 +20,7 @@ class BabiesController extends Controller {
         $progress = DB::table('babies AS b')
             ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
             ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi', 'p.lingkar_kepala')
+            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir','pr.nik_ayah','pr.nik_ibu', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi', 'p.lingkar_kepala')
             ->where('id_bayi', $baby->id)
             ->get();
         $jk = $baby->jenis_kelamin == 1 ? 'fas fa-mars' : 'fas fa-venus';
@@ -324,7 +324,7 @@ class BabiesController extends Controller {
         // dd($role);
         $babies = DB::table('babies AS b')
                 ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-                ->select('b.id', 'b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah')
+                ->select('b.id', 'b.nama', 'pr.nama_ibu','pr.nik_ibu','pr.nik_ayah' , 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah')
                 ->get();
 
         return view('babies.baby', compact('babies'));
@@ -358,8 +358,10 @@ class BabiesController extends Controller {
             'nama' => 'required|string',
             'no_kms' => 'required|string',
             // 'nik_bayi' => 'string|max:16|unique:babies',
+            // 'nik_ibu' => 'required|string',
             'nama_ibu' => 'required|string',
             'pekerjaan_ibu' => 'required|string',
+            // 'nik_ayah' => 'required|string',
             'nama_ayah' => 'required|string',
             'pekerjaan_ayah' => 'required|string',
             'tempat_lahir' => 'required',
@@ -391,8 +393,10 @@ class BabiesController extends Controller {
         // $baby->nama_ayah = $request->nama_ayah;
         // $baby->save();
         Parents::create([
+            'nik_ibu' => ucwords($request->nik_ibu),
             'nama_ibu' => ucwords($request->nama_ibu),
             'pekerjaan_ibu' => ucwords($request->pekerjaan_ibu),
+            'nik_ayah' => ucwords($request->nik_ayah),
             'nama_ayah' => ucwords($request->nama_ayah),
             'pekerjaan_ayah' => ucwords($request->pekerjaan_ayah),
             'alamat' => ucfirst($request->alamat),
@@ -431,13 +435,13 @@ class BabiesController extends Controller {
         $progress = DB::table('babies AS b')
             ->join('progress_babies AS p', 'b.id', '=', 'p.id_bayi')
             ->join('parents AS pr', 'b.id_parent', '=', 'pr.id')
-            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi', 'p.lingkar_kepala')
+            ->select('b.nama', 'pr.nama_ibu', 'pr.nama_ayah','pr.nik_ibu','pr.nik_ayah', 'b.tempat_lahir', 'b.tanggal_lahir', 'b.anak_ke', 'pr.alamat', 'b.jenis_kelamin', 'b.golongan_darah', 'p.id_bayi', 'p.bulan_ke', 'p.panjang_bayi', 'p.berat_bayi', 'p.lingkar_kepala')
             ->where('id_bayi', $baby->id)
             ->get();
 
         $parents = DB::table('parents as p')
             ->join('babies as b', 'p.id', '=', 'b.id_parent')
-            ->select('p.nama_ibu', 'p.nama_ayah', 'p.alamat')
+            ->select('p.nama_ibu','p.nik_ibu','p.nik_ayah', 'p.nama_ayah', 'p.alamat')
             ->where('b.id', $baby->id)
             ->first();
         $i = 0;
@@ -706,8 +710,10 @@ class BabiesController extends Controller {
             'nama' => 'required',
             'no_kms' => 'string|nullable',
             // 'nik_bayi' => 'string|max:16|unique:babies',
+            // 'nik_ibu' => 'required',
             'nama_ibu' => 'required',
             'pekerjaan_ibu' => 'required',
+            // 'nik_ayah' => 'required',
             'nama_ayah' => 'required',
             'pekerjaan_ayah' => 'required',
             'tempat_lahir' => 'required',
@@ -731,8 +737,10 @@ class BabiesController extends Controller {
         );
 
         Parents::where('id', $request->id_parent)->update([
+            'nik_ibu' => $request->nik_ibu,
             'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ibu' => $request->pekerjaan_ibu,
+            'nik_ayah' => $request->nik_ayah,
             'nama_ayah' => $request->nama_ayah,
             'pekerjaan_ayah' => $request->pekerjaan_ayah,
             'alamat' => $request->alamat,

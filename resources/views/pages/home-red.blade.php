@@ -21,7 +21,7 @@
   <nav id="head" class="navbar nav navbar-expand-lg fixed-top" onscroll="Scroll()">
     <div class="nav-box">
     </div>
-    <a class="navbar-brand" href="#"><b class="brand-var">PosRa*</b></a>
+    <a class="navbar-brand" href="#"><b class="brand-var">Rajawali</b></a>
     <div class="toggle">
       <div class="bar"></div>
       <div class="bar"></div>
@@ -53,7 +53,7 @@
     </div>
   </nav>
 
-  
+
 <section class="content">
   <!-- MAIN-TOP -->
   <div class="main-top">
@@ -224,7 +224,7 @@
     </div>
     <!-- END ABOUT -->
     <br>
-  
+
     <div class="p-3"></div>
     <!-- FOOTER -->
     <footer class="text-center">

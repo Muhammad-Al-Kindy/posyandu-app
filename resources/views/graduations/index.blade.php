@@ -22,10 +22,10 @@
   <div class="card shadow mb-5 border-0">
     <div class="card-body">
       <h5 class="m-0 font-weight-bold color-primary mb-2">Tabel Data Kelulusan</h5>
-      <p class="mb-3 float-left">Halaman ini untuk pengelolaan data kelulusan bayi > 5 tahun</p>      
+      <p class="mb-3 float-left">Halaman ini untuk pengelolaan data kelulusan bayi > 5 tahun</p>
       <a class="btn btn-primary py-2 px-3 fs-normal float-right mb-3 shadow-sm" href="/baby/export">
        <span class="fas fa-file-excel px-1"></span> Export ke Excel</a>
-      
+
       <div class="table-responsive">
         <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
           <thead>
@@ -33,7 +33,7 @@
               <th class="text-center">NO</th>
               <th>Nama Bayi</th>
               <th>Nama Ibu</th>
-              <th>NIK</th>
+              <th>NIK Bayi</th>
               <th>NO KMS</th>
               <th>Tangal Lahir</th>
               <th>Umur</th>

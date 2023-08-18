@@ -10,8 +10,10 @@
         <th>Anak ke-</th>
         <th>Alamat</th>
         <th>Nama Ibu</th>
+        <th>NIK Ibu</th>
         <th>Pekerjaan Ibu</th>
         <th>Nama Ayah</th>
+        <th>NIK Ayah</th>
         <th>Pekerjaan Ayah</th>
       </tr>
    </thead>
@@ -31,8 +33,10 @@
          <td>{{ $baby->anak_ke }}</td>
          <td>{{ $baby->alamat }}</td>
          <td>{{ $baby->nama_ibu }}</td>
+         <td>{{ $baby->nik_ibu }}</td>
          <td>{{ $baby->pekerjaan_ibu }}</td>
          <td>{{ $baby->nama_ayah }}</td>
+         <td>{{ $baby->nik_ayah }}</td>
          <td>{{ $baby->pekerjaan_ayah }}</td>
       </tr>
       @endforeach
@@ -42,7 +46,7 @@
 function hitung_umur($tanggal_lahir){
         $birthDate = new DateTime($tanggal_lahir);
         $today = new DateTime("today");
-        if ($birthDate > $today) { 
+        if ($birthDate > $today) {
             exit("0 tahun 0 bulan 0 hari");
         }
         $y = $today->diff($birthDate)->y;
